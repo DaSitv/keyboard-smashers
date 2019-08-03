@@ -32,17 +32,20 @@
 <body>
     <md-app id="app">
       <md-app-toolbar class="md-primary">
+        <md-button class="md-icon-button" @click="menuVisible = !menuVisible">
+          <md-icon>menu</md-icon>
+        </md-button>
         <span class="md-title">Qualcosa che funziona</span>
       </md-app-toolbar>
     
-      <md-app-drawer md-permanent="full">
+      <md-app-drawer :md-active.sync="menuVisible">
         <md-toolbar class="md-transparent" md-elevation="0">
             Navigation
         </md-toolbar>
     
         <md-list>
             <router-link tag="md-list-item" to="/sezione1">
-            <md-icon>hourglass_empty</md-icon>  <span class="md-list-item-text">Sezione 1</span>
+            <md-icon>hourglass_empty</md-icon>  <span class="md-list-item-text">Consiglaiti oggi</span>
           </router-link>
     
           <router-link tag="md-list-item" to="/sezione2">

@@ -4,37 +4,8 @@ Vue.use(VueRouter)
 const Sezione_1 = Vue.component('sezione1',{
     data(){
         return{
-            titolo:"Questa è la homepage",
-            sezione:"Sezione 1"
-        }
-    },
-    template: `
-    <div>
-        <h2>{{titolo}}</h2>
-        <h2>{{sezione}}</h2>
-        <h2>Sono un pezzo di culo</h2>
-    </div>`}
-)
-
-const Sezione_2 = Vue.component('sezione2',{
-    data(){
-        return{
-            titolo:"Questa è la seconda pagina",
-            sezione:"Sezione 2"
-        }
-    },
-    template: `
-    <div>
-        <h2>{{titolo}}</h2>
-        <h2>{{sezione}}</h2>
-    </div>`}
-)
-
-const Sezione_3 = Vue.component('sezione3',{
-    data(){
-        return{
             titolo:"Prova cards",
-            sezione:"Sezione 3",
+            sezione:"Sezione 1",
             products: [                 //Questa poi sparisce per fare posto ai dati dinamici
                 {
                     id:"1",
@@ -57,8 +28,7 @@ const Sezione_3 = Vue.component('sezione3',{
                     nome:"44 gatti",
                     descrizione:"Non possono stare in fila per 6, ma a loro non interessa e lo fanno comunque"
                 },
-
-            ]
+            ],
         }
     },
     template: `
@@ -69,6 +39,36 @@ const Sezione_3 = Vue.component('sezione3',{
             <product-box v-for="product in products" :key="" :item="product">
             </product-box>
         </div>
+    </div>`
+}
+)
+
+const Sezione_2 = Vue.component('sezione2',{
+    data(){
+        return{
+            titolo:"Questa è la seconda pagina",
+            sezione:"Sezione 2"
+        }
+    },
+    template: `
+    <div>
+        <h2>{{titolo}}</h2>
+        <h2>{{sezione}}</h2>
+    </div>`}
+)
+
+const Sezione_3 = Vue.component('sezione3',{
+    data(){
+        return{
+            titolo:"Questa è la homepage",
+            sezione:"Sezione 1"
+        }
+    },
+    template: `
+    <div>
+        <h2>{{titolo}}</h2>
+        <h2>{{sezione}}</h2>
+        <h2>Sono un pezzo di culo</h2>
     </div>`}
 )
 
@@ -128,5 +128,10 @@ const router = new VueRouter({
 new Vue({
     router: router,
     el: '#app',
+    data(){
+        return{
+            menuVisible : 'false'
+        }
+    }
 })
 
