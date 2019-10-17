@@ -1,0 +1,335 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta content="width=device-width,initial-scale=1,minimal-ui" name="viewport">
+    <!-- FONT PER MATERIAL CON ICONE -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,400italic|Material+Icons">
+    <!-- CSS DI MATERIAL CON TEMA DEFAULT -->
+    <link rel="stylesheet" href="https://unpkg.com/vue-material@beta/dist/vue-material.min.css">
+    <link rel="stylesheet" href="https://unpkg.com/vue-material@beta/dist/theme/default.css">
+    <!-- VUE FRAMEWORK -->
+    <script src="https://unpkg.com/vue"></script>
+    <!-- VUE ROUTER -->
+    <script src="https://unpkg.com/vue-router"></script>
+    <!-- VUE MATERIAL -->
+    <script src="https://unpkg.com/vue-material@beta"></script>
+    <!-- AXIOS PER CHIAMATE AD API REST -->
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <!-- INTEGRAZIONE CON FIREBASE -->
+    <script src="https://www.gstatic.com/firebasejs/5.9.2/firebase.js"></script>
+
+    <script>
+      firebase.initializeApp({
+        apiKey: 'AIzaSyAkVKtX5kt36yum1un9S-YJgOWfXS2jJY0',
+        projectId: 'dipsco-db'
+      });
+      var db = firebase.firestore();
+    </script>
+
+  </head>
+
+  <body>
+    <md-app id="app">
+      <md-app-toolbar class="md-primary">
+        <md-button class="md-icon-button" @click="menuVisible = true" v-if="!menuVisible">
+          <md-icon>menu</md-icon>
+        </md-button>
+        <span class="md-title">Applicazione</span>
+      </md-app-toolbar>
+
+      <md-app-drawer md-persistent="full" :md-active.sync="menuVisible">
+
+        <md-toolbar class="md-transparent" md-elevation="0">
+          <span>Navigation</span>
+          <div class="md-toolbar-section-end">
+            <md-button class="md-icon-button" @click="menuVisible = false">
+              <md-icon>keyboard_arrow_left</md-icon>
+            </md-button>
+          </div>
+        </md-toolbar>
+
+        <md-list>
+          <router-link tag="md-list-item" to="/home">
+            <md-icon>move_to_inbox</md-icon>
+            <span class="md-list-item-text">Lista utenti creati a mano</span>
+          </router-link>
+          <router-link tag="md-list-item" to="/imgur">
+            <md-icon>bookmark</md-icon>
+            <span class="md-list-item-text">Card API Imgur</span>
+          </router-link>
+          <router-link tag="md-list-item" to="/sw">
+            <md-icon>bookmark</md-icon>
+            <span class="md-list-item-text">Personaggi Star Wars</span>
+          </router-link>
+
+        </md-list>
+      </md-app-drawer>
+
+      <md-app-content>
+        <router-view></router-view> 
+      </md-app-content>
+    </md-app>
+  
+      <script>
+        Vue.use(VueMaterial.default)
+        Vue.use(VueRouter)
+        
+        // COMPONENTE HOME: LISTA UTENTI CREATA TRAMITE FORM
+        const Home = Vue.component('home', {
+          template: '#home',
+          // LIFE-CYCLE HOOK - viene chiamato quando il componente viene creato
+          created: function() {
+            const me = this;
+            // leggiamo i dati da Firestore
+            db.collection("users").get().then(function(res) {
+              const list = [];
+              res.forEach(function(r) {
+                list.push({id: r.id, data: r.data()});
+              });
+              me.users = list;
+            });
+          },
+          data: function() {
+            return {
+            users: [], // lista utenti
+            showUserDialog: false, // se mostrare dialogo di creazione utente
+            showRemoveDialog: false, // se mostrare dialogo di rimozione utente
+            newUser: { // contenitore per il dialogo di form
+              name: null,
+              description: null,
+              avatar: null
+            },
+            userToRemove: null // utente da rimuovere
+          }},
+          methods: {
+            // aprire dialogo per aggiungere utente 
+            addUserDialog: function(){
+              this.showUserDialog = true;
+            },
+            // salvare utente nella lista
+            saveUser: function() {
+              const me = this;
+              // aggiungere nuovo utente a Firestore
+              db.collection("users").add(this.newUser)
+              .then(function(docRef) {
+                // oggetto salvato si mette nella lista
+                me.users.push({id: docRef.id, data: me.newUser});
+                // resettare la form
+                me.newUser = {
+                  name: null,
+                  description: null,
+                  avatar: null
+                };
+                // nascondere il dialogo
+                me.showUserDialog = false;
+              })
+            },
+            // aprire il dialogo di rimozione utente
+            deleteUserDialog: function(user) {
+              // memorizzare utente da rimuovere
+              this.userToRemove = user;
+              this.showRemoveDialog = true;
+            },
+            // rimuovere l'utente dalla lista
+            removeUser: function() {
+              const me = this;
+              const id = this.userToRemove.id;
+              db.collection("users").doc(id).delete().then(function() {
+                me.users = me.users.filter(function(u) {
+                  return u.id != id;
+                });
+              })
+            }
+          }
+        });
+
+        // COMPONENTE DETTAGLIO DI UTENTE
+        const User = Vue.component('user', {
+          template: '#userdetail',
+          computed: {
+            // trovare utente nella lista di utenti usando ID che arrivato come parametro
+            user: function() {
+              for(let i = 0; i < users.length; i++) {
+                if (users[i].id == this.$route.params.id) return users[i];
+              }
+              return null;
+            }
+          }
+        });
+
+        // COMPONENTE CON DELLE IMAGINI DA API IMGUR
+        const Imgur = Vue.component('imgur', {
+          template: '#imgur',
+          // LIFE-CYCLE HOOK - viene chiamato quando il componente viene creato
+          created: function() {
+            var me = this;
+            // richedere immagini pubblici: https://apidocs.imgur.com  
+            axios.get('https://api.imgur.com/3/gallery/top/top/1/day',
+                      // Fare registrazione del client e usare Client-ID per Auhenticazione 
+                      {headers: {'Authorization' : 'Client-ID ec048de11879d42'}})
+            .then(function(response) {
+              var list = response.data.data;
+              // in risultato l'immagine si trova o come campo link o nell'array interno images
+              list.forEach(function(obj) {
+                obj.image = obj.images != null ?  obj.images[0].link : obj.link;
+              });
+              me.images = list;
+            });
+          },
+          data: function() {
+            return {
+              // lista immagini 
+              images: []
+            }
+          }
+        });
+
+        // COMPONENTE CON PERSONAGGI DA API SW
+        const SW = Vue.component('sw', {
+          template: '#sw',
+          // LIFE-CYCLE HOOK - viene chiamato quando il componente viene creato
+          created: function() {
+            var me = this;
+            // richedere personaggi: https://swapi.co/  
+            axios.get('https://swapi.co/api/people')
+            .then(function(response) {
+              var list = response.data.results;
+              me.personaggi = list;
+            });
+          },
+          data: function() {
+            return {
+              // lista immagini 
+              personaggi: []
+            }
+          }
+        });
+
+        const router = new VueRouter({
+          routes: [
+            {path:'/home', component: Home}, 
+            {path: '/user/:id', component: User}, 
+            {path: '/imgur', component: Imgur}, 
+            {path: '/sw', component: SW},
+            {path: '*', component: Home}
+          ]
+        })
+
+        new Vue({
+          router: router,
+          el: '#app',
+          data: {
+            menuVisible: false
+          }
+        })
+    </script>
+
+    <template id="home">
+        <div>
+
+          <div  v-if="users && users.length > 0">
+            <span class="md-headline">Lista utenti</span>
+            <md-button class="md-primary md-raised"  @click="addUserDialog">Aggiungi utente</md-button>
+            <md-list class="md-double-line">
+              <div  v-for="user in users">
+              <router-link tag="md-list-item"  :to="'/user/' + user.id">
+                <md-avatar>
+                  <img :src="user.data.avatar">
+                </md-avatar>
+                <div  class="md-list-item-text">
+                <span>{{user.data.name}}</span>     
+                <span>{{user.data.description}}</span>     
+                </div>       
+                <md-button class="md-icon-button md-list-action" @click.prevent="deleteUserDialog(user)"><md-icon>delete</md-icon></md-button>
+              </router-link>
+              <md-divider></md-divider>
+              </div>
+            </md-list>  
+          </div>
+        
+        <md-empty-state md-icon="person_add" md-rounded md-label="Nessun utente presente" md-description="Aggiungi una persona alla lista utenti!" v-if="!users || users.length == 0">
+          <md-button class="md-primary md-raised" @click="addUserDialog">Aggiungi utente</md-button>
+        </md-empty-state>
+
+        <md-dialog :md-active.sync="showUserDialog">
+          <md-dialog-title>Crea utente</md-dialog-title>
+
+          <md-field>
+            <label>Nome</label>
+            <md-input v-model="newUser.name"></md-input>
+          </md-field>
+          <md-field>
+            <label>Avatar URL</label>
+            <md-input v-model="newUser.avatar"></md-input>
+          </md-field>
+          <md-field>
+            <label>Professione</label>
+            <md-input v-model="newUser.description"></md-input>
+          </md-field>
+
+          <md-dialog-actions>
+            <md-button @click="showUserDialog = false">Annulla</md-button>
+            <md-button class="md-primary" @click="saveUser" :disabled="!newUser.name || !newUser.avatar || !newUser.description">Salva</md-button>
+          </md-dialog-actions>
+        </md-dialog>
+
+        <md-dialog-confirm
+      :md-active.sync="showRemoveDialog"
+      md-title="Elimina utente"
+      md-content="Sei sicuro di voler rimuovere l'utente dalla lista?"
+      md-confirm-text="Elimina"
+      md-cancel-text="Annulla"
+      @md-confirm="removeUser" />
+
+        </div>
+    </template>
+
+    <template id="userdetail">
+      <div>
+        <span class="md-headline">{{user.name}}</span>
+        <br>
+        <img :src="user.avatar">
+        <br>
+        <span>{{user.description}}</span>
+      </div>
+    </template>
+
+    <template id="imgur">
+      <div class="md-layout md-gutter">
+          <div v-for="image in images" class="md-layout-item md-size-33 md-medium-size-50 md-xsmall-size-100">
+            <md-card md-with-hover>
+              <md-card-header>
+                <div class="md-title">{{image.title}}</div>
+                <div class="md-subhead">{{image.description}}</div>
+              </md-card-header>
+              <md-card-media>
+                <img :src="image.image">
+              </md-card-media>
+
+            </md-card>
+            <br>
+          </div>
+        </div>
+    </template>
+
+    <template id="sw">
+        <div>
+
+        <span class="md-headline">Personaggi Star Wars</span>
+        <md-list class="md-double-line">
+          <div  v-for="p in personaggi">
+          <md-list-item>
+            <div  class="md-list-item-text">
+            <span>{{p.name}}</span>     
+            <span>{{p.birth_year}}</span>     
+            </div>       
+          </md-list-item>
+          <md-divider></md-divider>
+          </div>
+        </md-list>  
+        </div>
+    </template>
+
+  </body>
+</html>
