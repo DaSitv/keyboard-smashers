@@ -4,8 +4,8 @@ Vue.use(VueRouter)
 const Sezione_1 = Vue.component('sezione1',{
     data(){
         return{
-            titolo:"Prova cards",
-            sezione:"Sezione 1",
+            titolo:"Il Rovereto Online",
+            sezione:"",
             products: [                 //Questa poi sparisce per fare posto ai dati dinamici
                 {
                     id:"1",
@@ -27,18 +27,19 @@ const Sezione_1 = Vue.component('sezione1',{
                     id:"5",
                     nome:"44 gatti",
                     descrizione:"Non possono stare in fila per 6, ma a loro non interessa e lo fanno comunque"
+                },{
+                    id:"6",
+                    nome:"rofllmao",
+                    descrizione:"fksgjdvb"
                 },
             ],
         }
     },
     template: `
     <div>
-        <h2>{{titolo}}</h2>
-        <h2>{{sezione}}</h2>
-        <div>
-            <product-box v-for="product in products" :key="" :item="product">
-            </product-box>
-        </div>
+            <h2 class="barra_titolo" align="center">{{titolo}}</h2>
+                <product-box v-for="product in products" :key="" :item="product">
+                </product-box>      
     </div>`
 }
 )
@@ -46,36 +47,33 @@ const Sezione_1 = Vue.component('sezione1',{
 const Sezione_2 = Vue.component('sezione2',{
     data(){
         return{
-            titolo:"Questa è la seconda pagina",
-            sezione:"Sezione 2"
+            titolo:"Il Rovereto Online",
+            sezione:""
         }
     },
     template: `
     <div>
-        <h2>{{titolo}}</h2>
-        <h2>{{sezione}}</h2>
+        <h2 class="barra_titolo" align="center">{{titolo}}</h2>
     </div>`}
 )
 
 const Sezione_3 = Vue.component('sezione3',{
     data(){
         return{
-            titolo:"Questa è la homepage",
-            sezione:"Sezione 1"
+            titolo:"Il Rovereto Online",
+            sezione:""
         }
     },
     template: `
     <div>
-        <h2>{{titolo}}</h2>
-        <h2>{{sezione}}</h2>
-        <h2>Sono un pezzo di culo</h2>
+        <h2 class="barra_titolo" align="center">{{titolo}}</h2>
     </div>`}
 )
 
 Vue.component("product-box", {
     template:`
-        <md-card style="width: 320px;
-                        margin: 4px;
+        <md-card style="width: 700px;
+                        margin: 12px;
                         display: inline-block;
                         vertical-align: top;">
             <md-card-header>
@@ -103,14 +101,13 @@ Vue.component("product-box", {
 const Sezione_4 = Vue.component('sezione4',{
     data(){
         return{
-            titolo:"Questa è la quarta pagina",
-            sezione:"Sezione 4"
+            titolo:"Il Rovereto Online",
+            sezione:""
         }
     },
     template: `
     <div>
-        <h2>{{titolo}}</h2>
-        <h2>{{sezione}}</h2>
+        <h2 class="barra_titolo" align="center">{{titolo}}</h2>
     </div>`}
 )
 
