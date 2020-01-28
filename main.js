@@ -10,37 +10,50 @@ const Sezione_1 = Vue.component('sezione1',{
                 {
                     id:"1",
                     nome:"Pupazzo di pezza",
-                    descrizione:"Non ha fatto effetto affatto"
+                    descrizione:"Non ha fatto effetto affatto",
+                    articolo:"tante cose"
                 },{
                     id:"2",
                     nome:"Nave di stuzzichini",
-                    descrizione:"Un grande ammasso di legno"
+                    descrizione:"Un grande ammasso di legno",
+                    articolo:"tante cose"
                 },{
                     id:"3",
                     nome:"Samsung Galaxy Grand neo",
-                    descrizione:"Non è molto, ma è un lavoro onesto"
+                    descrizione:"Non è molto, ma è un lavoro onesto",
+                    articolo:"tante cose"
                 },{
                     id:"4",
                     nome:"M1 Abrams",
-                    descrizione:"Non è veloce, ma arriva ovunque"
+                    descrizione:"Non è veloce, ma arriva ovunque",
+                    articolo:"tante cose"
                 },{
                     id:"5",
                     nome:"44 gatti",
-                    descrizione:"Non possono stare in fila per 6, ma a loro non interessa e lo fanno comunque"
+                    descrizione:"Non possono stare in fila per 6, ma a loro non interessa e lo fanno comunque",
+                    articolo:"tante cose"
                 },{
                     id:"6",
                     nome:"rofllmao",
-                    descrizione:"fksgjdvb"
+                    descrizione:"fksgjdvb",
+                    articolo:"tante cose"
                 },
             ],
+
+            showDialog : 'false'
+
         }
     },
     template: `
-    <div>
+    <md-card id="pagina" style="padding: 15px;
+                                box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.2), 0 10px 10px 0 rgba(0, 0, 0, 0.24);">
+        
+        <div align="center">
             <h2 class="barra_titolo" align="center">{{titolo}}</h2>
-                <product-box v-for="product in products" :key="" :item="product">
-                </product-box>      
-    </div>`
+            <product-box v-for="product in products" :key="" :item="product">
+            </product-box>      
+        </div>
+    </md-card>`
 }
 )
 
@@ -72,10 +85,11 @@ const Sezione_3 = Vue.component('sezione3',{
 
 Vue.component("product-box", {
     template:`
-        <md-card style="width: 700px;
-                        margin: 12px;
-                        display: inline-block;
-                        vertical-align: top;">
+
+        <md-card md-with-hover align="left" style="width: 650px;
+                                                                              margin: 12px;
+                                                                              display: inline-block;
+                                                                              vertical-align: top;">
             <md-card-header>
                 <md-card-header-text>
                     <div class="md-title">{{item.nome}}</div>
@@ -83,17 +97,34 @@ Vue.component("product-box", {
                 <md-card-media md-medium>
                     <img v-bind:src="'https://picsum.photos/240/240?image' + item.id" alt="People">
                 </md-card-media>
-                </md-card-header>
+            </md-card-header>
+
 
             <md-card-content>
                 {{item.descrizione}}
             </md-card-content>
             
+
             <md-card-actions>
-                <md-button>Action</md-button>
-                <md-button>Action</md-button>   
+                <md-button @click="showDialog = true">Mostra Articolo</md-button>   
             </md-card-actions>
         </md-card>
+
+
+    <div id="md-dialog">
+        <md-dialog :md-active.sync="showDialog">
+            <md-dialog-title>{{item.nome}}</md-dialog-title>
+  
+            <md-tabs md-dynamic-height>
+                <md-tab><p>{{item.articolo}}</p></md-tab>
+            </md-tabs>
+  
+            <md-dialog-actions>
+                <md-button @click="showDialog = false">Chiudi</md-button>
+                <md-button @click="showDialog = false">Commenta</md-button>
+            </md-dialog-actions>
+        </md-dialog>
+    </div>
     `,
     props: ['item']
 });

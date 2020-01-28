@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="https://unpkg.com/vue-material/dist/vue-material.min.css">
     <link rel="stylesheet" href="https://unpkg.com/vue-material/dist/theme/default.css">
     <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css?family=UnifrakturCook:700&display=swap" rel="stylesheet">
     <!-- The core Firebase JS SDK is always required and must be listed first -->
     <script src="https://www.gstatic.com/firebasejs/6.3.3/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/6.3.3/firebase-firestore.js"></script>
@@ -38,9 +39,10 @@
         </md-button>
         <span class="md-title"></span>
       </md-app-toolbar>
+
       <md-app-drawer md-persistent="full" :md-active.sync="menuVisible">
         <md-toolbar class="md-transparent" md-elevation="0">
-            
+            <span class="md-drawer-title">Categoria</span>
             <div class="md-toolbar-section-end">
               <md-button class="md-icon-button" @click="menuVisible = false">
                 <md-icon>keyboard_arrow_left</md-icon>
