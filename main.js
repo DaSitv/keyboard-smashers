@@ -45,15 +45,15 @@ const Sezione_1 = Vue.component('sezione1',{
         }
     },
     template: `
-    <md-card id="pagina" style="padding: 15px;
-                                box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.2), 0 10px 10px 0 rgba(0, 0, 0, 0.24);">
+    <div id="pagina" style="padding: 15px;
+                            box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.2), 0 10px 10px 0 rgba(0, 0, 0, 0.24);">
         
         <div align="center">
             <h2 class="barra_titolo" align="center">{{titolo}}</h2>
             <product-box v-for="product in products" :key="" :item="product">
             </product-box>      
         </div>
-    </md-card>`
+    </div>`
 }
 )
 
