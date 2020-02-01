@@ -7,6 +7,7 @@ const Sezione_1 = Vue.component('sezione1',{
         return{
             titolo:"Il Rovereto Online",
             sezione:"Home",
+            
             products: [                 //Questa poi sparisce per fare posto ai dati dinamici
                 {
                     id:"1",
@@ -53,9 +54,11 @@ const Sezione_1 = Vue.component('sezione1',{
             <div align="center">
                 <h2 class="barra_titolo" align="center">{{titolo}}</h2>
                 <product-box v-for="product in products" :key="" :item="product">
-                </product-box>      
+                </product-box>  
+
             </div>
         </div>
+        
     </div>`
 }
 )
@@ -237,13 +240,16 @@ const Sezione_4 = Vue.component('sezione4',{
 Vue.component("product-box", {
     data(){
         return{
-            showDialog: 'false'}
+            showDialog: false
+        }
         },
     methods: {
         mostra_articolo(){
             console.log(this.showDialog);
             this.showDialog = true;
             console.log(this.showDialog);
+            showDialog=this.showDialog;
+            return showDialog;
         }
     },
     template:`
@@ -272,25 +278,23 @@ Vue.component("product-box", {
             
 
             <md-card-actions>
-                <md-button @click="mostra_articolo()">Mostra Articolo</md-button>   
+                <md-button @click="showDialog=true">Mostra Articolo</md-button>
+                
             </md-card-actions>
-
-        </md-card>
-
-        
-            <md-dialog :md-active.sync="this.showDialog">
-                <md-dialog-title>{{item.nome}}</md-dialog-title>
-        
-                <md-tabs md-dynamic-height>
-                    <md-tab>{{item.articolo}}</md-tab>
-                </md-tabs>
-        
-                <md-dialog-actions>
-                    <md-button @click="this.showDialog = false">Chiudi</md-button>
-                    <md-button @click="this.showDialog = false">Commenta</md-button>
-                </md-dialog-actions>
-            </md-dialog>
+            <md-dialog :md-active.sync="showDialog">
+                    <md-dialog-title>{{item.nome}}</md-dialog-title>
             
+                    <md-tabs md-dynamic-height>
+                        <md-tab>{{item.articolo}}</md-tab>
+                    </md-tabs>
+            
+                    <md-dialog-actions>
+                        <md-button @click="this.showDialog = false">Chiudi</md-button>
+                        <md-button @click="this.showDialog = false">Commenta</md-button>
+                    </md-dialog-actions>
+                </md-dialog>
+                   
+        </md-card>
     `,
     props: ['item']
 });
@@ -312,7 +316,6 @@ new Vue({
     data(){
         return{
             menuVisible : false,
-            showDialog: false
         }
     }
 })
