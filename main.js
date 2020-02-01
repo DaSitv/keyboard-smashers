@@ -1,3 +1,4 @@
+Vue.config.devtools = true;
 Vue.use(VueMaterial.default)
 Vue.use(VueRouter)
 
@@ -39,10 +40,9 @@ const Sezione_1 = Vue.component('sezione1',{
                     articolo:"tante cose"
                 },
             ],
-
-            showDialog : 'false'
-
+            
         }
+        
     },
     template: `
     <md-card id="pagina" style="padding: 15px;
@@ -61,7 +61,8 @@ const Sezione_2 = Vue.component('sezione2',{
     data(){
         return{
             titolo:"Il Rovereto Online",
-            sezione:""
+            sezione:"",
+            
         }
     },
     template: `
@@ -84,12 +85,23 @@ const Sezione_3 = Vue.component('sezione3',{
 )
 
 Vue.component("product-box", {
+    data(){
+        return{
+            showDialog: 'false'}
+        },
+    methods: {
+        mostra_articolo(){
+            console.log(this.showDialog);
+            this.showDialog = true;
+            console.log(this.showDialog);
+        }
+    },
     template:`
 
         <md-card md-with-hover align="left" style="width: 650px;
-                                                                              margin: 12px;
-                                                                              display: inline-block;
-                                                                              vertical-align: top;">
+                                                   margin: 12px;
+                                                   display: inline-block;
+                                                   vertical-align: top;">
             <md-card-header>
                 <md-card-header-text>
                     <div class="md-title">{{item.nome}}</div>
@@ -106,25 +118,25 @@ Vue.component("product-box", {
             
 
             <md-card-actions>
-                <md-button @click="showDialog = true">Mostra Articolo</md-button>   
+                <md-button @click="mostra_articolo()">Mostra Articolo</md-button>   
             </md-card-actions>
+
         </md-card>
 
-
-    <div id="md-dialog">
-        <md-dialog :md-active.sync="showDialog">
-            <md-dialog-title>{{item.nome}}</md-dialog-title>
-  
-            <md-tabs md-dynamic-height>
-                <md-tab><p>{{item.articolo}}</p></md-tab>
-            </md-tabs>
-  
-            <md-dialog-actions>
-                <md-button @click="showDialog = false">Chiudi</md-button>
-                <md-button @click="showDialog = false">Commenta</md-button>
-            </md-dialog-actions>
-        </md-dialog>
-    </div>
+        
+            <md-dialog :md-active.sync="this.showDialog">
+                <md-dialog-title>{{item.nome}}</md-dialog-title>
+        
+                <md-tabs md-dynamic-height>
+                    <md-tab>{{item.articolo}}</md-tab>
+                </md-tabs>
+        
+                <md-dialog-actions>
+                    <md-button @click="this.showDialog = false">Chiudi</md-button>
+                    <md-button @click="this.showDialog = false">Commenta</md-button>
+                </md-dialog-actions>
+            </md-dialog>
+            
     `,
     props: ['item']
 });
@@ -158,7 +170,8 @@ new Vue({
     el: '#app',
     data(){
         return{
-            menuVisible : 'false'
+            menuVisible : false,
+            showDialog: false
         }
     }
 })
