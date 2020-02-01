@@ -5,7 +5,7 @@ const Sezione_1 = Vue.component('sezione1',{
     data(){
         return{
             titolo:"Il Rovereto Online",
-            sezione:"",
+            sezione:"Home",
             products: [                 //Questa poi sparisce per fare posto ai dati dinamici
                 {
                     id:"1",
@@ -45,13 +45,16 @@ const Sezione_1 = Vue.component('sezione1',{
         }
     },
     template: `
-    <div id="pagina" style="padding: 15px;
-                            box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.2), 0 10px 10px 0 rgba(0, 0, 0, 0.24);">
+    <div id="contenitore" align="center">
+        <div id="pagina" align="center" style="padding: 10px;
+                                               box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.2), 0 10px 10px 0 rgba(0, 0, 0, 0.24);
+                                               max-width: 950px;">
         
-        <div align="center">
-            <h2 class="barra_titolo" align="center">{{titolo}}</h2>
-            <product-box v-for="product in products" :key="" :item="product">
-            </product-box>      
+            <div align="center">
+                <h2 class="barra_titolo" align="center">{{titolo}}</h2>
+                <product-box v-for="product in products" :key="" :item="product">
+                </product-box>      
+            </div>
         </div>
     </div>`
 }
@@ -61,53 +64,206 @@ const Sezione_2 = Vue.component('sezione2',{
     data(){
         return{
             titolo:"Il Rovereto Online",
-            sezione:""
+            sezione:"Sport",
+            products: [                 //Questa poi sparisce per fare posto ai dati dinamici
+                {
+                    id:"1",
+                    nome:"cambia cambia",
+                    descrizione:"certo che cambia",
+                    articolo:"tante cose"
+                },{
+                    id:"2",
+                    nome:"ovvio che cambia",
+                    descrizione:"sicuro che cambia",
+                    articolo:"tante cose"
+                },{
+                    id:"3",
+                    nome:"te lo avevo detto che cambiava",
+                    descrizione:"vero lo avevi detto che cambiava",
+                    articolo:"tante cose"
+                },{
+                    id:"4",
+                    nome:"M1 Abrams",
+                    descrizione:"lalalalalal bubububbu gigigig hahaha uuuu ii ggggggg ddddddd ffffff eeeeeeeeee qqqqq wwwwwww cccccccc xxxxxxxxs sss kk lakfcvsbdv ilkfbvs asdhbcvs ",
+                    articolo:"tante cose"
+                },{
+                    id:"5",
+                    nome:"44 gatti",
+                    descrizione:"Non possono stare in fila per 6, ma a loro non interessa e lo fanno comunque",
+                    articolo:"tante cose"
+                },{
+                    id:"6",
+                    nome:"rofllmao",
+                    descrizione:"fksgjdvb",
+                    articolo:"tante cose"
+                },
+            ],
+
+            mostra_articolo:'false'
         }
     },
     template: `
-    <div>
-        <h2 class="barra_titolo" align="center">{{titolo}}</h2>
-    </div>`}
+    <div id="contenitore" align="center">
+        <div id="pagina" align="center" style="padding: 10px;
+                                               box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.2), 0 10px 10px 0 rgba(0, 0, 0, 0.24);
+                                               max-width: 950px;">
+    
+            <div align="center">
+                <h2 class="barra_titolo" align="center">{{titolo}}</h2>
+                <product-box v-for="product in products" :key="" :item="product">
+                </product-box>      
+            </div>
+        </div>
+    </div>`
+}
 )
 
 const Sezione_3 = Vue.component('sezione3',{
     data(){
         return{
             titolo:"Il Rovereto Online",
-            sezione:""
+            sezione:"Mondo",
+            products: [                 //Questa poi sparisce per fare posto ai dati dinamici
+                {
+                    id:"1",
+                    nome:"Pupazzo di pezza",
+                    descrizione:"Non ha fatto effetto affatto",
+                    articolo:"tante cose"
+                },{
+                    id:"2",
+                    nome:"Nave di stuzzichini",
+                    descrizione:"Un grande ammasso di legno",
+                    articolo:"tante cose"
+                },{
+                    id:"3",
+                    nome:"Samsung Galaxy Grand neo",
+                    descrizione:"Non è molto, ma è un lavoro onesto",
+                    articolo:"tante cose"
+                },{
+                    id:"4",
+                    nome:"M1 Abrams",
+                    descrizione:"Non è veloce, ma arriva ovunque",
+                    articolo:"tante cose"
+                },{
+                    id:"5",
+                    nome:"44 gatti",
+                    descrizione:"Non possono stare in fila per 6, ma a loro non interessa e lo fanno comunque",
+                    articolo:"tante cose"
+                },{
+                    id:"6",
+                    nome:"rofllmao",
+                    descrizione:"fksgjdvb",
+                    articolo:"tante cose"
+                },
+            ],
+
+            mostra_articolo:'false'
         }
     },
     template: `
-    <div>
-        <h2 class="barra_titolo" align="center">{{titolo}}</h2>
-    </div>`}
+    <div id="contenitore" align="center">
+        <div id="pagina" align="center" style="padding: 10px;
+                                               box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.2), 0 10px 10px 0 rgba(0, 0, 0, 0.24);
+                                               max-width: 950px;">
+
+            <div align="center">
+                <h2 class="barra_titolo" align="center">{{titolo}}</h2>
+                <product-box v-for="product in products" :key="" :item="product">
+                </product-box>      
+            </div>
+        </div>
+    </div>`
+}
 )
 
-Vue.component("product-box", {
+const Sezione_4 = Vue.component('sezione4',{
+    data(){
+        return{
+            titolo:"Il Rovereto Online",
+            sezione:"Economia",
+            products: [                 //Questa poi sparisce per fare posto ai dati dinamici
+                {
+                    id:"1",
+                    nome:"Pupazzo di pezza",
+                    descrizione:"Non ha fatto effetto affatto",
+                    articolo:"tante cose"
+                },{
+                    id:"2",
+                    nome:"Nave di stuzzichini",
+                    descrizione:"Un grande ammasso di legnooooooooooo gggggggggggg ttttttttttttt eeeee DSG sadf asfa fea sfvsd fds f asf asfc dsv ds v sd vdsvsdv sdvdsvsd vds vsd v dsvsdv sd vsvsvsd v d fsg f g fasd sa f dsf  asd as",
+                    articolo:"tante cose"
+                },{
+                    id:"3",
+                    nome:"Samsung Galaxy Grand neo",
+                    descrizione:"Non è molto, ma è un lavoro onesto",
+                    articolo:"tante cose"
+                },{
+                    id:"4",
+                    nome:"M1 Abrams",
+                    descrizione:"Non è veloce, ma arriva ovunque",
+                    articolo:"tante cose"
+                },{
+                    id:"5",
+                    nome:"44 gatti",
+                    descrizione:"Non possono stare in fila per 6, ma a loro non interessa e lo fanno comunque",
+                    articolo:"tante cose"
+                },{
+                    id:"6",
+                    nome:"rofllmao",
+                    descrizione:"fksgjdvb",
+                    articolo:"tante cose"
+                },
+            ],
+
+            mostra_articolo:'false'
+        }
+    },
+    template: `
+    <div id="contenitore" align="center">
+        <div id="pagina" align="center" style="padding: 10px;
+                                               box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.2), 0 10px 10px 0 rgba(0, 0, 0, 0.24);
+                                               max-width: 950px;">
+
+            <div align="center">
+                <h2 class="barra_titolo" align="center">{{titolo}}</h2>
+                <product-box v-for="product in products" :key="" :item="product">
+                </product-box>      
+            </div>
+        </div>
+    </div>`
+}
+)
+
+Vue.component("product-box",{
     template:`
 
-        <md-card md-with-hover align="left" style="width: 650px;
-                                                   margin: 12px;
-                                                   display: inline-block;
-                                                   vertical-align: top;">
-
+        <md-card md-with-hover id="card" align="left" style="width: 250px;
+                                                             max-height: fit-content;
+                                                             margin: 15px;
+                                                             display: inline-block;
+                                                             vertical-align: top;
+                                                             padding: 0px;">
+        <md-ripple>
             <md-card-header>
                 <md-card-header-text>
                     <div class="md-title">{{item.nome}}</div>
                 </md-card-header-text>
-                <md-card-media md-medium>
-                    <img v-bind:src="'https://picsum.photos/240/240?image' + item.id" alt="People">
-                </md-card-media>
             </md-card-header>
 
+        <br>
+
+            <md-card-media md-medium>
+                <img v-bind:src="'https://picsum.photos/240/240?image' + item.id" alt="People" style="padding: 10px;">
+            </md-card-media>
+
+        <br><br>
 
             <md-card-content>
                 {{item.descrizione}}
             </md-card-content>
-        
-        </md-card> 
-        
-      
+        </md-ripple>
+        </md-card>
+
 
         <div id="md-dialog">   
             <md-dialog :md-active.sync="mostra_articolo">
@@ -129,19 +285,6 @@ Vue.component("product-box", {
     `,
     props: ['item']
 });
-
-const Sezione_4 = Vue.component('sezione4',{
-    data(){
-        return{
-            titolo:"Il Rovereto Online",
-            sezione:""
-        }
-    },
-    template: `
-    <div>
-        <h2 class="barra_titolo" align="center">{{titolo}}</h2>
-    </div>`}
-)
 
 
 const router = new VueRouter({
