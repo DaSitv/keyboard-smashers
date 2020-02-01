@@ -42,7 +42,7 @@
 
       <md-app-drawer md-persistent="full" :md-active.sync="menuVisible">
         <md-toolbar class="md-transparent" md-elevation="0">
-            <span class="md-drawer-title">Categoria</span>
+            <span class="md-drawer-title">Menu</span>
             <div class="md-toolbar-section-end">
               <md-button class="md-icon-button" @click="menuVisible = false">
                 <md-icon>keyboard_arrow_left</md-icon>
@@ -52,23 +52,23 @@
     
         <md-list>
             <router-link tag="md-list-item" to="/sezione1">
-            <md-icon>find_in_page</md-icon>  
-            <span class="md-list-item-text">Notizie</span>
+            <md-icon>home</md-icon>  
+            <span class="md-list-item-text">Home</span>
           </router-link>
     
           <router-link tag="md-list-item" to="/sezione2">
-            <md-icon>find_in_page</md-icon>
+            <md-icon>sports</md-icon>
             <span class="md-list-item-text">Sport</span>
           </router-link>
     
           <router-link tag="md-list-item" to="/sezione3">                        
-            <md-icon>find_in_page</md-icon>           
-            <span class="md-list-item-text">Cronaca</span>
+            <md-icon>language</md-icon>           
+            <span class="md-list-item-text">Mondo</span>
           </router-link>
     
           <router-link tag="md-list-item" to="/sezione4">
-            <md-icon>find_in_page</md-icon>
-            <span class="md-list-item-text">Elezioni</span>
+            <md-icon>attach_money</md-icon>
+            <span class="md-list-item-text">Economia</span>
           </router-link>
         </md-list>
       </md-app-drawer>
