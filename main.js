@@ -15,7 +15,7 @@ const Sezione_1 = Vue.component('sezione1',{
                     nome:"Pupazzo di pezza",
                     descrizione:"Non ha fatto effetto affatto",
                     articolo:"tante coseeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee",
-                    autore:""
+                    autore:"pippo"
                 },{
                     id:"2",
                     nome:"Nave di stuzzichini",
@@ -309,6 +309,10 @@ Vue.component("product-box", {
                       
                     <md-tabs md-dynamic-height>
                         <md-tab>{{item.articolo}}</md-tab>
+                    </md-tabs>
+
+                    <md-tabs>
+                        <md-tab>{{item.autore}}</md-tab>
                     </md-tabs>
                 
                 </md-dialog>
