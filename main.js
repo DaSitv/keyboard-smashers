@@ -1,3 +1,4 @@
+  
 Vue.config.devtools = true;
 Vue.use(VueMaterial.default)
 Vue.use(VueRouter)
@@ -46,8 +47,7 @@ const Sezione_1 = Vue.component('sezione1',{
                     articolo:"tante cose",
                     autore:""
                 },
-            ],
-            
+            ],           
         }
         
     },
@@ -61,10 +61,8 @@ const Sezione_1 = Vue.component('sezione1',{
                 <h2 class="barra_titolo" align="center">{{titolo}}</h2>
                 <product-box v-for="product in products" :key="" :item="product">
                 </product-box>  
-
             </div>
-        </div>
-        
+        </div>    
     </div>`
 }
 )
@@ -113,8 +111,6 @@ const Sezione_2 = Vue.component('sezione2',{
                     autore:""
                 },
             ],
-
-            mostra_articolo:'false'
         }
     },
     template: `
@@ -177,8 +173,6 @@ const Sezione_3 = Vue.component('sezione3',{
                     autore:""
                 },
             ],
-
-            mostra_articolo:'false'
         }
     },
     template: `
@@ -186,7 +180,6 @@ const Sezione_3 = Vue.component('sezione3',{
         <div id="pagina" align="center" style="padding: 10px;
                                                box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.2), 0 10px 10px 0 rgba(0, 0, 0, 0.24);
                                                max-width: 950px;">
-
             <div align="center">
                 <h2 class="barra_titolo" align="center">{{titolo}}</h2>
                 <product-box v-for="product in products" :key="" :item="product">
@@ -212,7 +205,7 @@ const Sezione_4 = Vue.component('sezione4',{
                 },{
                     id:"2",
                     nome:"Nave di stuzzichini",
-                    descrizione:"Un grande ammasso di legnooooooooooo gggggggggggg ttttttttttttt eeeee DSG sadf asfa fea sfvsd fds f asf asfc dsv ds v sd vdsvsdv sdvdsvsd vds vsd v dsvsdv sd vsvsvsd v d fsg f g fasd sa f dsf  asd as",
+                    descrizione:"Un grande ammasso di legno",
                     articolo:"tante cose",
                     autore:""
                 },{
@@ -241,15 +234,13 @@ const Sezione_4 = Vue.component('sezione4',{
                     autore:""
                 },
             ],
-
-            mostra_articolo:'false'
         }
     },
     template: `
     <div id="contenitore" align="center">
-        <div id="pagina" align="center" style="box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.2), 0 10px 10px 0 rgba(0, 0, 0, 0.24);
+        <div id="pagina" align="center" style="padding: 10px;
+                                               box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.2), 0 10px 10px 0 rgba(0, 0, 0, 0.24);
                                                max-width: 950px;">
-
             <div align="center">
                 <h2 class="barra_titolo" align="center">{{titolo}}</h2>
                 <product-box v-for="product in products" :key="" :item="product">
@@ -276,7 +267,6 @@ Vue.component("product-box", {
         }
     },
     template:`
-
         <md-card md-with-hover id="card" align="left" style="width: 250px;
                                                              max-height: fit-content;
                                                              margin: 15px;
@@ -284,45 +274,45 @@ Vue.component("product-box", {
                                                              vertical-align: top;
                                                              padding: 0px;">
         
-         <md-ripple>                                                    
-
+            <md-ripple>                                                    
             <div @click="showDialog = true">
 
-            <md-card-header>
-                <md-card-header-text>
-                    <div class="md-title">{{item.nome}}</div>
-                </md-card-header-text>
-            </md-card-header>
+                <md-card-header>
+                    <md-card-header-text>
+                        <div class="md-title">{{item.nome}}</div>
+                    </md-card-header-text>
+                </md-card-header>
+
 
         <br>
 
-            <md-card-media md-medium>
-                <img v-bind:src="'https://picsum.photos/240/240?image' + item.id" alt="People" style="padding: 10px;">
-            </md-card-media>
+
+                <md-card-media md-medium>
+                    <img v-bind:src="'https://picsum.photos/240/240?image' + item.id" alt="People" style="padding: 10px;">
+                </md-card-media>
+
 
         <br><br>
 
-            <md-card-content>
-                {{item.descrizione}}
-            </md-card-content>
+
+                <md-card-content>
+                    {{item.descrizione}}
+                </md-card-content>
                       
+                <md-dialog  :md-active.sync="showDialog">
 
-            <md-dialog  :md-active.sync="showDialog">
+                    <md-dialog-actions>
+                        <md-button @click="showDialog=false"><md-icon>clear</md-icon></md-button>
+                    </md-dialog-actions>
 
-                <md-dialog-actions>
-                    <md-button @click="showDialog=false"><md-icon>clear</md-icon></md-button>
-                </md-dialog-actions>
-
-                <md-dialog-title>{{item.nome}}</md-dialog-title>
+                    <md-dialog-title>{{item.nome}}</md-dialog-title>
                       
-                <md-tabs md-dynamic-height>
-                    <md-tab>{{item.articolo}}</md-tab>
-                </md-tabs>
+                    <md-tabs md-dynamic-height>
+                        <md-tab>{{item.articolo}}</md-tab>
+                    </md-tabs>
                 
-            </md-dialog>
-        
-        </md-ripple>    
-            
+                </md-dialog>
+            </md-ripple>               
         </md-card>
     `,
     props: ['item']

@@ -34,10 +34,11 @@
 <body>
     <md-app id="app">
       <md-app-toolbar id="topbar" class="md-primary">
+
         <md-button class="md-icon-button" @click="menuVisible = true" v-if="!menuVisible">
           <md-icon>menu</md-icon>
         </md-button>
-        <span class="md-title"></span>
+
       </md-app-toolbar>
 
       <md-app-drawer md-persistent="full" :md-active.sync="menuVisible">
@@ -72,7 +73,7 @@
           </router-link>
         </md-list>
       </md-app-drawer>
-    
+
       <md-app-content>
         <router-view></router-view>
       </md-app-content>
