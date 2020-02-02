@@ -1,3 +1,4 @@
+Vue.config.devtools = true;
 Vue.use(VueMaterial.default)
 Vue.use(VueRouter)
 
@@ -6,6 +7,7 @@ const Sezione_1 = Vue.component('sezione1',{
         return{
             titolo:"Il Rovereto Online",
             sezione:"Home",
+            
             products: [                 //Questa poi sparisce per fare posto ai dati dinamici
                 {
                     id:"1",
@@ -45,10 +47,9 @@ const Sezione_1 = Vue.component('sezione1',{
                     autore:""
                 },
             ],
-
-            mostra_articolo:'false'
-
+            
         }
+        
     },
     template: `
     <div id="contenitore" align="center">
@@ -59,9 +60,11 @@ const Sezione_1 = Vue.component('sezione1',{
             <div align="center">
                 <h2 class="barra_titolo" align="center">{{titolo}}</h2>
                 <product-box v-for="product in products" :key="" :item="product">
-                </product-box>      
+                </product-box>  
+
             </div>
         </div>
+        
     </div>`
 }
 )
@@ -258,7 +261,21 @@ const Sezione_4 = Vue.component('sezione4',{
 }
 )
 
-Vue.component("product-box",{
+Vue.component("product-box", {
+    data(){
+        return{
+            showDialog: false
+        }
+        },
+    methods: {
+        mostra_articolo(){
+            console.log(this.showDialog);
+            this.showDialog = true;
+            console.log(this.showDialog);
+            showDialog=this.showDialog;
+            return showDialog;
+        }
+    },
     template:`
 
         <md-card md-with-hover id="card" align="left" style="width: 250px;
@@ -267,10 +284,7 @@ Vue.component("product-box",{
                                                              display: inline-block;
                                                              vertical-align: top;
                                                              padding: 0px;">
-  
-
-   
-
+                                                           
             <md-card-header>
                 <md-card-header-text>
                     <div class="md-title">{{item.nome}}</div>
@@ -288,34 +302,26 @@ Vue.component("product-box",{
             <md-card-content>
                 {{item.descrizione}}
             </md-card-content>
-
-
-        
+                      
             <md-card-actions>
-              
-                    <md-button>
-                     
-                    <md-button>
-              
-            </md-card-actions>       
- 
+                <md-button @click="showDialog=true">Mostra Articolo</md-button>                        
+            </md-card-actions>
 
-       
-            <md-dialog :md-active.sync="mostra_articolo">
-                <md-dialog-content>
+            <md-dialog :md-active.sync="showDialog">
 
-                    <md-dialog-title>{{item.nome}}</md-dialog-title>
-
-                    <md-tabs md-dynamic-height>
-                        <md-tab><p>{{item.articolo}}</p></md-tab>
-                    </md-tabs>
-                </md-dialog-content>
-
+                <md-dialog-title>{{item.nome}}</md-dialog-title>
+                      
+                <md-tabs md-dynamic-height>
+                    <md-tab>{{item.articolo}}</md-tab>
+                </md-tabs>
+                      
                 <md-dialog-actions>
-                    <md-button @click="mostra_articolo=false">Chiudi</md-button>
-                    <md-button @click="mostra_articolo=false">Commenta</md-button>
+                    <md-button @click="this.showDialog = false">Chiudi</md-button>
+                    <md-button @click="this.showDialog = false">Commenta</md-button>
                 </md-dialog-actions>
+                
             </md-dialog>
+                             
         </md-card>
     `,
     props: ['item']
@@ -337,7 +343,7 @@ new Vue({
     el: '#app',
     data(){
         return{
-            menuVisible : 'false'
+            menuVisible : false,
         }
     }
 })
