@@ -13,7 +13,7 @@ const Sezione_1 = Vue.component('sezione1',{
                     id:"1",
                     nome:"Pupazzo di pezza",
                     descrizione:"Non ha fatto effetto affatto",
-                    articolo:"tante cose",
+                    articolo:"tante coseeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee",
                     autore:""
                 },{
                     id:"2",
@@ -284,7 +284,11 @@ Vue.component("product-box", {
                                                              display: inline-block;
                                                              vertical-align: top;
                                                              padding: 0px;">
-                                                           
+        
+         <md-ripple>                                                    
+
+            <div @click="showDialog = true">
+
             <md-card-header>
                 <md-card-header-text>
                     <div class="md-title">{{item.nome}}</div>
@@ -303,9 +307,6 @@ Vue.component("product-box", {
                 {{item.descrizione}}
             </md-card-content>
                       
-            <md-card-actions>
-                <md-button @click="showDialog=true">Mostra Articolo</md-button>                        
-            </md-card-actions>
 
             <md-dialog :md-active.sync="showDialog">
 
@@ -316,12 +317,13 @@ Vue.component("product-box", {
                 </md-tabs>
                       
                 <md-dialog-actions>
-                    <md-button @click="this.showDialog = false">Chiudi</md-button>
-                    <md-button @click="this.showDialog = false">Commenta</md-button>
+                    <md-button @click="showDialog=false">Chiudi</md-button>
                 </md-dialog-actions>
                 
             </md-dialog>
-                             
+        
+        </md-ripple>    
+            
         </md-card>
     `,
     props: ['item']
