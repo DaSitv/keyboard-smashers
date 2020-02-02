@@ -140,31 +140,31 @@ const Sezione_3 = Vue.component('sezione3',{
                     nome:"Pupazzo di pezza",
                     descrizione:"Non ha fatto effetto affatto",
                     articolo:"tante cose",
-                    autore:""
+                    autore:"Andrea"
                 },{
                     id:"2",
                     nome:"Nave di stuzzichini",
                     descrizione:"Un grande ammasso di legno",
                     articolo:"tante cose",
-                    autore:""
+                    autore:"Luca"
                 },{
                     id:"3",
                     nome:"Samsung Galaxy Grand neo",
                     descrizione:"Non è molto, ma è un lavoro onesto",
                     articolo:"tante cose",
-                    autore:""
+                    autore:"Pasquale Pratticò"
                 },{
                     id:"4",
                     nome:"M1 Abrams",
                     descrizione:"Non è veloce, ma arriva ovunque",
                     articolo:"tante cose",
-                    autore:""
+                    autore:"Abramo Lincoln"
                 },{
                     id:"5",
                     nome:"44 gatti",
                     descrizione:"Non possono stare in fila per 6, ma a loro non interessa e lo fanno comunque",
-                    articolo:"tante cose",
-                    autore:""
+                    articolo:"Non possono stare in fila per 6, ma a loro non interessa e lo fanno comunque",
+                    autore:"Zecchino d'oro"
                 },{
                     id:"6",
                     nome:"rofllmao",
@@ -307,13 +307,10 @@ Vue.component("product-box", {
 
                     <md-dialog-title>{{item.nome}}</md-dialog-title>
                       
-                    <md-tabs md-dynamic-height>
-                        <md-tab>{{item.articolo}}</md-tab>
-                    </md-tabs>
-
-                    <md-tabs>
-                        <md-tab>{{item.autore}}</md-tab>
-                    </md-tabs>
+                    <md-dialog-content md-dynamic-height md->
+                        <span class="md-subheading">{{item.articolo}}</span><br>
+                        <span class="md-body-2">{{item.autore}}</span>
+                    </md-dialog-content>
                 
                 </md-dialog>
             </md-ripple>               
