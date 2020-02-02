@@ -11,32 +11,38 @@ const Sezione_1 = Vue.component('sezione1',{
                     id:"1",
                     nome:"Pupazzo di pezza",
                     descrizione:"Non ha fatto effetto affatto",
-                    articolo:"tante cose"
+                    articolo:"tante cose",
+                    autore:""
                 },{
                     id:"2",
                     nome:"Nave di stuzzichini",
                     descrizione:"Un grande ammasso di legno",
-                    articolo:"tante cose"
+                    articolo:"tante cose",
+                    autore:""
                 },{
                     id:"3",
                     nome:"Samsung Galaxy Grand neo",
                     descrizione:"Non è molto, ma è un lavoro onesto",
-                    articolo:"tante cose"
+                    articolo:"tante cose",
+                    autore:""
                 },{
                     id:"4",
                     nome:"M1 Abrams",
                     descrizione:"Non è veloce, ma arriva ovunque",
-                    articolo:"tante cose"
+                    articolo:"tante cose",
+                    autore:""
                 },{
                     id:"5",
                     nome:"44 gatti",
                     descrizione:"Non possono stare in fila per 6, ma a loro non interessa e lo fanno comunque",
-                    articolo:"tante cose"
+                    articolo:"tante cose",
+                    autore:""
                 },{
                     id:"6",
                     nome:"rofllmao",
                     descrizione:"fksgjdvb",
-                    articolo:"tante cose"
+                    articolo:"tante cose",
+                    autore:""
                 },
             ],
 
@@ -70,32 +76,38 @@ const Sezione_2 = Vue.component('sezione2',{
                     id:"1",
                     nome:"cambia cambia",
                     descrizione:"certo che cambia",
-                    articolo:"tante cose"
+                    articolo:"tante cose",
+                    autore:""
                 },{
                     id:"2",
                     nome:"ovvio che cambia",
                     descrizione:"sicuro che cambia",
-                    articolo:"tante cose"
+                    articolo:"tante cose",
+                    autore:""
                 },{
                     id:"3",
                     nome:"te lo avevo detto che cambiava",
                     descrizione:"vero lo avevi detto che cambiava",
-                    articolo:"tante cose"
+                    articolo:"tante cose",
+                    autore:""
                 },{
                     id:"4",
                     nome:"M1 Abrams",
                     descrizione:"lalalalalal bubububbu gigigig hahaha uuuu ii ggggggg ddddddd ffffff eeeeeeeeee qqqqq wwwwwww cccccccc xxxxxxxxs sss kk lakfcvsbdv ilkfbvs asdhbcvs ",
-                    articolo:"tante cose"
+                    articolo:"tante cose",
+                    autore:""
                 },{
                     id:"5",
                     nome:"44 gatti",
                     descrizione:"Non possono stare in fila per 6, ma a loro non interessa e lo fanno comunque",
-                    articolo:"tante cose"
+                    articolo:"tante cose",
+                    autore:""
                 },{
                     id:"6",
                     nome:"rofllmao",
                     descrizione:"fksgjdvb",
-                    articolo:"tante cose"
+                    articolo:"tante cose",
+                    autore:""
                 },
             ],
 
@@ -128,32 +140,38 @@ const Sezione_3 = Vue.component('sezione3',{
                     id:"1",
                     nome:"Pupazzo di pezza",
                     descrizione:"Non ha fatto effetto affatto",
-                    articolo:"tante cose"
+                    articolo:"tante cose",
+                    autore:""
                 },{
                     id:"2",
                     nome:"Nave di stuzzichini",
                     descrizione:"Un grande ammasso di legno",
-                    articolo:"tante cose"
+                    articolo:"tante cose",
+                    autore:""
                 },{
                     id:"3",
                     nome:"Samsung Galaxy Grand neo",
                     descrizione:"Non è molto, ma è un lavoro onesto",
-                    articolo:"tante cose"
+                    articolo:"tante cose",
+                    autore:""
                 },{
                     id:"4",
                     nome:"M1 Abrams",
                     descrizione:"Non è veloce, ma arriva ovunque",
-                    articolo:"tante cose"
+                    articolo:"tante cose",
+                    autore:""
                 },{
                     id:"5",
                     nome:"44 gatti",
                     descrizione:"Non possono stare in fila per 6, ma a loro non interessa e lo fanno comunque",
-                    articolo:"tante cose"
+                    articolo:"tante cose",
+                    autore:""
                 },{
                     id:"6",
                     nome:"rofllmao",
                     descrizione:"fksgjdvb",
-                    articolo:"tante cose"
+                    articolo:"tante cose",
+                    autore:""
                 },
             ],
 
@@ -186,32 +204,38 @@ const Sezione_4 = Vue.component('sezione4',{
                     id:"1",
                     nome:"Pupazzo di pezza",
                     descrizione:"Non ha fatto effetto affatto",
-                    articolo:"tante cose"
+                    articolo:"tante cose",
+                    autore:""
                 },{
                     id:"2",
                     nome:"Nave di stuzzichini",
                     descrizione:"Un grande ammasso di legnooooooooooo gggggggggggg ttttttttttttt eeeee DSG sadf asfa fea sfvsd fds f asf asfc dsv ds v sd vdsvsdv sdvdsvsd vds vsd v dsvsdv sd vsvsvsd v d fsg f g fasd sa f dsf  asd as",
-                    articolo:"tante cose"
+                    articolo:"tante cose",
+                    autore:""
                 },{
                     id:"3",
                     nome:"Samsung Galaxy Grand neo",
                     descrizione:"Non è molto, ma è un lavoro onesto",
-                    articolo:"tante cose"
+                    articolo:"tante cose",
+                    autore:""
                 },{
                     id:"4",
                     nome:"M1 Abrams",
                     descrizione:"Non è veloce, ma arriva ovunque",
-                    articolo:"tante cose"
+                    articolo:"tante cose",
+                    autore:""
                 },{
                     id:"5",
                     nome:"44 gatti",
                     descrizione:"Non possono stare in fila per 6, ma a loro non interessa e lo fanno comunque",
-                    articolo:"tante cose"
+                    articolo:"tante cose",
+                    autore:""
                 },{
                     id:"6",
                     nome:"rofllmao",
                     descrizione:"fksgjdvb",
-                    articolo:"tante cose"
+                    articolo:"tante cose",
+                    autore:""
                 },
             ],
 
@@ -243,7 +267,10 @@ Vue.component("product-box",{
                                                              display: inline-block;
                                                              vertical-align: top;
                                                              padding: 0px;">
-        <md-ripple>
+  
+
+   
+
             <md-card-header>
                 <md-card-header-text>
                     <div class="md-title">{{item.nome}}</div>
@@ -261,11 +288,19 @@ Vue.component("product-box",{
             <md-card-content>
                 {{item.descrizione}}
             </md-card-content>
-        </md-ripple>
-        </md-card>
 
 
-        <div id="md-dialog">   
+        
+            <md-card-actions>
+              
+                    <md-button>
+                     
+                    <md-button>
+              
+            </md-card-actions>       
+ 
+
+       
             <md-dialog :md-active.sync="mostra_articolo">
                 <md-dialog-content>
 
@@ -281,7 +316,7 @@ Vue.component("product-box",{
                     <md-button @click="mostra_articolo=false">Commenta</md-button>
                 </md-dialog-actions>
             </md-dialog>
-        </div>
+        </md-card>
     `,
     props: ['item']
 });
