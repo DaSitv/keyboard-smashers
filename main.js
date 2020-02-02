@@ -247,8 +247,7 @@ const Sezione_4 = Vue.component('sezione4',{
     },
     template: `
     <div id="contenitore" align="center">
-        <div id="pagina" align="center" style="padding: 10px;
-                                               box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.2), 0 10px 10px 0 rgba(0, 0, 0, 0.24);
+        <div id="pagina" align="center" style="box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.2), 0 10px 10px 0 rgba(0, 0, 0, 0.24);
                                                max-width: 950px;">
 
             <div align="center">
@@ -308,17 +307,17 @@ Vue.component("product-box", {
             </md-card-content>
                       
 
-            <md-dialog :md-active.sync="showDialog">
+            <md-dialog  :md-active.sync="showDialog">
+
+                <md-dialog-actions>
+                    <md-button @click="showDialog=false"><md-icon>clear</md-icon></md-button>
+                </md-dialog-actions>
 
                 <md-dialog-title>{{item.nome}}</md-dialog-title>
                       
                 <md-tabs md-dynamic-height>
                     <md-tab>{{item.articolo}}</md-tab>
                 </md-tabs>
-                      
-                <md-dialog-actions>
-                    <md-button @click="showDialog=false">Chiudi</md-button>
-                </md-dialog-actions>
                 
             </md-dialog>
         

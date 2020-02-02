@@ -5,15 +5,15 @@
 
 .barra_titolo
     { 
-        padding: 20px;
+        padding: 35px;
         margin: 20px;
         /*box-shadow: 0 0 2px 0 rgba(0, 0, 0, 0.2), 0 2px 2px 0 rgba(0, 0, 0, 0.24);*/
         max-width: 1200px;
         font-family: UnifrakturCook;
         font-weight: lighter;
         font-size: 60px;
-        letter-spacing: 18px;
-        word-spacing: 26px;
+        letter-spacing: 15px;
+        word-spacing: 20px;
     }
 /*.pagina non funziona, sono nel template come style
     {
