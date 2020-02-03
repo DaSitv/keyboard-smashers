@@ -14,7 +14,7 @@ const Sezione_1 = Vue.component('sezione1',{
                     id:"1",
                     nome:"Pupazzo di pezza",
                     descrizione:"Non ha fatto effetto affatto",
-                    articolo:"tante coseeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee",
+                    articolo:"tante coseeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee",
                     autore:"pippo"
                 },{
                     id:"2",
@@ -298,21 +298,38 @@ Vue.component("product-box", {
                 <md-card-content>
                     {{item.descrizione}}
                 </md-card-content>
-                      
+
+                <div>      
+
                 <md-dialog  :md-active.sync="showDialog">
 
                     <md-dialog-actions>
-                        <md-button @click="showDialog=false"><md-icon>clear</md-icon></md-button>
+                        <md-button style="position: fixed;" @click="showDialog=false"><md-icon>clear</md-icon></md-button>
                     </md-dialog-actions>
 
                     <md-dialog-title>{{item.nome}}</md-dialog-title>
-                      
+
+                    <md-card-media md-medium>
+                    <img v-bind:src="'https://picsum.photos/240/240?image' + item.id" alt="People" style="padding: 20px;
+                                                                                                          height: 500px;
+                                                                                                          width: 1000px;">
+                    </md-card-media>
+
+        <br><br>
+
+                <div style="max-width: 750px;">
+
                     <md-dialog-content md-dynamic-height md->
                         <span class="md-subheading">{{item.articolo}}</span><br>
                         <span class="md-body-2">{{item.autore}}</span>
                     </md-dialog-content>
-                
+
+                </div>
+
                 </md-dialog>
+
+                </div>
+
             </md-ripple>               
         </md-card>
     `,
