@@ -201,7 +201,8 @@ const Sezione_4 = Vue.component('sezione4',{
                     nome:"Pupazzo di pezza",
                     descrizione:"Non ha fatto effetto affatto",
                     articolo:"tante cose",
-                    autore:""
+                    autore:"",
+                    immagine:
                 },{
                     id:"2",
                     nome:"Nave di stuzzichini",
@@ -307,7 +308,7 @@ Vue.component("product-box", {
 
                     <md-dialog-title>{{item.nome}}</md-dialog-title>
                       
-                    <md-dialog-content md-dynamic-height md->
+                    <md-dialog-content md-dynamic-height>
                         <span class="md-subheading">{{item.articolo}}</span><br>
                         <span class="md-body-2">{{item.autore}}</span>
                     </md-dialog-content>
