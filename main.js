@@ -14,7 +14,7 @@ const Sezione_1 = Vue.component('sezione1',{
                     id:"1",
                     nome:"Pupazzo di pezza",
                     descrizione:"Non ha fatto effetto affatto",
-                    articolo:"tante coseeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee",
+                    articolo:"tante coseeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee",
                     autore:"pippo"
                 },{
                     id:"2",
@@ -276,44 +276,53 @@ Vue.component("product-box", {
                                                              padding: 0px;">
         
             <md-ripple>                                                    
-            <div @click="showDialog = true">
+                <div @click="showDialog = true">
 
-                <md-card-header>
-                    <md-card-header-text>
-                        <div class="md-title">{{item.nome}}</div>
-                    </md-card-header-text>
-                </md-card-header>
+                    <md-card-header>
+                        <md-card-header-text>
+                            <div class="md-title">{{item.nome}}</div>
+                        </md-card-header-text>
+                    </md-card-header>
+                    <br>
 
+                    <md-card-media md-medium>
+                        <img v-bind:src="'https://picsum.photos/240/240?image' + item.id" alt="People" style="padding: 10px;">
+                    </md-card-media>
 
-        <br>
-
-
-                <md-card-media md-medium>
-                    <img v-bind:src="'https://picsum.photos/240/240?image' + item.id" alt="People" style="padding: 10px;">
-                </md-card-media>
-
-
-        <br><br>
+                    <br><br>
 
 
-                <md-card-content>
-                    {{item.descrizione}}
-                </md-card-content>
-                      
-                <md-dialog  :md-active.sync="showDialog">
+                    <md-card-content>
+                        {{item.descrizione}}
+                    </md-card-content>
 
-                    <md-dialog-actions>
-                        <md-button @click="showDialog=false"><md-icon>clear</md-icon></md-button>
-                    </md-dialog-actions>
+                    <div>      
+                        <md-dialog  :md-active.sync="showDialog">
+                            <md-dialog-actions>
+                                <md-button style="position: fixed;" @click="showDialog=false"><md-icon>clear</md-icon></md-button>
+                            </md-dialog-actions>
 
-                    <md-dialog-title>{{item.nome}}</md-dialog-title>
-                      
-                    <md-dialog-content md-dynamic-height>
-                        <span class="md-subheading">{{item.articolo}}</span><br>
-                        <span class="md-body-2">{{item.autore}}</span>
-                    </md-dialog-content>
-                
-                </md-dialog>
+                            <md-dialog-title>{{item.nome}}</md-dialog-title>
+
+                            <md-card-media md-medium>
+                            <img v-bind:src="'https://picsum.photos/240/240?image' + item.id" alt="People" >
+                            </md-card-media>
+
+                            <br><br>
+
+                            <div style="max-width: 750px;">
+
+                                <md-dialog-content md-dynamic-height md->
+                                    <span class="md-subheading">{{item.articolo}}</span><br>
+                                 <span class="md-body-2">{{item.autore}}</span>
+                                </md-dialog-content>
+
+                            </div>
+
+                        </md-dialog>
+
+                    </div>
+
             </md-ripple>               
         </md-card>
     `,
