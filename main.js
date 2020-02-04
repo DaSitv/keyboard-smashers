@@ -114,6 +114,80 @@ const Sezione_4 = Vue.component('sezione4',{
     </div>`}
 )
 
+<<<<<<< Updated upstream
+=======
+Vue.component("product-box", {
+    data(){
+        return{
+            showDialog: false
+        }
+        },
+    methods: {
+        mostra_articolo(){
+            console.log(this.showDialog);
+            this.showDialog = true;
+            console.log(this.showDialog);
+            showDialog=this.showDialog;
+            return showDialog;
+        }
+    },
+    template:`
+        <md-card md-with-hover id="card" align="left" style="width: 250px;
+                                                             max-height: fit-content;
+                                                             margin: 15px;
+                                                             display: inline-block;
+                                                             vertical-align: top;
+                                                             padding: 0px;">
+        
+            <md-ripple>                                                    
+                <div @click="showDialog = true">
+
+                    <md-card-header>
+                        <md-card-header-text>
+                            <div class="md-title">{{item.nome}}</div>
+                        </md-card-header-text>
+                    </md-card-header>
+                    <br>
+
+                    <md-card-media md-medium>
+                        <img v-bind:src="'https://picsum.photos/240/240?image' + item.id" alt="People" style="padding: 10px;">
+                    </md-card-media>
+
+                    <br><br>
+
+
+                    <md-card-content>
+                        {{item.descrizione}}
+                    </md-card-content>
+
+                    <div>      
+                        <md-dialog  :md-active.sync="showDialog">
+                            <md-dialog-actions>
+                                <md-button style="position: fixed;" @click="showDialog=false"><md-icon>clear</md-icon></md-button>
+                            </md-dialog-actions>
+
+                            <md-dialog-title>{{item.nome}}</md-dialog-title>
+
+                            <md-dialog-media md-large   >
+                            <img v-bind:src="'https://picsum.photos/240/240?image' + item.id" alt="People" >
+                            </md-dialog-media>
+
+                            <md-dialog-content md-dynamic-height md->
+                                <span class="md-subheading">{{item.articolo}}</span><br>
+                                <span class="md-body-2">{{item.autore}}</span>
+                            </md-dialog-content>
+
+                        </md-dialog>
+
+                    </div>
+
+            </md-ripple>               
+        </md-card>
+    `,
+    props: ['item']
+});
+
+>>>>>>> Stashed changes
 
 const router = new VueRouter({
     routes: [
