@@ -310,14 +310,15 @@ Vue.component("product-box", {
                     <md-dialog-title>{{item.nome}}</md-dialog-title>
 
                     <md-card-media md-medium>
-                    <img v-bind:src="'https://picsum.photos/240/240?image' + item.id" alt="People" style="padding: 20px;
-                                                                                                          height: 500px;
-                                                                                                          width: 1000px;">
+                    <img v-bind:src="'https://picsum.photos/240/240?image' + item.id" alt="People" style="padding: 15px;
+                                                                                                          height: 300px;
+                                                                                                          width: 800px;">
                     </md-card-media>
 
         <br><br>
 
-                <div style="max-width: 750px;">
+                <div style="max-width: 750px;
+                            padding: 0px">
 
                     <md-dialog-content md-dynamic-height md->
                         <span class="md-subheading">{{item.articolo}}</span><br>
@@ -356,3 +357,4 @@ new Vue({
         }
     }
 })
+

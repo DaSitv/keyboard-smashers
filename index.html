@@ -15,7 +15,7 @@
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 
     <script>
-  // Your web app's Firebase configuration
+    // Your web app's Firebase configuration
     var firebaseConfig = {
     apiKey: "AIzaSyBnYMexBlt9GpZkDfQ-TAT2tAV75Tu2ly4",
     authDomain: "keyboard-smashers-58796.firebaseapp.com",
@@ -28,7 +28,7 @@
     // Initialize Firebase
     firebase.initializeApp(firebaseConfig);
     var db = firebase.firestore();
-  </script>
+    </script>
 
 </head>
 <body>
@@ -39,6 +39,11 @@
           <md-icon>menu</md-icon>
         </md-button>
 
+        <md-button class="md-icon-button" @click="accountVisible = true">
+          <md-avatar class="md-avatar-icon">
+            <md-icon>account_circle</md-icon>
+          </md-avatar>
+        </md-button>
       </md-app-toolbar>
 
       <md-app-drawer md-persistent="full" :md-active.sync="menuVisible">
