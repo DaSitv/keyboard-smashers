@@ -21,13 +21,14 @@
     authDomain: "keyboard-smashers-58796.firebaseapp.com",
     databaseURL: "https://keyboard-smashers-58796.firebaseio.com",
     projectId: "keyboard-smashers-58796",
-    storageBucket: "",
+    storageBucket: "keyboard-smashers-58796.appspot.com",
     messagingSenderId: "961276467582",
     appId: "1:961276467582:web:17854b0b2b263284"
-    };
+  };
     // Initialize Firebase
     firebase.initializeApp(firebaseConfig);
     var db = firebase.firestore();
+    var commenti = db.collection("commenti");
     </script>
 
 </head>
@@ -37,12 +38,6 @@
 
         <md-button class="md-icon-button" @click="menuVisible = true" v-if="!menuVisible">
           <md-icon>menu</md-icon>
-        </md-button>
-
-        <md-button class="md-icon-button" @click="accountVisible = true">
-          <md-avatar class="md-avatar-icon">
-            <md-icon>account_circle</md-icon>
-          </md-avatar>
         </md-button>
         
       </md-app-toolbar>

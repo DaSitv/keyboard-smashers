@@ -264,7 +264,21 @@ Vue.component("product-box", {
             console.log(this.showDialog);
             showDialog=this.showDialog;
             return showDialog;
-        }
+        },
+
+
+
+        //è tutto commentato perché senza che funzioni perfettamente sbarella tutta l'app; il database è ancro da creare.//
+
+        /*salva_commento: function(){
+            var me = this;
+                db.collection("commenti").add({
+                    id_articolo: this.id_articolo_corrente,
+                    commento: this.commento_inserito,
+                    utente: this.utente_inserito
+                })
+                }
+        } */
     },
     template:`
         <md-card md-with-hover id="card" align="left" style="width: 250px;
@@ -273,9 +287,10 @@ Vue.component("product-box", {
                                                              display: inline-block;
                                                              vertical-align: top;
                                                              padding: 0px;">
-        
-            <md-ripple>                                                    
-            <div @click="showDialog = true">
+
+            <md-ripple> 
+
+            <div @click="showDialog = true"> <!-- qui dovrebbe esserci un @click="paginaArticolo" o un routerlink -->
 
                 <md-card-header>
                     <md-card-header-text>
@@ -299,6 +314,44 @@ Vue.component("product-box", {
                     {{item.descrizione}}
                 </md-card-content>
 
+            </md-ripple>
+            <div align="right">
+            <hr>
+                <md-action>
+                    <md-card-expand>
+                        <md-card-expand-trigger>
+                            <md-button class="md-icon-button">
+                                <md-icon>
+                                    keyboard_arrow_down
+                                </md-icon>
+                            </md-button>
+                        </md-card-expand-trigger>
+            </div>
+            <div align="left">
+                        <md-card-expand-content>
+                            <md-card-content>
+                                <div>
+                                    lorem ipsum sic tua madre
+                                </div>
+                            <br>
+                            <hr>
+                            <br>           
+                                <div>
+                                    <md-input style="width: 217px" type="text" vue_model="nome_commento" placeholder=" nome"/>
+                                </div>
+                            <br>
+                                <div>
+                                    <md-textarea style="width: 217px" type="text" vue_model="testo_commento" rows="3" placeholder=" commento"/>
+                                </div>
+                                <div align="center">
+                                    <md-button class="md-primary md-button"      >Commenta</md-button> 
+                                </div>
+                            </md-card-content>
+                        </md-card-expand-content>
+                    </md-card-expand>        
+                </md-action>
+            </div>
+
                 <div>      
 
                 <md-dialog  :md-active.sync="showDialog">
@@ -308,34 +361,73 @@ Vue.component("product-box", {
                     </md-dialog-actions>
 
                     <md-dialog-title>{{item.nome}}</md-dialog-title>
-
+               
                     <md-card-media md-medium>
-                    <img v-bind:src="'https://picsum.photos/240/240?image' + item.id" alt="People" style="padding: 15px;
-                                                                                                          height: 300px;
-                                                                                                          width: 800px;">
+                        <div align="center">
+                            <img v-bind:src="'https://picsum.photos/240/240?image' + item.id" alt="People" style="padding: 15px;
+                                                                                                          height: 400px;
+                                                                                                          width: 400px;">
+                        </div>
                     </md-card-media>
-
-        <br><br>
-
-                <div style="max-width: 750px;
-                            padding: 0px">
+                
+            <br>
+                
+                <div style="padding: 0px;">
 
                     <md-dialog-content md-dynamic-height md->
-                        <span class="md-subheading">{{item.articolo}}</span><br>
+                        <div style="max-width: 400px;"><span class="md-subheading">{{item.articolo}}</span></div><br>
                         <span class="md-body-2">{{item.autore}}</span>
                     </md-dialog-content>
 
                 </div>
-
+                
                 </md-dialog>
 
-                </div>
-
-            </md-ripple>               
+                </div> 
+                        
         </md-card>
     `,
     props: ['item']
 });
+
+//è tutto commentato perché senza che funzioni perfettamente sbarella tutta l'app; il database è ancora da creare.//
+
+/* const paginaArticolo = vue.component('paginaArticolo,', {
+    template: '#paginaArticolo',
+    created: function() {
+        var me = this;
+        db.collection("articoli").doc(this.$route.params.id).get().then(function(res){
+            me.articolo = res.data();
+        });
+
+        db.collection("commenti").where("id_articolo", "==", this.$route.params.id).get().then(function(res){
+            const list = [];
+            res.forEach(function(r) {
+                list.push(r.data().commento);
+                list.push(r.data().utente)
+            });
+            me.lista_commenti = list;
+        });
+    },
+
+    data: function() {
+        return {
+            articolo: {},
+            lista_commenti: [],
+            average: 0,
+            conta_voti: 0
+        }
+    }
+}); */
+
+
+
+
+/*<template> ora ci sarebbe da creare la pagina che si apre nel momento in cui si clicca sulla card
+    (al posto del dialog che fa schifo e non funziona,
+     il dialog lo tengo buono per qualcos altro)</template>*/
+
+
 
 
 const router = new VueRouter({
