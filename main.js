@@ -274,8 +274,8 @@ Vue.component("product-box", {
             var me = this;
                 db.collection("commenti").add({
                     id_articolo: this.id_articolo_corrente,
-                    commento: this.commento_inserito,
-                    utente: this.utente_inserito
+                    commento: this.testo_commento,
+                    utente: this.nome_commento
                 })
                 }
         } */
