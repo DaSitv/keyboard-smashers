@@ -39,12 +39,66 @@
         <md-button class="md-icon-button" @click="menuVisible = true" v-if="!menuVisible">
           <md-icon>menu</md-icon>
         </md-button>
+      
+          <div> 
+
+            <md-menu md-size="medium" md-align-trigger>
+              <md-button md-menu-trigger>Casa editrice</md-button>
         
+              <md-menu-content>
+                <md-menu-item><md-button>Fumetto1</md-button></md-menu-item>
+                <md-menu-item><md-button>Fumetto2</md-button></md-menu-item>
+                <md-menu-item><md-button>Fumetto3</md-button></md-menu-item>
+              </md-menu-content>
+            </md-menu>
+
+            <md-menu md-size="medium" md-align-trigger>
+              <md-button md-menu-trigger>Align with trigger</md-button>
+        
+              <md-menu-content>
+                <md-menu-item><md-button>My Item 1</md-button></md-menu-item>
+                <md-menu-item><md-button>My Item 2</md-button></md-menu-item>
+                <md-menu-item><md-button>My Item 3</md-button></md-menu-item>
+              </md-menu-content>
+            </md-menu>
+
+            <md-menu md-size="medium" md-align-trigger>
+              <md-button md-menu-trigger>Align with trigger</md-button>
+        
+              <md-menu-content>
+                <md-menu-item><md-button>My Item 1</md-button></md-menu-item>
+                <md-menu-item><md-button>My Item 2</md-button></md-menu-item>
+                <md-menu-item><md-button>My Item 3</md-button></md-menu-item>
+              </md-menu-content>
+            </md-menu>
+
+            <md-menu md-size="medium" md-align-trigger>
+              <md-button md-menu-trigger>Align with trigger</md-button>
+        
+              <md-menu-content>
+                <md-menu-item><md-button>My Item 1</md-button></md-menu-item>
+                <md-menu-item><md-button>My Item 2</md-button></md-menu-item>
+                <md-menu-item><md-button>My Item 3</md-button></md-menu-item>
+              </md-menu-content>
+            </md-menu>
+
+            <md-menu md-size="medium" md-align-trigger>
+              <md-button md-menu-trigger>Align with trigger</md-button>
+        
+              <md-menu-content>
+                <md-menu-item><md-button>My Item 1</md-button></md-menu-item>
+                <md-menu-item><md-button>My Item 2</md-button></md-menu-item>
+                <md-menu-item><md-button>My Item 3</md-button></md-menu-item>
+              </md-menu-content>
+            </md-menu>
+
+          </div>
+
       </md-app-toolbar>
 
       <md-app-drawer md-persistent="full" :md-active.sync="menuVisible">
         <md-toolbar class="md-transparent" md-elevation="0">
-            <span class="md-drawer-title">Menu</span>
+          <md-icon>menu</md-icon>
             <div class="md-toolbar-section-end">
               <md-button class="md-icon-button" @click="menuVisible = false">
                 <md-icon>keyboard_arrow_left</md-icon>
@@ -57,20 +111,25 @@
             <md-icon>home</md-icon>  
             <span class="md-list-item-text">Home</span>
           </router-link>
-    
+    <hr>
+          <md-list-item>
+            <md-icon>category</md-icon>  
+            <span class="md-list-item-text">Categorie</span>
+          </md-list-item>
+
           <router-link tag="md-list-item" to="/sezione2">
-            <md-icon>sports</md-icon>
-            <span class="md-list-item-text">Sport</span>
+            <md-icon></md-icon>
+            <span class="md-list-item-text">Azione</span>
           </router-link>
     
           <router-link tag="md-list-item" to="/sezione3">                        
-            <md-icon>language</md-icon>           
-            <span class="md-list-item-text">Mondo</span>
+            <md-icon></md-icon>           
+            <span class="md-list-item-text">Mistero</span>
           </router-link>
     
           <router-link tag="md-list-item" to="/sezione4">
-            <md-icon>attach_money</md-icon>
-            <span class="md-list-item-text">Economia</span>
+            <md-icon></md-icon>
+            <span class="md-list-item-text">Divertente</span>
           </router-link>
         </md-list>
       </md-app-drawer>
