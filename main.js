@@ -236,71 +236,31 @@ Vue.component("product-box", {
     },
     template:`
 
-        <md-card md-with-hover id="card" align="left" style="width: 250px;
-                                                             max-height: fit-content;
-                                                             margin: 15px;
-                                                             display: inline-block;
-                                                             vertical-align: top;
-                                                             padding: 0px;">
+        <md-card class="flip-card" md-with-hover style="width: 240px; 
+                                                        height: 240px; 
+                                                        display: inline-block; 
+                                                        margin: 15px; 
+                                                        padding: 0px; 
+                                                        vertical-align: top;">
 
-            <md-ripple> 
+            <md-ripple>
 
-            <div @click="showDialog = true"> <!-- qui dovrebbe esserci un @click="paginaArticolo" o un routerlink -->
+                <div class="flip-card-inner">
+    
+                    <div class="flip-card-front">
 
-            <md-card-media md-medium>
-            <img v-bind:src="'https://picsum.photos/240/240?image' + item.id" alt="People" style="padding: 10px;">
-        </md-card-media>
+                        <img v-bind:src="'https://picsum.photos/240/240?image' + item.id" alt="People" style="padding: 0px;">
 
+                    </div>
 
-                <md-card-header>
-                    <md-card-header-text>
-                        <div class="md-title">{{item.nome}}</div>
-                    </md-card-header-text>
-                </md-card-header>
+                    <div class="flip-card-back">
 
+                        <h1>{{item.nome}}</h1>
+                        <p>{{item.descrizione}}</p>
 
-                <md-card-content>
-                    {{item.descrizione}}
-                </md-card-content>
-
-            </md-ripple>
-            <div align="right">
-            
-            </div>
-
-                <div>      
-
-                <md-dialog  :md-active.sync="showDialog">
-
-                    <md-dialog-actions>
-                        <md-button style="position: fixed;" @click="showDialog=false"><md-icon>clear</md-icon></md-button>
-                    </md-dialog-actions>
-
-                    <md-dialog-title>{{item.nome}}</md-dialog-title>
-               
-                    <md-card-media md-medium>
-                        <div align="center">
-                            <img v-bind:src="'https://picsum.photos/240/240?image' + item.id" alt="People" style="padding: 15px;
-                                                                                                          height: 400px;
-                                                                                                          width: 400px;">
-                        </div>
-                    </md-card-media>
-                
-            <br>
-                
-                <div style="padding: 0px;">
-
-                    <md-dialog-content md-dynamic-height md->
-                        <div style="max-width: 400px;"><span class="md-subheading">{{item.articolo}}</span></div><br>
-                        <span class="md-body-2">{{item.autore}}</span>
-                    </md-dialog-content>
-
+                    </div>
                 </div>
-                
-                </md-dialog>
-
-                </div> 
-                        
+            </md-ripple>
         </md-card>
   
     `,
