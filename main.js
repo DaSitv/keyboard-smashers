@@ -217,7 +217,34 @@ const Sezione_4 = Vue.component('sezione4',{
 }
 )
 
+const Sezione_5 = Vue.component('sezione5',{
+    data(){
+        return{
+            sezione:"Divertente",
+            products: [                 //Questa poi sparisce per fare posto ai dati dinamici
+                {
+                    id:"7",
+                    nome:"Titolo del fumetto",
+                    descrizione:"Descrizione del fumetto",
+                    articolo:"Articolo del fumetto?",
+                    autore:"autore del fumetto"
+                },
+            ],
+        }
+    },
+    template: `
+            <div align="center">
+                <dettaglio-box v-for="product in products" :key="" :item="product">
+                </dettaglio-box>      
+            </div>`
+}
+)
+
 Vue.component("product-box", {
+
+
+
+
     data(){
         return{
             showDialog: false
@@ -231,11 +258,16 @@ Vue.component("product-box", {
             showDialog=this.showDialog;
             return showDialog;
         },
+        },
 
 
-    },
+
     template:`
     <div style="display: inline-block; height: 100%;">
+
+
+        <router-link tag="div" to="/sezione5">
+
 
         <md-card class="card" md-with-hover style="width: 240px; 
                                                    height: 240px; 
@@ -267,6 +299,27 @@ Vue.component("product-box", {
 });
 
 
+Vue.component("dettaglio-box", {
+
+    template:`
+        <md-card class="card_fumetto" style="width: 800px; 
+                                             height: 800px; 
+                                             display: inline-block; 
+                                             margin: 16px; 
+                                             padding: 0px;">
+
+            <h1>{{item.nome}}</h1>
+            <p>{{item.descrizione}}</p>
+            <p>{{item.autore}}</p>
+
+
+        </md-card> 
+    `,
+    props: ['item']
+});
+
+
+
 
 const router = new VueRouter({
     routes: [
@@ -274,6 +327,7 @@ const router = new VueRouter({
         {path: '/sezione2', component: Sezione_2},
         {path: '/sezione3', component: Sezione_3},
         {path: '/sezione4', component: Sezione_4},
+        {path: '/sezione5', component: Sezione_5},
         {path: '*', component: Sezione_1}
     ]
 })
