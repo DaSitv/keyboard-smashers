@@ -29,7 +29,6 @@
     // Initialize Firebase
     firebase.initializeApp(firebaseConfig);
     var db = firebase.firestore();
-    var commenti = db.collection("commenti");
     </script>
 
 </head>
@@ -37,19 +36,18 @@
     <md-app id="app">
       <md-app-toolbar id="topbar" class="md-primary">
 
-        <md-button class="md-icon-button" @click="menuVisible = true" v-if="!menuVisible">
+        <md-button class="md-icon-button" @click="menuVisible = true" v-if="!menuVisible" style="margin-right: 16px;">
           <md-icon>menu</md-icon>
         </md-button>
       
           <div> 
-
             <md-menu md-size="medium" md-align-trigger>
               <md-button md-menu-trigger>Casa editrice</md-button>
-        
+
               <md-menu-content>
-                <md-menu-item><md-button>Fumetto1</md-button></md-menu-item>
-                <md-menu-item><md-button>Fumetto2</md-button></md-menu-item>
-                <md-menu-item><md-button>Fumetto3</md-button></md-menu-item>
+                <router-link to="/sezione3"><md-menu-item><md-button>Fumetto1</md-button></md-menu-item></router-link>
+                <router-link to="/sezione3"><md-menu-item><md-button>Fumetto2</md-button></md-menu-item></router-link>
+                <router-link to="/sezione3"><md-menu-item><md-button>Fumetto3</md-button></md-menu-item></router-link>
               </md-menu-content>
             </md-menu>
 
@@ -57,9 +55,19 @@
               <md-button md-menu-trigger>Align with trigger</md-button>
         
               <md-menu-content>
-                <md-menu-item><md-button>My Item 1</md-button></md-menu-item>
-                <md-menu-item><md-button>My Item 2</md-button></md-menu-item>
-                <md-menu-item><md-button>My Item 3</md-button></md-menu-item>
+                <router-link to="/sezione3"><md-menu-item><md-button>Fumetto1</md-button></md-menu-item></router-link>
+                <router-link to="/sezione3"><md-menu-item><md-button>Fumetto2</md-button></md-menu-item></router-link>
+                <router-link to="/sezione3"><md-menu-item><md-button>Fumetto3</md-button></md-menu-item></router-link>
+              </md-menu-content>
+            </md-menu>
+
+            <md-menu md-size="medium" md-align-trigger> 
+              <md-button md-menu-trigger>Align with trigger</md-button>
+        
+              <md-menu-content>
+                <router-link to="/sezione3"><md-menu-item><md-button>Fumetto1</md-button></md-menu-item></router-link>
+                <router-link to="/sezione3"><md-menu-item><md-button>Fumetto2</md-button></md-menu-item></router-link>
+                <router-link to="/sezione3"><md-menu-item><md-button>Fumetto3</md-button></md-menu-item></router-link>
               </md-menu-content>
             </md-menu>
 
@@ -67,9 +75,9 @@
               <md-button md-menu-trigger>Align with trigger</md-button>
         
               <md-menu-content>
-                <md-menu-item><md-button>My Item 1</md-button></md-menu-item>
-                <md-menu-item><md-button>My Item 2</md-button></md-menu-item>
-                <md-menu-item><md-button>My Item 3</md-button></md-menu-item>
+                <router-link to="/sezione3"><md-menu-item><md-button>Fumetto1</md-button></md-menu-item></router-link>
+                <router-link to="/sezione3"><md-menu-item><md-button>Fumetto2</md-button></md-menu-item></router-link>
+                <router-link to="/sezione3"><md-menu-item><md-button>Fumetto3</md-button></md-menu-item></router-link>
               </md-menu-content>
             </md-menu>
 
@@ -77,29 +85,18 @@
               <md-button md-menu-trigger>Align with trigger</md-button>
         
               <md-menu-content>
-                <md-menu-item><md-button>My Item 1</md-button></md-menu-item>
-                <md-menu-item><md-button>My Item 2</md-button></md-menu-item>
-                <md-menu-item><md-button>My Item 3</md-button></md-menu-item>
+                <router-link to="/sezione3"><md-menu-item><md-button>Fumetto1</md-button></md-menu-item></router-link>
+                <router-link to="/sezione3"><md-menu-item><md-button>Fumetto2</md-button></md-menu-item></router-link>
+                <router-link to="/sezione3"><md-menu-item><md-button>Fumetto3</md-button></md-menu-item></router-link>
               </md-menu-content>
             </md-menu>
-
-            <md-menu md-size="medium" md-align-trigger>
-              <md-button md-menu-trigger>Align with trigger</md-button>
-        
-              <md-menu-content>
-                <md-menu-item><md-button>My Item 1</md-button></md-menu-item>
-                <md-menu-item><md-button>My Item 2</md-button></md-menu-item>
-                <md-menu-item><md-button>My Item 3</md-button></md-menu-item>
-              </md-menu-content>
-            </md-menu>
-
           </div>
 
       </md-app-toolbar>
 
       <md-app-drawer md-persistent="full" :md-active.sync="menuVisible">
         <md-toolbar class="md-transparent" md-elevation="0">
-          <md-icon>menu</md-icon>
+          <md-icon></md-icon>
             <div class="md-toolbar-section-end">
               <md-button class="md-icon-button" @click="menuVisible = false">
                 <md-icon>keyboard_arrow_left</md-icon>
@@ -145,5 +142,9 @@
   <script src="https://unpkg.com/vue-material"></script>
   <script src="https://unpkg.com/vue-router"></script>
   <script src="main.js"></script>
+
+  <footer class="footer">
+    <p>Copyright © 2020, www.nomedelsito.com</p>
+  </footer>
 </body>
 </html>

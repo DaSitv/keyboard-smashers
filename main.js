@@ -61,7 +61,7 @@ const Sezione_1 = Vue.component('sezione1',{
 const Sezione_2 = Vue.component('sezione2',{
     data(){
         return{
-            sezione:"Sport",
+            sezione:"Azione",
             products: [                 //Questa poi sparisce per fare posto ai dati dinamici
                 {
                     id:"1",
@@ -114,7 +114,7 @@ const Sezione_2 = Vue.component('sezione2',{
 const Sezione_3 = Vue.component('sezione3',{
     data(){
         return{
-            sezione:"Mondo",
+            sezione:"Mistero",
             products: [                 //Questa poi sparisce per fare posto ai dati dinamici
                 {
                     id:"1",
@@ -167,7 +167,7 @@ const Sezione_3 = Vue.component('sezione3',{
 const Sezione_4 = Vue.component('sezione4',{
     data(){
         return{
-            sezione:"Economia",
+            sezione:"Divertente",
             products: [                 //Questa poi sparisce per fare posto ai dati dinamici
                 {
                     id:"1",
@@ -235,34 +235,33 @@ Vue.component("product-box", {
 
     },
     template:`
+    <div style="display: inline-block; height: 100%;">
 
-        <md-card class="flip-card" md-with-hover style="width: 240px; 
-                                                        height: 240px; 
-                                                        display: inline-block; 
-                                                        margin: 15px; 
-                                                        padding: 0px; 
-                                                        vertical-align: top;">
+        <md-card class="card" md-with-hover style="width: 240px; 
+                                                   height: 240px; 
+                                                   display: inline-block; 
+                                                   margin: 16px; 
+                                                   padding: 0px; 
+                                                   vertical-align: top;
+                                                   background-color: darkgray;
+                                                   margin-top: 100%;
+                                                   margin-bottom: 100%;">
+
+
 
             <md-ripple>
 
-                <div class="flip-card-inner">
-    
-                    <div class="flip-card-front">
+                <div class="card-inner">               
 
-                        <img v-bind:src="'https://picsum.photos/240/240?image' + item.id" alt="People" style="padding: 0px;">
-
-                    </div>
-
-                    <div class="flip-card-back">
-
+                    <img v-bind:src="'https://picsum.photos/240/240?image' + item.id" alt="People" style="padding: 0px;"> 
+                    <div class="card-content" style="margin: 16px;">
                         <h1>{{item.nome}}</h1>
                         <p>{{item.descrizione}}</p>
-
                     </div>
                 </div>
             </md-ripple>
         </md-card>
-  
+    </div>
     `,
     props: ['item']
 });
