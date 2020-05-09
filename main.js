@@ -265,10 +265,6 @@ Vue.component("product-box", {
     template:`
     <div style="display: inline-block; height: 100%;">
 
-
-        <router-link tag="div" to="/sezione5">
-
-
         <md-card class="card" md-with-hover style="width: 240px; 
                                                    height: 240px; 
                                                    display: inline-block; 
@@ -280,9 +276,10 @@ Vue.component("product-box", {
                                                    margin-bottom: 100%;">
 
 
+            
 
             <md-ripple>
-
+            <router-link tag="div" to="/sezione5">
                 <div class="card-inner">               
 
                     <img v-bind:src="'https://picsum.photos/240/240?image' + item.id" alt="People" style="padding: 0px;"> 
