@@ -229,6 +229,13 @@ const Sezione_5 = Vue.component('sezione5',{
                     articolo:"Articolo del fumetto?",
                     autore:"autore del fumetto"
                 },
+                {
+                    id:"8",
+                    nome:"Titolo",
+                    descrizione:"Descrizione",
+                    articolo:"Articolo",
+                    autore:"autore"
+                },
             ],
         }
     },
@@ -299,6 +306,112 @@ Vue.component("product-box", {
 Vue.component("dettaglio-box", {
 
     template:`
+
+    <div class="container" style="width: 800px; 
+                                  height: 800px; 
+                                  display: inline-block; 
+                                  margin: 16px; 
+                                  padding: 0px;">
+
+    <h2>Carousel Example</h2>
+    <div id="myCarousel" class="carousel slide" data-ride="carousel">
+
+      <!-- Indicators -->
+
+      <ol class="carousel-indicators">
+        <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+        <li data-target="#myCarousel" data-slide-to="1"></li>
+        <li data-target="#myCarousel" data-slide-to="2"></li>
+      </ol>
+  
+      <!-- Wrapper for slides -->
+
+      <div class="carousel-inner">
+  
+        <div class="item active">
+
+            <md-card class="card" md-with-hover style="width: 800px; 
+                                                       height: 600px; 
+                                                       display: inline-block; 
+                                                       margin: 0px; 
+                                                       padding: 0px; 
+                                                       vertical-align: top;
+                                                       background-color: darkgray;">
+
+
+
+
+            <md-ripple>
+
+            <router-link tag="div" to="/sezione5">
+
+            <div class="card-inner">               
+
+            <img v-bind:src="'https://picsum.photos/800/600?image' + item.id" alt="People" style="padding: 0px;"> 
+
+                <div class="card-content" style="margin: 16px;">
+
+                    <h1>{{item.nome}}</h1>
+                    <p>{{item.descrizione}}</p>
+
+                </div>
+            </div>
+            </md-ripple>
+            </md-card>
+        </div>
+  
+
+
+
+
+
+        <div class="item">
+        <img v-bind:src="'https://picsum.photos/800/600?image' + item.id" alt="People" style="padding: 0px;">
+          <div class="carousel-caption">
+            <h3>Chicago</h3>
+            <p>Thank you, Chicago!</p>
+          </div>
+        </div>
+      
+        <div class="item">
+        <img v-bind:src="'https://picsum.photos/800/600?image' + item.id" alt="People" style="padding: 0px;">
+          <div class="carousel-caption">
+            <h3>New York</h3>
+            <p>We love the Big Apple!</p>
+          </div>
+        </div>
+    
+
+
+
+
+
+      </div>
+  
+      <!-- Left and right controls -->
+
+      <a class="left carousel-control" href="#myCarousel" data-slide="prev">
+      
+        <span class="glyphicon glyphicon-chevron-left"></span>
+        <span class="sr-only">Previous</span>
+
+      </a>
+
+      <a class="right carousel-control" href="#myCarousel" data-slide="next">
+
+        <span class="glyphicon glyphicon-chevron-right"></span>
+        <span class="sr-only">Next</span>
+
+      </a>
+    </div>
+  </div>
+
+
+
+
+
+
+
         <md-card class="card_fumetto" style="width: 800px; 
                                              height: 800px; 
                                              display: inline-block; 
@@ -338,3 +451,11 @@ new Vue({
         }
     }
 })
+
+        var db = firebase.firestore();
+        var fumetti = db.collection("fumetti");
+        var editore = db.collection("editore");
+        var categorie = db.collection("categorie");
+        var testo_fumetto = db.collection("testo_fumetto");
+        var autore = db.collection("autore");
+        var nome = db.collection("nome");
