@@ -353,12 +353,12 @@ const Sezione_5 = Vue.component('sezione5',{
                         <div class="span12">       
                             <div id="myCarousel" class="carousel slide">
                          
-                                <ol class="carousel-indicators">
+                               <!-- <ol class="carousel-indicators">
                                     <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
                                     <li data-target="#myCarousel" data-slide-to="1"></li>
                                     <li data-target="#myCarousel" data-slide-to="2"></li>
                                     <li data-target="#myCarousel" data-slide-to="3"></li>
-                                </ol>
+                                </ol> -->
                          
                                 <div class="carousel-inner">
                             
@@ -400,8 +400,8 @@ const Sezione_5 = Vue.component('sezione5',{
 
                             </div>
                  
-                            <a class="carousel-control-prev" href="#myCarousel" data-slide="prev">‹</a>
-                            <a class="carousel-control-next" href="#myCarousel" data-slide="next">›</a>
+                            <a class="carousel-control-prev" href="#myCarousel" data-slide="prev"></a>
+                            <a class="carousel-control-next" href="#myCarousel" data-slide="next"></a>
 
                         </div>
 		            </div>
