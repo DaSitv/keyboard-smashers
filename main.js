@@ -112,8 +112,10 @@ const Sezione_2 = Vue.component('sezione2',{
 )
 
 const Sezione_3 = Vue.component('sezione3',{
+    //props: ['results'],
     data(){
         return{
+            results:[],
             sezione:"Mistero",
             products: [                 //Questa poi sparisce per fare posto ai dati dinamici
                 {
@@ -156,9 +158,17 @@ const Sezione_3 = Vue.component('sezione3',{
             ],
         }
     },
+    methods: {
+        getData(){
+            axios.get("http://gateway.marvel.com/v1/public/series?apikey=5df3891eaed55b4570144d3f0f1512c1").then(response => {this.results = response.data.data.results})
+        }
+    },
+    created(){
+        this.getData()
+    },
     template: `
             <div align="center">
-                <product-box v-for="product in products" :key="" :item="product">
+                <product-box v-for="result in results" :key="" :item="result">
                 </product-box>      
             </div>`
 }
@@ -171,8 +181,8 @@ const Sezione_4 = Vue.component('sezione4',{
             products: [                 //Questa poi sparisce per fare posto ai dati dinamici
                 {
                     id:"1",
-                    nome:"Pupazzo di pezza",
-                    descrizione:"Non ha fatto effetto affatto",
+                    title:"Pupazzo di pezza",
+                    description:"Non ha fatto effetto affatto",
                     articolo:"tante cose",
                     autore:""
                 },{
@@ -216,6 +226,59 @@ const Sezione_4 = Vue.component('sezione4',{
             </div>`
 }
 )
+
+Vue.component("product-box", {
+
+    data(){
+        return{
+            showDialog: false
+        }
+        },
+    methods: {
+        mostra_articolo(){
+            console.log(this.showDialog);
+            this.showDialog = true;
+            console.log(this.showDialog);
+            showDialog=this.showDialog;
+            return showDialog;
+        },
+        },
+
+
+
+    template:`
+    <div style="display: inline-block; height: 400px;">
+
+        <md-card class="card" md-with-hover style="width: 240px; 
+                                                   height: 240px; 
+                                                   display: inline-block; 
+                                                   margin: 16px; 
+                                                   padding: 0px; 
+                                                   vertical-align: top;
+                                                   background-color: darkgray;
+                                                   margin-top: 20px;
+                                                   margin-bottom: 20px;">
+
+
+            
+
+            <md-ripple>
+            <router-link tag="div" to="/sezione5">
+                <div class="card-inner">               
+
+                    <img v-bind:src="item.thumbnail.path + '.' + item.thumbnail.extension" alt="People" style="padding: 0px;"> 
+                    <div class="card-content" style="margin: 16px;">
+                        <h1>{{item.title}}</h1>
+                        <p>{{item.description}}</p>
+                    </div>
+                </div>
+            </md-ripple>
+        </md-card>
+    </div>
+    `,
+    props: ['item']
+});
+
 
 const Sezione_5 = Vue.component('sezione5',{
     data(){
@@ -410,60 +473,6 @@ const Sezione_5 = Vue.component('sezione5',{
 }
 )
 
-Vue.component("product-box", {
-
-
-
-
-    data(){
-        return{
-            showDialog: false
-        }
-        },
-    methods: {
-        mostra_articolo(){
-            console.log(this.showDialog);
-            this.showDialog = true;
-            console.log(this.showDialog);
-            showDialog=this.showDialog;
-            return showDialog;
-        },
-        },
-
-
-
-    template:`
-    <div style="display: inline-block; height: 100%;">
-
-        <md-card class="card" md-with-hover style="width: 240px; 
-                                                   height: 240px; 
-                                                   display: inline-block; 
-                                                   margin: 16px; 
-                                                   padding: 0px; 
-                                                   vertical-align: top;
-                                                   background-color: darkgray;
-                                                   margin-top: 100%;
-                                                   margin-bottom: 100%;">
-
-
-            
-
-            <md-ripple>
-            <router-link tag="div" to="/sezione5">
-                <div class="card-inner">               
-
-                    <img v-bind:src="'https://picsum.photos/240/240?image' + item.id" alt="People" style="padding: 0px;"> 
-                    <div class="card-content" style="margin: 16px;">
-                        <h1>{{item.nome}}</h1>
-                        <p>{{item.descrizione}}</p>
-                    </div>
-                </div>
-            </md-ripple>
-        </md-card>
-    </div>
-    `,
-    props: ['item']
-});
 
 
 Vue.component("dettaglio-box", {
@@ -514,9 +523,21 @@ new Vue({
     data(){
         return{
             menuVisible : false,
+            results: [],
+            risultati: [],
+            
+        }
+    },
+    created(){
+        this.getData()
+    },
+    methods :{
+        getData(){
+            axios.get("http://gateway.marvel.com/v1/public/comics?apikey=5df3891eaed55b4570144d3f0f1512c1").then(response => {this.results = response.data.data.results})
         }
     }
-})
+    
+});
 
         var db = firebase.firestore();
         var fumetti = db.collection("fumetti");
