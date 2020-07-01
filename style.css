@@ -53,3 +53,25 @@
     bottom: 0;
     min-width: 100%;
   }
+
+  .carousel-control-prev, .carousel-control-next {
+    cursor: pointer;
+    width: auto;
+    padding: 18px;
+    margin: 17px;
+    font-weight: bold;
+    font-size: 28px;
+    border-radius: 0px 3px 3px 0px;
+    top: 40%;
+    bottom: 40%;
+  }
+
+  .carousel-control-next {
+
+    border-radius: 3px 0 0 3px;
+  }
+
+  .carousel-control-prev:hover, .carousel-control-next:hover {
+    background-color: rgba(0,0,0,0.8);
+  }
+
