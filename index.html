@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta content="width=device-width,initial-scale=1,minimal-ui" name="viewport">
 
-    <title> Craft Beer </title>
+    <title> Fumetti </title>
 
     <!-- implementazione di Material e VueMaterial -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,400italic|Material+Icons">
@@ -51,7 +51,7 @@
           <md-button class="md-icon-button" @click="menuVisible = true" v-if="!menuVisible">
             <md-icon>menu</md-icon>
           </md-button>
-          <span class="md-title">BES Craft Beer</span>
+          <span class="md-title">Fumetti</span>
         </md-app-toolbar>
 
           <!-- definire la struttura del drawer -->
@@ -75,17 +75,17 @@
 
               <router-link tag="md-list-item" to="/prodotti">
                 <md-icon>local_drink</md-icon>
-                <div class="md-list-item-text">Le nostre birre</div>
+                <div class="md-list-item-text">Azione</div>
               </router-link>
 
               <router-link tag="md-list-item" to="/categorie">
                 <md-icon>style</md-icon>
-                <div class="md-list-item-text">Categorie</div>
+                <div class="md-list-item-text">Mistero</div>
               </router-link>
 
               <router-link tag="md-list-item" to="/provenienza">
                 <md-icon>public</md-icon>
-                <div class="md-list-item-text">Birre dal mondo</div>
+                <div class="md-list-item-text">Divertente</div>
               </router-link>
             </md-list>
           </md-app-drawer>
