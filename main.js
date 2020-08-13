@@ -778,38 +778,80 @@ const Divertente = Vue.component('divertente',{
 const Dettaglio = Vue.component('dettaglio',{
     data(){
         return{
-            sezione:"Divertente",
+            sezione:"Dettaglio",
+
+            pagina1: [                 //Questa poi sparisce per fare posto ai dati dinamici
+                {
+                    id:"7",
+                    nome:"Titolo del fumetto",
+                    descrizione:"Descrizione del fumetto",
+                    articolo:"Articolo del fumetto?",
+                    autore:"autore del fumetto"
+                },
+
+            ],
+
+            pagina2: [
+                {
+                    id:"11",
+                    nome:"Titolo del fumetto",
+                    descrizione:"Descrizione del fumetto",
+                    articolo:"Articolo del fumetto?",
+                    autore:"autore del fumetto"
+                },
+    
+            ],
+
+            pagina3: [
+                {
+                    id:"15",
+                    nome:"Titolo del fumetto",
+                    descrizione:"Descrizione del fumetto",
+                    articolo:"Articolo del fumetto?",
+                    autore:"autore del fumetto"
+                },
+            
+            ],
+
+            active: [
+                {
+                    id:"19",
+                    nome:"Titolo del fumetto",
+                    descrizione:"Descrizione del fumetto",
+                    articolo:"Articolo del fumetto?",
+                    autore:"autore del fumetto"
+                },
+
+        ],
          
         }
     },
     template: `
 
+    <div class="slider-container">
+    <span id="slider-image-1"></span>
+    <span id="slider-image-2"></span>
+    <span id="slider-image-3"></span>
+    <span id="slider-image-4"></span>
+    <div class="image-container">
+        <dettaglio-box v-for="product in active" :key="" :item="product" class="slider-image"></dettaglio-box>
+        <dettaglio-box v-for="product in pagina1" :key="" :item="product" class="slider-image"></dettaglio-box>
+        <dettaglio-box v-for="product in pagina2" :key="" :item="product" class="slider-image"></dettaglio-box>
+        <dettaglio-box v-for="product in pagina3" :key="" :item="product" class="slider-image"></dettaglio-box>
+    </div>
+    <div class="button-container">
+        <a href="#slider-image-1" class="slider-change"></a>
+        <a href="#slider-image-2" class="slider-change"></a>
+        <a href="#slider-image-3" class="slider-change"></a>
+        <a href="#slider-image-4" class="slider-change"></a>
+    </div>
+</div>
 
             `
 }
 )
 
 Vue.component("product-box", {
-
-
-
-
-    data(){
-        return{
-            showDialog: false
-        }
-        },
-    methods: {
-        mostra_articolo(){
-            console.log(this.showDialog);
-            this.showDialog = true;
-            console.log(this.showDialog);
-            showDialog=this.showDialog;
-            return showDialog;
-        },
-        },
-
-
 
     template:`
             <md-card class="card" md-with-hover style="width: 240px; 
@@ -840,7 +882,15 @@ Vue.component("product-box", {
 Vue.component("dettaglio-box", {
 
     template:`
-          
+
+
+                    <div>               
+
+                        <img v-bind:src="'https://picsum.photos/240/240?image' + item.id" alt="People" style="padding: 0px;"> 
+                  
+                    </div>
+                
+           
     `,
     props: ['item']
 });
@@ -872,7 +922,4 @@ new Vue({
         var db = firebase.firestore();
         var fumetti = db.collection("fumetti");
         var editore = db.collection("editore");
-        var categorie = db.collection("categorie");
-        var testo_fumetto = db.collection("testo_fumetto");
-        var autore = db.collection("autore");
-        var nome = db.collection("nome");
+        var categoria = db.collection("categorie");
