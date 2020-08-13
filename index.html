@@ -19,7 +19,7 @@
     <script src="https://www.gstatic.com/firebasejs/7.6.2/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/7.6.2/firebase-firestore.js"></script>
 
-
+    <link rel="stylesheet" href="style.css">
 <script>
   // Your web app's Firebase configuration
   var firebaseConfig = {
@@ -46,19 +46,72 @@
 
       <!-- definizione navigation drawer e top bar -->
       <md-app id="app">
-        <md-app-toolbar class="md-primary">
+        <md-app-toolbar id="topbar" class="md-primary" style="padding: 16px; text-align: left;">
           <!-- rende visibile l'icona del menu ad hamburger solo quando il menu è chiuso -->
-          <md-button class="md-icon-button" @click="menuVisible = true" v-if="!menuVisible">
+          <md-button class="md-icon-button" @click="menuVisible = true" v-if="!menuVisible" style="margin-right: 16px;">
             <md-icon>menu</md-icon>
           </md-button>
-          <span class="md-title">Fumetti</span>
+
+          <div> 
+            <md-menu md-size="medium" md-align-trigger>
+              <md-button md-menu-trigger>Marvel</md-button>
+
+              <md-menu-content>
+                <router-link to="/dettaglio"><md-menu-item><md-button>Fumetto1</md-button></md-menu-item></router-link>
+                <router-link to="/dettaglio"><md-menu-item><md-button>Fumetto2</md-button></md-menu-item></router-link>
+                <router-link to="/dettaglio"><md-menu-item><md-button>Fumetto3</md-button></md-menu-item></router-link>
+              </md-menu-content>
+            </md-menu>
+
+            <md-menu md-size="medium" md-align-trigger>
+              <md-button md-menu-trigger>DC</md-button>
+        
+              <md-menu-content>
+                <router-link to="/dettaglio"><md-menu-item><md-button>Fumetto1</md-button></md-menu-item></router-link>
+                <router-link to="/dettaglio"><md-menu-item><md-button>Fumetto2</md-button></md-menu-item></router-link>
+                <router-link to="/dettaglio"><md-menu-item><md-button>Fumetto3</md-button></md-menu-item></router-link>
+              </md-menu-content>
+            </md-menu>
+
+            <md-menu md-size="medium" md-align-trigger> 
+              <md-button md-menu-trigger>Editore</md-button>
+        
+              <md-menu-content>
+                <router-link to="/dettaglio"><md-menu-item><md-button>Fumetto1</md-button></md-menu-item></router-link>
+                <router-link to="/dettaglio"><md-menu-item><md-button>Fumetto2</md-button></md-menu-item></router-link>
+                <router-link to="/dettaglio"><md-menu-item><md-button>Fumetto3</md-button></md-menu-item></router-link>
+              </md-menu-content>
+            </md-menu>
+
+            <md-menu md-size="medium" md-align-trigger>
+              <md-button md-menu-trigger>Editore</md-button>
+        
+              <md-menu-content>
+                <router-link to="/dettaglio"><md-menu-item><md-button>Fumetto1</md-button></md-menu-item></router-link>
+                <router-link to="/dettaglio"><md-menu-item><md-button>Fumetto2</md-button></md-menu-item></router-link>
+                <router-link to="/dettaglio"><md-menu-item><md-button>Fumetto3</md-button></md-menu-item></router-link>
+              </md-menu-content>
+            </md-menu>
+
+            <md-menu md-size="medium" md-align-trigger>
+              <md-button md-menu-trigger>Editore</md-button>
+        
+              <md-menu-content>
+                <router-link to="/dettaglio"><md-menu-item><md-button>Fumetto1</md-button></md-menu-item></router-link>
+                <router-link to="/dettaglio"><md-menu-item><md-button>Fumetto2</md-button></md-menu-item></router-link>
+                <router-link to="/dettaglio"><md-menu-item><md-button>Fumetto3</md-button></md-menu-item></router-link>
+              </md-menu-content>
+            </md-menu>
+          </div>
+    
+
         </md-app-toolbar>
 
           <!-- definire la struttura del drawer -->
           <md-app-drawer md-persistent="full" :md-active.sync="menuVisible">
                                               <!-- attributo associato tramite v-bind -->
             <md-toolbar class="md-transparent" md-elevation="0">
-              <span>Menu</span>
+          
               <div class="md-toolbar-section-end">
                 <!-- chiudere la navigation drawer quando si clicca sulla freccina-->
                 <md-button class="md-icon-button" @click="menuVisible = false">
@@ -73,18 +126,25 @@
                 <div class="md-list-item-text">Home</div>
               </router-link>
 
-              <router-link tag="md-list-item" to="/prodotti">
-                <md-icon>local_drink</md-icon>
+              <hr>
+
+          <md-list-item>
+            <md-icon>category</md-icon>  
+            <span class="md-list-item-text">Categorie</span>
+          </md-list-item>
+
+              <router-link tag="md-list-item" to="/azione">
+                <md-icon></md-icon>
                 <div class="md-list-item-text">Azione</div>
               </router-link>
 
-              <router-link tag="md-list-item" to="/categorie">
-                <md-icon>style</md-icon>
+              <router-link tag="md-list-item" to="/mistero">
+                <md-icon></md-icon>
                 <div class="md-list-item-text">Mistero</div>
               </router-link>
 
-              <router-link tag="md-list-item" to="/provenienza">
-                <md-icon>public</md-icon>
+              <router-link tag="md-list-item" to="/divertente">
+                <md-icon></md-icon>
                 <div class="md-list-item-text">Divertente</div>
               </router-link>
             </md-list>
@@ -1070,5 +1130,10 @@
               });
 
       </script>
+
+<footer class="footer">
+  <p>Copyright © 2020, www.nomedelsito.com</p>
+</footer>
+
   </body>
 </html>
