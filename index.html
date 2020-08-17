@@ -56,7 +56,7 @@
             <md-icon>menu</md-icon>
           </md-button>
 
-          <div> 
+         <!-- <div> 
             <md-menu md-size="medium" md-align-trigger>
               <md-button md-menu-trigger>Marvel</md-button>
 
@@ -106,7 +106,7 @@
                 <router-link to="/dettaglio"><md-menu-item><md-button>Fumetto3</md-button></md-menu-item></router-link>
               </md-menu-content>
             </md-menu>
-          </div>
+          </div> -->
     
 
         </md-app-toolbar>
@@ -130,28 +130,23 @@
                 <div class="md-list-item-text">Home</div>
               </router-link>
 
-              <hr>
-
-          <md-list-item>
-            <md-icon>category</md-icon>  
-            <span class="md-list-item-text">Categorie</span>
-          </md-list-item>
-
-              <router-link tag="md-list-item" to="/azione">
-                <md-icon></md-icon>
-                <div class="md-list-item-text">Azione</div>
+              <router-link tag="md-list-item" to="/fumetti">
+                <md-icon>chrome_reader_mode</md-icon>
+                <div class="md-list-item-text">Tutti i fumetti</div>
               </router-link>
 
-              <router-link tag="md-list-item" to="/mistero">
-                <md-icon></md-icon>
-                <div class="md-list-item-text">Mistero</div>
+              <router-link tag="md-list-item" to="/categorie">
+                <md-icon>category</md-icon>
+                <div class="md-list-item-text">Categorie</div>
               </router-link>
 
-              <router-link tag="md-list-item" to="/divertente">
-                <md-icon></md-icon>
-                <div class="md-list-item-text">Divertente</div>
+              <router-link tag="md-list-item" to="/editori">
+                <md-icon>person</md-icon>
+                <div class="md-list-item-text">Editori</div>
               </router-link>
+
             </md-list>
+
           </md-app-drawer>
 
           <md-app-content>
@@ -159,585 +154,592 @@
           </md-app-content>
       </md-app>
 
-      <!-- template della pagina home -->
-      <template id="home">
-          <div style="padding: 10px 50px">
+     
 
-            <h1 style = "color: #037bff">
-              Ciao! Benvenuto su <b>BES Craft Beer</b>.
-            </h1>
+      
 
-            <h3>
-              Qui trovi le più famose categorie di birre artigianali
-            </h3><br>
 
-            <md-divider></md-divider><br>
+      
+     
+<!-- template della pagina home -->
+<template id="home">
+  <div style="padding: 10px 50px">
 
+    <h1 style = "color: #037bff">
+      Ciao! Benvenuto su <b>BES Craft Beer</b>.
+    </h1>
+
+    <h3>
+      Qui trovi le più famose categorie di birre artigianali
+    </h3><br>
+
+    <md-divider></md-divider><br>
+
+    <span>
+      BES Craft Beer presenta le più famose birre artigianali italiane e straniere, accontentando tutti i gusti bla bla bla hjbjbd jjahvabbjhas hjvj
+    </span><br>
+
+    <span>
+      Ti proponiamo il nostro Web Site che riporta le birre divise secondo le principali categorie  , diverse per provnienza, gusto, aroma, gradazione bla bla
+    </span><br><br>
+
+    <md-divider></md-divider><br>
+
+    <h3>
+      Le categorie in cui abbiamo diviso i nostri prodotti sono le seguenti:
+    </h3>
+    <!-- si collega con il database e recupera la raccolta delle categorie
+    per visualizzare titolo e descrizione bisogna inserire .data perché la query nello script
+    inserisce tutti i dati che recupera dalla raccolta in un array, da cui è escluso solo l'id -->
+    <div v-for = "c in categorie" style = "display:flex; flex-wrap: wrap">
+      <md-list class = "md-double-line">
+        <md-list-item>
+          <div class="md-list-item-text">
+            <span style = "color: #037bff">
+              {{ c.data.titolo }}
+            </span>
             <span>
-              BES Craft Beer presenta le più famose birre artigianali italiane e straniere, accontentando tutti i gusti bla bla bla hjbjbd jjahvabbjhas hjvj
+              {{ c.data.descrizione }}
+            </span>
+          </div>
+        </md-list-item>
+      </md-list>
+    </div>
+
+    <md-divider></md-divider><br>
+
+    <span>
+      Speriamo che tra queste categorie troverete le birre che più soddisfano la vostra sete!
+    </span><br><br>
+
+    <md-divider></md-divider><br><br>
+
+    <h2 style = "text-align: center">
+      <i>Ricordiamo che l'alcol è vietato ai minorenni per legge</i>.
+    </h2>
+
+  </div>
+</template>
+
+<!-- template della pagina di dettaglio dei prodotti -->
+<template id="dettaglio">
+<div style = "display: flex; align-items: center; flex-wrap: wrap">
+  <div class="md-layout-item md-size-50 md-medium-size-50 md-xsmall-size-100">
+    <div>
+        <!-- bottone che permette di tornare alla pagina precedente
+        dicendo al router di tornare alla pagina a cui si trovava l'utente
+        prima di entrare nella pagina di dettaglio -->
+        <md-button @click="$router.go(-1)">
+          <md-icon style="color:black;"> keyboard_arrow_left </md-icon>
+        </md-button>
+    </div>
+
+    <md-card>
+        <md-card-media>
+            <md-ripple>
+              <img :src="fumetto.immagine" alt="L'immagine si sta caricando">
+              <!-- l'attributo src viene collegato all'istanza dei data tramite
+              v-bind, di modo che possa essere aggiornata o recuperata per ogni elemento -->
+            </md-ripple>
+          </md-card-media>
+    </md-card>
+  </div>
+
+    <div class="md-layout-item md-size-50 md-medium-size-50 md-xsmall-size-100">
+      <md-card>
+        <!-- intestazione della card -->
+        <md-card-header>
+          <md-card-header-text>
+            <div class="md-title" style = "color: #037bff; font-weight: bold">
+              {{ fumetto.titolo }}
+            </div>
+            <div class="md-subhead">
+              {{ fumetto.pagina1 }}
+            </div>
+          </md-card-header-text>
+        </md-card-header>
+        <!-- corpo della card -->
+        <md-card-content>
+          <!-- descrizione del prodotto -->
+          <span>
+            {{ fumetto.descrizione }}
+          </span><br><br>
+          <!-- link al prodotto -->
+          <span style = "font-weight: bold">
+            Dove puoi trovare questo prodotto?
+          </span><br>
+          <a :href= "fumetto.link">
+            {{ fumetto.link }}
+          </a><br><br>
+
+          <!-- valutazione media del prodotto se sono presenti voti, messaggio se non sono presenti voti -->
+          <div>
+            <span style = "font-weight: bold">
+              Valutazione media:
             </span><br>
-
-            <span>
-              Ti proponiamo il nostro Web Site che riporta le birre divise secondo le principali categorie  , diverse per provnienza, gusto, aroma, gradazione bla bla
-            </span><br><br>
-
-            <md-divider></md-divider><br>
-
-            <h3>
-              Le categorie in cui abbiamo diviso i nostri prodotti sono le seguenti:
-            </h3>
-            <!-- si collega con il database e recupera la raccolta delle categorie
-            per visualizzare titolo e descrizione bisogna inserire .data perché la query nello script
-            inserisce tutti i dati che recupera dalla raccolta in un array, da cui è escluso solo l'id -->
-            <div v-for = "c in categorie" style = "display:flex; flex-wrap: wrap">
-              <md-list class = "md-double-line">
-                <md-list-item>
-                  <div class="md-list-item-text">
-                    <span style = "color: #037bff">
-                      {{ c.data.titolo }}
-                    </span>
-                    <span>
-                      {{ c.data.descrizione }}
-                    </span>
-                  </div>
-                </md-list-item>
-              </md-list>
-            </div>
-
-            <md-divider></md-divider><br>
-
-            <span>
-              Speriamo che tra queste categorie troverete le birre che più soddisfano la vostra sete!
-            </span><br><br>
-
-            <md-divider></md-divider><br><br>
-
-            <h2 style = "text-align: center">
-              <i>Ricordiamo che l'alcol è vietato ai minorenni per legge</i>.
-            </h2>
-
-          </div>
-      </template>
-
-      <!-- template della pagina di dettaglio dei prodotti -->
-      <template id="dettaglio">
-        <div style = "display: flex; align-items: center; flex-wrap: wrap">
-          <div class="md-layout-item md-size-50 md-medium-size-50 md-xsmall-size-100">
-            <div>
-                <!-- bottone che permette di tornare alla pagina precedente
-                dicendo al router di tornare alla pagina a cui si trovava l'utente
-                prima di entrare nella pagina di dettaglio -->
-                <md-button @click="$router.go(-1)">
-                  <md-icon style="color:black;"> keyboard_arrow_left </md-icon>
-                </md-button>
-            </div>
-
-            <md-card>
-                <md-card-media>
-                    <md-ripple>
-                      <img :src="prodotto.immagine" alt="L'immagine si sta caricando">
-                      <!-- l'attributo src viene collegato all'istanza dei data tramite
-                      v-bind, di modo che possa essere aggiornata o recuperata per ogni elemento -->
-                    </md-ripple>
-                  </md-card-media>
-            </md-card>
-          </div>
-
-            <div class="md-layout-item md-size-50 md-medium-size-50 md-xsmall-size-100">
-              <md-card>
-                <!-- intestazione della card -->
-                <md-card-header>
-                  <md-card-header-text>
-                    <div class="md-title" style = "color: #037bff; font-weight: bold">
-                      {{ prodotto.titolo }}
-                    </div>
-                    <div class="md-subhead">
-                      {{ prodotto.categoria }}
-                    </div>
-                  </md-card-header-text>
-                </md-card-header>
-                <!-- corpo della card -->
-                <md-card-content>
-                  <!-- descrizione del prodotto -->
-                  <span>
-                    {{ prodotto.descrizione }}
-                  </span><br><br>
-                  <!-- link al prodotto -->
-                  <span style = "font-weight: bold">
-                    Dove puoi trovare questo prodotto?
-                  </span><br>
-                  <a :href= "prodotto.link">
-                    {{ prodotto.link }}
-                  </a><br><br>
-
-                  <!-- valutazione media del prodotto se sono presenti voti, messaggio se non sono presenti voti -->
-                  <div>
-                    <span style = "font-weight: bold">
-                      Valutazione media:
-                    </span><br>
-                    <span v-if= "conta_voti > 0">
-                      <span style = "font-weight: bold; color: #037bff">
-                        {{ average + "/5"}}
-                      </span>
-                      <br>
-                      {{ conta_voti }} persone hanno votato questo articolo.
-                    </span>
-                    <span v-else>Nessuno ha ancora votato questo articolo!</span>
-                  </div><br>
-
-                  <!-- visualizzazione commenti -->
-                  <div>
-                    <span style = "font-weight: bold">
-                      Commenti:
-                    </span><br>
-
-                    <div v-if= "lista_commenti.length > 0">
-                    <!-- il codice seguente viene eseguito solamente se sono presenti dei commenti per il prodotto -->
-                      <div v-for="c in lista_commenti">
-                        <!-- gli elementi dispari dell'array (ovvero i nomi dei commentatori), vengono scritti in
-                        corsivo e vengono fatti seguire da un divisore -->
-                        <!-- la funzione .indexOf() restituisce l'indice dell'elemento del ciclo corrente -->
-                          <div v-if = "(lista_commenti.indexOf(c) % 2 !== 0) ">
-                            <span style= "font-style: italic">
-                              {{ c }}
-                            </span>
-                            <md-divider />
-                          </div>
-                          <!-- gli elementi pari dell'array (ovvero il testo dei commenti), vengono visualizzati
-                          normalmente -->
-                          <div v-else>
-                            <span>
-                              {{ c }}
-                            </span>
-                          </div>
-                      </div>
-                    </div>
-
-                    <div v-else>
-                    <!-- il codice seguente viene eseguito solamente se non sono presenti dei commenti per il prodotto -->
-                      <span>
-                        Nessuno ha ancora commentato questo articolo!
-                      </span>
-                    </div>
-                  </div>
-              </md-card-content>
-              </md-card>
-          </div>
-        </div>
-      </template>
-
-
-      <!-- template della pagina dei prodotti -->
-      <template id="prodotti">
-        <div>
-          <!-- visualizzazione di tutti i prodotti presenti nella racclta del database -->
-          <div class="md-layout md-gutter-3">
-            <div v-for="p in prodotti" class="md-layout-item md-size-25 md-medium-size-50 md-xsmall-size-100">
-              <!-- card del prodotto-->
-              <md-card>
-                <router-link tag="div"  :to="'/dettaglio/' + p.id">
-                <!-- collegamento con la pagina del dettaglio del prodotto viene indicata la pagina a cui riferirsi
-                e viene passato il parametro dell'id del prodotto su cui si è cliccato -->
-                  <md-card-media>
-                    <img :src="p.data.immagine">
-                  </md-card-media>
-                </router-link>
-
-                <md-card-header>
-                  <div class="md-title" style = "color: #037bff; font-weight: bold">
-                    {{p.data.titolo}}
-                  </div>
-                  <div class="md-subhead">
-                    {{p.data.categoria}}
-                  </div><br>
-                  <div class="md-subhead">
-                    {{p.data.anteprima}}
-                  </div>
-                </md-card-header>
-
-                <div>
-                  <md-button class = "md-raised" style = "background-color: #037bff; color: white" @click = "mostra_dialog_valutazione(p.id)">Vota</md-button>
-                  <md-button class = "md-raised" style = "background-color: #037bff; color: white" @click = "mostra_dialog_commento(p.id)">Commenta</md-button>
-                  <!-- mostra_dialog_commento e mostra_dialog_valutazione sono due funzioni che prendono in input l'id del prodotto, e
-                  mantenendo l'id cambiano la proprietà delle rispettive dialog box in true per renderle visibili -->
-                </div>
-
-              </md-card><br>
-            </div>
+            <span v-if= "conta_voti > 0">
+              <span style = "font-weight: bold; color: #037bff">
+                {{ average + "/5"}}
+              </span>
+              <br>
+              {{ conta_voti }} persone hanno votato questo articolo.
+            </span>
+            <span v-else>Nessuno ha ancora votato questo articolo!</span>
           </div><br>
 
-          <!-- creazione della dialog box per inserire il commento -->
+          <!-- visualizzazione commenti -->
           <div>
-            <md-dialog :md-active.sync="dialog_commento">
-              <template>
-                <div  style = "padding: 24px 24px 8px 24px">
-                  <!-- intestazione del box di commento -->
-                  <md-dialog-title style = "color: #037bff; font-weight: bold">
-                    Pronto a commentare?
-                  </md-dialog-title>
+            <span style = "font-weight: bold">
+              Commenti:
+            </span><br>
 
-                  <!-- corpo del box di commento -->
-
-                  <!-- testo del commento -->
-                  <md-field>
-                    <label>Inserisci qui il tuo commento!</label>
-                    <md-input v-model="testo_inserito"></md-input>
-                    <!-- v-model attribuisce alla variabile testo_inserito il valore inserito dall'utente -->
-                  </md-field>
-
-                  <!-- nome del commentatore -->
-                  <md-field>
-                    <label>Inserisci qui il tuo nome!</label>
-                    <md-input v-model="nome_inserito"></md-input>
-                    <!-- v-model attribuisce alla variabile nome_inserito il valore inserito dall'utente -->
-                  </md-field>
-
-                  <!-- azioni del box di commento -->
-                  <md-dialog-actions>
-                    <md-button @click="dialog_commento = false">Annulla</md-button>
-                    <!-- chiude il dialog form cambiando la proprietà in false -->
-                    <md-button class = "md-primary" @click="salva_commento" :disabled="!testo_inserito || !nome_inserito">Salva</md-button>
-                    <!-- richiama la funzione salva_commento quando viene cliccato il bottone, che è disattivato se non vengono inseriti
-                    nome e testo del commento -->
-                  </md-dialog-actions>
-                </div>
-
-              </template>
-            </md-dialog>
-
-          </div>
-
-          <!-- creazione della dialog box per inserire il voto -->
-          <div>
-            <md-dialog :md-active.sync="dialog_valutazione">
-              <template>
-                <div style = "padding: 24px">
-                  <!-- intestazione della dialog box di voto -->
-                  <md-dialog-title style = "color: #037bff; font-weight: bold">
-                    Pronto a votare?
-                  </md-dialog-title><br><br>
-                  <md-dialog-subhead>
-                    Usa un numero compreso tra 1 e 5
-                  </md-dialog-subhead>
-
-                  <!-- corpo della dialog box di voto -->
-
-                  <!-- voto dell'utente -->
-                  <md-field>
-                    <label>Inserisci qui il tuo voto!</label>
-                    <md-input v-model="voto_inserito"></md-input>
-                    <!-- v-model attribuisce alla variabile voto_inserito il valore inserito dall'utente -->
-                  </md-field>
-                </div>
-
-                <!-- azioni della dialog box di voto -->
-                <md-dialog-actions>
-                  <md-button @click="dialog_valutazione = false">Annulla</md-button>
-                  <!-- chiude il dialog form cambiando la proprietà in false -->
-                  <md-button class = "md-primary" @click="salva_valutazione" :disabled="!voto_inserito || voto_inserito > 5 || voto_inserito < 1">
-                    Salva
-                  </md-button>
-                  <!-- richiama la funzione salva_valutazione quando viene cliccato il bottone, che è disattivato se non viene inserito
-                  il voto e se questo voto non è un valore numerico compreso tra 1 e 5 -->
-                </md-dialog-actions>
-              </template>
-            </md-dialog>
-
-          </div>
-        </div>
-      </template>
-
-      <!-- template della pagina delle categorie -->
-      <template id="categorie">
-        <div>
-          <div class="md-layout md-gutter-3">
-            <div v-for="c in categorie" class="md-layout-item md-size-20 md-medium-size-50 md-xsmall-size-100">
-            <!-- mostra una card per ogni istanza contenuta nella raccolta categorie del database -->
-              <md-card>
-               <router-link tag="div" :to="'/categoria/' + c.data.titolo">
-                 <!-- il router rimanda alla pagina della specifica categoria che si è cliccata passando come parametro
-                 il titolo della categoria, che deve essere richiamato tramite .data perché fa parte della lista dei dati e
-                 non è l'id -->
-                 <md-card-media md-ratio="16:9">
-                   <img :src="c.data.immagine">
-                 </md-card-media>
-               </router-link>
-                  <!-- intestazione della card -->
-                  <md-card-header>
-                    <div class="md-title" style = "color: #037bff; font-weight: bold">
-                      {{ c.data.titolo }}
-                    </div>
-                  </md-card-header>
-                  <!-- corpo della card -->
-                  <md-card-content>
-                    <div>
-                      {{ c.data.descrizione }}
-                    </div>
-                  </md-card-content>
-                </md-card><br>
-            </div>
-          </div>
-        </div>
-      </template>
-
-      <!-- template della pagina specifica per una categoria -->
-      <template id="categoria">
-        <div>
-          <!-- creazione del bottone che permette di tornare alla pagina precedente -->
-          <div>
-            <md-button @click="$router.go(-1)">
-              <md-icon style="color:black;">
-                keyboard_arrow_left
-              </md-icon>
-            </md-button>
-          </div>
-
-          <div class="md-layout md-gutter-3">
-            <!-- definizione dei breakpoints -->
-            <div v-for="p in prodotti" class="md-layout-item md-size-25 md-medium-size-50 md-xsmall-size-100">
-              <!-- presentazione di una card per ogni prodotto che risponde alla categoria -->
-              <md-card>
-                <router-link tag="div"  :to="'/dettaglio/' + p.id">
-                  <!-- collegamento con la pagina del dettaglio del prodotto viene indicata la pagina a cui riferirsi
-                  e viene passato il parametro dell'id del prodotto su cui si è cliccato -->
-                  <md-card-media>
-                    <img :src="p.data.immagine">
-                  </md-card-media>
-                </router-link>
-
-                <!-- intestazione della card -->
-                <md-card-header>
-                  <div class="md-title" style = "color: #037bff; font-weight: bold">
-                    {{p.data.titolo}}
-                  </div><br>
-                  <div class="md-subhead">
-                    {{p.data.anteprima}}
+            <div v-if= "lista_commenti.length > 0">
+            <!-- il codice seguente viene eseguito solamente se sono presenti dei commenti per il prodotto -->
+              <div v-for="c in lista_commenti">
+                <!-- gli elementi dispari dell'array (ovvero i nomi dei commentatori), vengono scritti in
+                corsivo e vengono fatti seguire da un divisore -->
+                <!-- la funzione .indexOf() restituisce l'indice dell'elemento del ciclo corrente -->
+                  <div v-if = "(lista_commenti.indexOf(c) % 2 !== 0) ">
+                    <span style= "font-style: italic">
+                      {{ c }}
+                    </span>
+                    <md-divider />
                   </div>
-                </md-card-header>
-
-                <div>
-                  <md-button class = "md-raised" style = "background-color: #037bff; color: white" @click = "mostra_dialog_valutazione(p.id)">Vota</md-button>
-                  <md-button class = "md-raised" style = "background-color: #037bff; color: white" @click = "mostra_dialog_commento(p.id)">Commenta</md-button>
-                  <!-- mostra_dialog_commento e mostra_dialog_valutazione sono due funzioni che prendono in input l'id del prodotto, e
-                  mantenendo l'id cambiano la proprietà delle rispettive dialog box in true per renderle visibili -->
-                </div>
-              </md-card><br>
-            </div>
-          </div>
-
-          <!-- creazione della dialog box per inserire il commento -->
-          <div>
-            <md-dialog :md-active.sync="dialog_commento">
-              <template>
-                <div  style = "padding: 24px 24px 8px 24px">
-                  <!-- intestazione della dialog box -->
-                  <md-dialog-title style = "color: #037bff; font-weight: bold">
-                    Pronto a commentare?
-                  </md-dialog-title>
-
-                  <!-- testo del commento -->
-                  <md-field>
-                    <label>Inserisci qui il tuo commento!</label>
-                    <md-input v-model="testo_inserito"></md-input>
-                  </md-field>
-
-                  <!-- nome del commentatore -->
-                  <md-field>
-                    <label>Inserisci qui il tuo nome!</label>
-                    <md-input v-model="nome_inserito"></md-input>
-                  </md-field>
-
-                  <md-dialog-actions>
-                    <md-button @click="dialog_commento = false">Annulla</md-button>
-                    <md-button class = "md-primary" @click="salva_commento" :disabled="!testo_inserito || !nome_inserito">Salva</md-button>
-                    <!-- il bottone è disattivato se non vengono inseriti testo e nome -->
-                  </md-dialog-actions>
-                </div>
-              </template>
-            </md-dialog>
-          </div>
-
-          <!-- creazione della dialog box per inserire il voto -->
-          <div>
-            <md-dialog :md-active.sync="dialog_valutazione">
-              <template>
-                <div style = "padding: 24px">
-                  <md-dialog-title style = "color: #037bff; font-weight: bold">
-                    Pronto a votare?
-                  </md-dialog-title><br><br>
-                  <md-dialog-subhead>
-                    Usa un numero compreso tra 1 e 5
-                  </md-dialog-subhead>
-                  <!-- voto dell'utente -->
-                  <md-field>
-                    <label>Inserisci qui il tuo voto!</label>
-                    <md-input v-model="voto_inserito"></md-input>
-                  </md-field>
-                </div>
-
-                <md-dialog-actions>
-                  <md-button @click="dialog_valutazione = false">Annulla</md-button>
-                  <md-button class = "md-primary" @click="salva_valutazione" :disabled="!voto_inserito || voto_inserito > 5 || voto_inserito < 1">
-                    Salva
-                  </md-button>
-                  <!-- il bottone è disabled se non viene inserito un voto, se viene inserito un numero maggiore di 5 o 0-->
-                </md-dialog-actions>
-              </template>
-            </md-dialog>
-          </div>
-        </div>
-      </template>
-
-      <!--template della pagina provenienza-->
-      <template id="provenienza">
-        <div>
-          <div class="md-layout md-gutter-3">
-            <div v-for="m in provenienza" class="md-layout-item md-size-20 md-medium-size-50 md-xsmall-size-100">
-            <!-- mostra una card per ogni istanza contenuta nella raccolta categorie del database -->
-              <md-card>
-               <router-link tag="div" :to="'/provenienze/' + m.data.paese">
-                 <!-- il router rimanda alla pagina della specifica categoria che si è cliccata passando come parametro
-                 il titolo della categoria, che deve essere richiamato tramite .data perché fa parte della lista dei dati e
-                 non è l'id -->
-                   <md-card-media md-ratio="16:9">
-                     <img :src="m.data.immagine">
-                   </md-card-media>
-                 </router-link>
-                    <!-- intestazione della card -->
-                    <md-card-header>
-                      <div class="md-title" style = "color: #037bff; font-weight: bold">
-                        {{ m.data.paese }}
-                      </div>
-                    </md-card-header>
-                    <!-- corpo della card -->
-                    <md-card-content>
-                      <div>
-                        {{ m.data.descrizione }}
-                      </div>
-                    </md-card-content>
-                  </md-card><br>
+                  <!-- gli elementi pari dell'array (ovvero il testo dei commenti), vengono visualizzati
+                  normalmente -->
+                  <div v-else>
+                    <span>
+                      {{ c }}
+                    </span>
+                  </div>
               </div>
             </div>
-          </div>
-      </template>
 
-      <template id="provenienze">
-        <div>
-          <!-- creazione del bottone che permette di tornare alla pagina precedente -->
-          <div>
-            <md-button @click="$router.go(-1)">
-              <md-icon style="color:black;">
-                keyboard_arrow_left
-              </md-icon>
-            </md-button>
-          </div>
-
-          <div class="md-layout md-gutter-3">
-            <!-- definizione dei breakpoints -->
-            <div v-for="p in prodotti" class="md-layout-item md-size-25 md-medium-size-50 md-xsmall-size-100">
-              <!-- presentazione di una card per ogni prodotto che risponde alla categoria -->
-              <md-card>
-                <router-link tag="div"  :to="'/dettaglio/' + p.id">
-                  <!-- collegamento con la pagina del dettaglio del prodotto viene indicata la pagina a cui riferirsi
-                  e viene passato il parametro dell'id del prodotto su cui si è cliccato -->
-                  <md-card-media>
-                    <img :src="p.data.immagine">
-                  </md-card-media>
-                </router-link>
-
-                <!-- intestazione della card -->
-                <md-card-header>
-                  <div class="md-title" style = "color: #037bff; font-weight: bold">
-                    {{p.data.titolo}}
-                  </div><br>
-                  <div class="md-subhead">
-                    {{p.data.anteprima}}
-                  </div>
-                </md-card-header>
-
-                <div>
-                  <md-button class = "md-raised" style = "background-color: #037bff; color: white" @click = "mostra_dialog_valutazione(p.id)">Vota</md-button>
-                  <md-button class = "md-raised" style = "background-color: #037bff; color: white" @click = "mostra_dialog_commento(p.id)">Commenta</md-button>
-                  <!-- mostra_dialog_commento e mostra_dialog_valutazione sono due funzioni che prendono in input l'id del prodotto, e
-                  mantenendo l'id cambiano la proprietà delle rispettive dialog box in true per renderle visibili -->
-                </div>
-              </md-card><br>
+            <div v-else>
+            <!-- il codice seguente viene eseguito solamente se non sono presenti dei commenti per il prodotto -->
+              <span>
+                Nessuno ha ancora commentato questo articolo!
+              </span>
             </div>
           </div>
+      </md-card-content>
+      </md-card>
+  </div>
+</div>
+</template>
 
-          <!-- creazione della dialog box per inserire il commento -->
-          <div>
-            <md-dialog :md-active.sync="dialog_commento">
-              <template>
-                <div  style = "padding: 24px 24px 8px 24px">
-                  <!-- intestazione della dialog box -->
-                  <md-dialog-title style = "color: #037bff; font-weight: bold">
-                    Pronto a commentare?
-                  </md-dialog-title>
 
-                  <!-- testo del commento -->
-                  <md-field>
-                    <label>Inserisci qui il tuo commento!</label>
-                    <md-input v-model="testo_inserito"></md-input>
-                  </md-field>
+<!-- template della pagina dei prodotti -->
+<template id="fumetti">
+<div>
+  <!-- visualizzazione di tutti i prodotti presenti nella racclta del database -->
+  <div class="md-layout md-gutter-3">
+    <div v-for="f in fumetti" class="md-layout-item md-size-25 md-medium-size-50 md-xsmall-size-100">
+      <!-- card del prodotto-->
+      <md-card>
+        <router-link tag="div"  :to="'/dettaglio/' + f.id">
+        <!-- collegamento con la pagina del dettaglio del prodotto viene indicata la pagina a cui riferirsi
+        e viene passato il parametro dell'id del prodotto su cui si è cliccato -->
+          <md-card-media>
+            <img :src="f.data.immagine">
+          </md-card-media>
+        </router-link>
 
-                  <!-- nome del commentatore -->
-                  <md-field>
-                    <label>Inserisci qui il tuo nome!</label>
-                    <md-input v-model="nome_inserito"></md-input>
-                  </md-field>
-
-                  <md-dialog-actions>
-                    <md-button @click="dialog_commento = false">Annulla</md-button>
-                    <md-button class = "md-primary" @click="salva_commento" :disabled="!testo_inserito || !nome_inserito">Salva</md-button>
-                    <!-- il bottone è disattivato se non vengono inseriti testo e nome -->
-                  </md-dialog-actions>
-                </div>
-              </template>
-            </md-dialog>
+        <md-card-header>
+          <div class="md-title" style = "color: #037bff; font-weight: bold">
+            {{f.data.titolo}}
           </div>
-
-          <!-- creazione della dialog box per inserire il voto -->
-          <div>
-            <md-dialog :md-active.sync="dialog_valutazione">
-              <template>
-                <div style = "padding: 24px">
-                  <md-dialog-title style = "color: #037bff; font-weight: bold">
-                    Pronto a votare?
-                  </md-dialog-title><br><br>
-                  <md-dialog-subhead>
-                    Usa un numero compreso tra 1 e 5
-                  </md-dialog-subhead>
-                  <!-- voto dell'utente -->
-                  <md-field>
-                    <label>Inserisci qui il tuo voto!</label>
-                    <md-input v-model="voto_inserito"></md-input>
-                  </md-field>
-                </div>
-
-                <md-dialog-actions>
-                  <md-button @click="dialog_valutazione = false">Annulla</md-button>
-                  <md-button class = "md-primary" @click="salva_valutazione" :disabled="!voto_inserito || voto_inserito > 5 || voto_inserito < 1">
-                    Salva
-                  </md-button>
-                  <!-- il bottone è disabled se non viene inserito un voto, se viene inserito un numero maggiore di 5 o 0-->
-                </md-dialog-actions>
-              </template>
-            </md-dialog>
+          <div class="md-subhead">
+            {{f.data.descrizione}}
           </div>
+        </md-card-header>
+
+        <div>
+          <md-button class = "md-raised" style = "background-color: #037bff; color: white" @click = "mostra_dialog_valutazione(p.id)">Vota</md-button>
+          <md-button class = "md-raised" style = "background-color: #037bff; color: white" @click = "mostra_dialog_commento(p.id)">Commenta</md-button>
+          <!-- mostra_dialog_commento e mostra_dialog_valutazione sono due funzioni che prendono in input l'id del prodotto, e
+          mantenendo l'id cambiano la proprietà delle rispettive dialog box in true per renderle visibili -->
+        </div>
+
+      </md-card><br>
+    </div>
+  </div><br>
+
+  <!-- creazione della dialog box per inserire il commento -->
+  <div>
+    <md-dialog :md-active.sync="dialog_commento">
+      <template>
+        <div  style = "padding: 24px 24px 8px 24px">
+          <!-- intestazione del box di commento -->
+          <md-dialog-title style = "color: #037bff; font-weight: bold">
+            Pronto a commentare?
+          </md-dialog-title>
+
+          <!-- corpo del box di commento -->
+
+          <!-- testo del commento -->
+          <md-field>
+            <label>Inserisci qui il tuo commento!</label>
+            <md-input v-model="testo_inserito"></md-input>
+            <!-- v-model attribuisce alla variabile testo_inserito il valore inserito dall'utente -->
+          </md-field>
+
+          <!-- nome del commentatore -->
+          <md-field>
+            <label>Inserisci qui il tuo nome!</label>
+            <md-input v-model="nome_inserito"></md-input>
+            <!-- v-model attribuisce alla variabile nome_inserito il valore inserito dall'utente -->
+          </md-field>
+
+          <!-- azioni del box di commento -->
+          <md-dialog-actions>
+            <md-button @click="dialog_commento = false">Annulla</md-button>
+            <!-- chiude il dialog form cambiando la proprietà in false -->
+            <md-button class = "md-primary" @click="salva_commento" :disabled="!testo_inserito || !nome_inserito">Salva</md-button>
+            <!-- richiama la funzione salva_commento quando viene cliccato il bottone, che è disattivato se non vengono inseriti
+            nome e testo del commento -->
+          </md-dialog-actions>
+        </div>
+
+      </template>
+    </md-dialog>
+
+  </div>
+
+  <!-- creazione della dialog box per inserire il voto -->
+  <div>
+    <md-dialog :md-active.sync="dialog_valutazione">
+      <template>
+        <div style = "padding: 24px">
+          <!-- intestazione della dialog box di voto -->
+          <md-dialog-title style = "color: #037bff; font-weight: bold">
+            Pronto a votare?
+          </md-dialog-title><br><br>
+          <md-dialog-subhead>
+            Usa un numero compreso tra 1 e 5
+          </md-dialog-subhead>
+
+          <!-- corpo della dialog box di voto -->
+
+          <!-- voto dell'utente -->
+          <md-field>
+            <label>Inserisci qui il tuo voto!</label>
+            <md-input v-model="voto_inserito"></md-input>
+            <!-- v-model attribuisce alla variabile voto_inserito il valore inserito dall'utente -->
+          </md-field>
+        </div>
+
+        <!-- azioni della dialog box di voto -->
+        <md-dialog-actions>
+          <md-button @click="dialog_valutazione = false">Annulla</md-button>
+          <!-- chiude il dialog form cambiando la proprietà in false -->
+          <md-button class = "md-primary" @click="salva_valutazione" :disabled="!voto_inserito || voto_inserito > 5 || voto_inserito < 1">
+            Salva
+          </md-button>
+          <!-- richiama la funzione salva_valutazione quando viene cliccato il bottone, che è disattivato se non viene inserito
+          il voto e se questo voto non è un valore numerico compreso tra 1 e 5 -->
+        </md-dialog-actions>
+      </template>
+    </md-dialog>
+
+  </div>
+</div>
+</template>
+
+<!-- template della pagina delle categorie -->
+<template id="categorie">
+<div>
+  <div class="md-layout md-gutter-3">
+    <div v-for="c in categorie" class="md-layout-item md-size-20 md-medium-size-50 md-xsmall-size-100">
+    <!-- mostra una card per ogni istanza contenuta nella raccolta categorie del database -->
+      <md-card>
+       <router-link tag="div" :to="'/categoria/' + c.data.titolo">
+         <!-- il router rimanda alla pagina della specifica categoria che si è cliccata passando come parametro
+         il titolo della categoria, che deve essere richiamato tramite .data perché fa parte della lista dei dati e
+         non è l'id -->
+         <md-card-media md-ratio="16:9">
+           <img :src="c.data.immagine">
+         </md-card-media>
+       </router-link>
+          <!-- intestazione della card -->
+          <md-card-header>
+            <div class="md-title" style = "color: #037bff; font-weight: bold">
+              {{ c.data.titolo }}
+            </div>
+          </md-card-header>
+          <!-- corpo della card -->
+          <md-card-content>
+            <div>
+              {{ c.data.descrizione }}
+            </div>
+          </md-card-content>
+        </md-card><br>
+    </div>
+  </div>
+</div>
+</template>
+
+<!-- template della pagina specifica per una categoria -->
+<template id="categoria">
+<div>
+  <!-- creazione del bottone che permette di tornare alla pagina precedente -->
+  <div>
+    <md-button @click="$router.go(-1)">
+      <md-icon style="color:black;">
+        keyboard_arrow_left
+      </md-icon>
+    </md-button>
+  </div>
+
+  <div class="md-layout md-gutter-3">
+    <!-- definizione dei breakpoints -->
+    <div v-for="f in fumetti" class="md-layout-item md-size-25 md-medium-size-50 md-xsmall-size-100">
+      <!-- presentazione di una card per ogni prodotto che risponde alla categoria -->
+      <md-card>
+        <router-link tag="div"  :to="'/dettaglio/' + f.id">
+          <!-- collegamento con la pagina del dettaglio del prodotto viene indicata la pagina a cui riferirsi
+          e viene passato il parametro dell'id del prodotto su cui si è cliccato -->
+          <md-card-media>
+            <img :src="f.data.immagine">
+          </md-card-media>
+        </router-link>
+
+        <!-- intestazione della card -->
+        <md-card-header>
+          <div class="md-title" style = "color: #037bff; font-weight: bold">
+            {{f.data.titolo}}
+          </div><br>
+          <div class="md-subhead">
+            {{f.data.descrizione}}
+          </div>
+        </md-card-header>
+
+        <div>
+          <md-button class = "md-raised" style = "background-color: #037bff; color: white" @click = "mostra_dialog_valutazione(p.id)">Vota</md-button>
+          <md-button class = "md-raised" style = "background-color: #037bff; color: white" @click = "mostra_dialog_commento(p.id)">Commenta</md-button>
+          <!-- mostra_dialog_commento e mostra_dialog_valutazione sono due funzioni che prendono in input l'id del prodotto, e
+          mantenendo l'id cambiano la proprietà delle rispettive dialog box in true per renderle visibili -->
+        </div>
+      </md-card><br>
+    </div>
+  </div>
+
+  <!-- creazione della dialog box per inserire il commento -->
+  <div>
+    <md-dialog :md-active.sync="dialog_commento">
+      <template>
+        <div  style = "padding: 24px 24px 8px 24px">
+          <!-- intestazione della dialog box -->
+          <md-dialog-title style = "color: #037bff; font-weight: bold">
+            Pronto a commentare?
+          </md-dialog-title>
+
+          <!-- testo del commento -->
+          <md-field>
+            <label>Inserisci qui il tuo commento!</label>
+            <md-input v-model="testo_inserito"></md-input>
+          </md-field>
+
+          <!-- nome del commentatore -->
+          <md-field>
+            <label>Inserisci qui il tuo nome!</label>
+            <md-input v-model="nome_inserito"></md-input>
+          </md-field>
+
+          <md-dialog-actions>
+            <md-button @click="dialog_commento = false">Annulla</md-button>
+            <md-button class = "md-primary" @click="salva_commento" :disabled="!testo_inserito || !nome_inserito">Salva</md-button>
+            <!-- il bottone è disattivato se non vengono inseriti testo e nome -->
+          </md-dialog-actions>
         </div>
       </template>
+    </md-dialog>
+  </div>
+
+  <!-- creazione della dialog box per inserire il voto -->
+  <div>
+    <md-dialog :md-active.sync="dialog_valutazione">
+      <template>
+        <div style = "padding: 24px">
+          <md-dialog-title style = "color: #037bff; font-weight: bold">
+            Pronto a votare?
+          </md-dialog-title><br><br>
+          <md-dialog-subhead>
+            Usa un numero compreso tra 1 e 5
+          </md-dialog-subhead>
+          <!-- voto dell'utente -->
+          <md-field>
+            <label>Inserisci qui il tuo voto!</label>
+            <md-input v-model="voto_inserito"></md-input>
+          </md-field>
+        </div>
+
+        <md-dialog-actions>
+          <md-button @click="dialog_valutazione = false">Annulla</md-button>
+          <md-button class = "md-primary" @click="salva_valutazione" :disabled="!voto_inserito || voto_inserito > 5 || voto_inserito < 1">
+            Salva
+          </md-button>
+          <!-- il bottone è disabled se non viene inserito un voto, se viene inserito un numero maggiore di 5 o 0-->
+        </md-dialog-actions>
+      </template>
+    </md-dialog>
+  </div>
+</div>
+</template>
+
+<!--template della pagina provenienza-->
+<template id="editore">
+<div>
+  <div class="md-layout md-gutter-3">
+    <div v-for="e in editore" class="md-layout-item md-size-20 md-medium-size-50 md-xsmall-size-100">
+    <!-- mostra una card per ogni istanza contenuta nella raccolta categorie del database -->
+      <md-card>
+       <router-link tag="div" :to="'/editori/' + e.data.titolo">
+         <!-- il router rimanda alla pagina della specifica categoria che si è cliccata passando come parametro
+         il titolo della categoria, che deve essere richiamato tramite .data perché fa parte della lista dei dati e
+         non è l'id -->
+           <md-card-media md-ratio="16:9">
+             <img :src="e.data.immagine">
+           </md-card-media>
+         </router-link>
+            <!-- intestazione della card -->
+            <md-card-header>
+              <div class="md-title" style = "color: #037bff; font-weight: bold">
+                {{ e.data.titolo }}
+              </div>
+            </md-card-header>
+            <!-- corpo della card -->
+            <md-card-content>
+              <div>
+                {{ e.data.descrizione }}
+              </div>
+            </md-card-content>
+          </md-card><br>
+      </div>
+    </div>
+  </div>
+</template>
+
+<template id="editori">
+<div>
+  <!-- creazione del bottone che permette di tornare alla pagina precedente -->
+  <div>
+    <md-button @click="$router.go(-1)">
+      <md-icon style="color:black;">
+        keyboard_arrow_left
+      </md-icon>
+    </md-button>
+  </div>
+
+  <div class="md-layout md-gutter-3">
+    <!-- definizione dei breakpoints -->
+    <div v-for="f in fumetti" class="md-layout-item md-size-25 md-medium-size-50 md-xsmall-size-100">
+      <!-- presentazione di una card per ogni prodotto che risponde alla categoria -->
+      <md-card>
+        <router-link tag="div"  :to="'/dettaglio/' + f.id">
+          <!-- collegamento con la pagina del dettaglio del prodotto viene indicata la pagina a cui riferirsi
+          e viene passato il parametro dell'id del prodotto su cui si è cliccato -->
+          <md-card-media>
+            <img :src="f.data.immagine">
+          </md-card-media>
+        </router-link>
+
+        <!-- intestazione della card -->
+        <md-card-header>
+          <div class="md-title" style = "color: #037bff; font-weight: bold">
+            {{f.data.titolo}}
+          </div><br>
+          <div class="md-subhead">
+            {{f.data.anteprima}}
+          </div>
+        </md-card-header>
+
+        <div>
+          <md-button class = "md-raised" style = "background-color: #037bff; color: white" @click = "mostra_dialog_valutazione(p.id)">Vota</md-button>
+          <md-button class = "md-raised" style = "background-color: #037bff; color: white" @click = "mostra_dialog_commento(p.id)">Commenta</md-button>
+          <!-- mostra_dialog_commento e mostra_dialog_valutazione sono due funzioni che prendono in input l'id del prodotto, e
+          mantenendo l'id cambiano la proprietà delle rispettive dialog box in true per renderle visibili -->
+        </div>
+      </md-card><br>
+    </div>
+  </div>
+
+  <!-- creazione della dialog box per inserire il commento -->
+  <div>
+    <md-dialog :md-active.sync="dialog_commento">
+      <template>
+        <div  style = "padding: 24px 24px 8px 24px">
+          <!-- intestazione della dialog box -->
+          <md-dialog-title style = "color: #037bff; font-weight: bold">
+            Pronto a commentare?
+          </md-dialog-title>
+
+          <!-- testo del commento -->
+          <md-field>
+            <label>Inserisci qui il tuo commento!</label>
+            <md-input v-model="testo_inserito"></md-input>
+          </md-field>
+
+          <!-- nome del commentatore -->
+          <md-field>
+            <label>Inserisci qui il tuo nome!</label>
+            <md-input v-model="nome_inserito"></md-input>
+          </md-field>
+
+          <md-dialog-actions>
+            <md-button @click="dialog_commento = false">Annulla</md-button>
+            <md-button class = "md-primary" @click="salva_commento" :disabled="!testo_inserito || !nome_inserito">Salva</md-button>
+            <!-- il bottone è disattivato se non vengono inseriti testo e nome -->
+          </md-dialog-actions>
+        </div>
+      </template>
+    </md-dialog>
+  </div>
+
+  <!-- creazione della dialog box per inserire il voto -->
+  <div>
+    <md-dialog :md-active.sync="dialog_valutazione">
+      <template>
+        <div style = "padding: 24px">
+          <md-dialog-title style = "color: #037bff; font-weight: bold">
+            Pronto a votare?
+          </md-dialog-title><br><br>
+          <md-dialog-subhead>
+            Usa un numero compreso tra 1 e 5
+          </md-dialog-subhead>
+          <!-- voto dell'utente -->
+          <md-field>
+            <label>Inserisci qui il tuo voto!</label>
+            <md-input v-model="voto_inserito"></md-input>
+          </md-field>
+        </div>
+
+        <md-dialog-actions>
+          <md-button @click="dialog_valutazione = false">Annulla</md-button>
+          <md-button class = "md-primary" @click="salva_valutazione" :disabled="!voto_inserito || voto_inserito > 5 || voto_inserito < 1">
+            Salva
+          </md-button>
+          <!-- il bottone è disabled se non viene inserito un voto, se viene inserito un numero maggiore di 5 o 0-->
+        </md-dialog-actions>
+      </template>
+    </md-dialog>
+  </div>
+</div>
+</template>
+      
+
+     
+    
 
 
       <!-- codice JavaScript -->
       <script>
         // collegamento al database e definizione delle variabili che contengono i percorsi alle raccolte del database
         var db = firebase.firestore();
-        var prodotti = db.collection("prodotti");
+        var fumetti = db.collection("fumetti");
         var commenti = db.collection("commenti");
         var categorie = db.collection("categorie");
-        var valutazioni = db.collection("valutazioni");
-        var provenienza = db.collection("provenienza");
+        var editori = db.collection("editori");
       </script>
 
       <script>
@@ -748,29 +750,29 @@
           Vue.component('router-view', Vue.options.components.RouterView)
 
           // definizione della pagina prodotti, con azioni commento e valutazione
-          const Prodotti = Vue.component('prodotti', {
-             template: '#prodotti',
+          const Fumetti = Vue.component('fumetti', {
+             template: '#fumetti',
              created: function() {
                var me = this;
                // collegamento al database su Firebase, nella raccolta "prodotti"
                // la query recupera il documento che corrisponde all'id passato nella pagina dei prodotti
                // nel momento in cui si clicca su uno specifico prodotto
                // la funzione crea una lista con tutti i dati di tutte le istanze del database
-               db.collection("prodotti").get().then(function(res) {
+               db.collection("fumetti").get().then(function(res) {
                  const list = [];
-                 res.forEach(function(prodotto) {
-                   list.push({id: prodotto.id, data: prodotto.data()});
+                 res.forEach(function(fumetto) {
+                   list.push({id: fumetto.id, data: fumetto.data()});
                  });
-                 me.prodotti = list;
+                 me.fumetti = list;
                });
              },
              // richiamare i dati dal database
              data: function() {
                return {
                  // permette di accedere all'array dall'esterno, richiamando prima la funzione data
-                 prodotti: [],
+                 fumetti: [],
                  // resetta tutti i campi, di modo da avere il form vuoto
-                 id_prodotto_corrente: null,
+                 id_fumetto_corrente: null,
                  testo_inserito: null,
                  dialog_commento: false,
                  nome_inserito: null,
@@ -783,7 +785,7 @@
                // la funzione permette di visualizzare o chiudere il box di commento relativo all'id del prodotto selezionato
                // e fa sì che tutti i campi vengano resi vuoti quando la dialog box viene chiusa o il commento viene salvato
                mostra_dialog_commento: function(id){
-                 this.id_prodotto_corrente = id;
+                 this.id_fumetto_corrente = id;
                  this.dialog_commento = true;
                  this.testo_inserito = null;
                  this.nome_inserito = null;
@@ -795,7 +797,7 @@
                    db.collection("commenti").add({
                      // aggiunge il commento alla raccolta, inserendo l'id del prodotto, il testo del commento
                      // e il nome del commentatore
-                     id_prodotto: this.id_prodotto_corrente,
+                     id_fumetto: this.id_fumetto_corrente,
                      testo: this.testo_inserito,
                      nome: this.nome_inserito
                    }).then(function() {
@@ -806,7 +808,7 @@
                // la funzione permette di visualizzare o chiudere il box di valutazione relativo all'id del prodotto selezionato
                // e fa sì che tutti i campi vengano resi vuoti quando la dialog box viene chiusa o la valutazione viene salvata
                mostra_dialog_valutazione: function(id){
-                 this.id_prodotto_corrente = id;
+                 this.id_fumetto_corrente = id;
                  this.dialog_valutazione = true;
                  this.voto_inserito = null;
                },
@@ -816,7 +818,7 @@
                  var me = this;
                  db.collection("valutazioni").add({
                    // aggiunge la valutazione alla raccolta, inserendo l'id del prodotto e il voto inserito dall'utente
-                   id_prodotto: this.id_prodotto_corrente,
+                   id_fumetto: this.id_fumetto_corrente,
                    voto: this.voto_inserito
                  }).then(function() {
                    me.dialog_valutazione = false
@@ -836,15 +838,15 @@
                // la query recupera il documento che corrisponde all'id passato nella pagina dei prodotti
                // nel momento in cui si clicca su uno specifico prodotto
                // la funzione associa a "prodotto" i dati recuperati tramite l'id
-               db.collection("prodotti").doc(this.$route.params.id).get().then(function(res){
+               db.collection("fumetti").doc(this.$route.params.id).get().then(function(res){
                  // recupera tutti i dati relativi al prodotto di cui è stato passato l'id come parametro
-                 me.prodotto = res.data();
+                 me.fumetto = res.data();
                });
                // collegamento al database su Firebase, nella raccolta "commenti"
                // la query recupera i dati dell'entrata del database che risponde all'id passato nella pagina
                // dei prodotti nel momento in cui si clicca su uno specifico prodotto
                // la funzione crea una lista che contiene i testi dei commenti e gli username
-               db.collection("commenti").where("id_prodotto", "==", this.$route.params.id).get().then(function(res){
+               db.collection("commenti").where("id_fumetto", "==", this.$route.params.id).get().then(function(res){
                  // inserisce in una lista i campi che interessano, ovvero nome e commento, del prodotto di cui è stato
                  // passato l'id
                  const list = [];
@@ -861,7 +863,7 @@
                // dei prodotti nel momento in cui si clicca su uno specifico prodotto
                // la funzione calcola la media dei voti inseriti dagli utenti e permette di restituire sia la media
                // che il numero totale di voti
-               db.collection("valutazioni").where("id_prodotto", "==", this.$route.params.id).get().then(function(res){
+               db.collection("valutazioni").where("id_fumetto", "==", this.$route.params.id).get().then(function(res){
                  somma = 0;
                  conta = 0;
                  res.forEach(function(r) {
@@ -879,7 +881,7 @@
              // inizializzazione dei dati
              data: function() {
                return {
-                 prodotto: {},
+                 fumetto: {},
                  lista_commenti: [],
                  average: 0,
                  conta_voti: 0
@@ -922,19 +924,19 @@
                //la query recupera i dati delle entrate del database che rispondono alla condizione
                //che abbiano come categoria la categoria che è stata precedentemente cliccata
                //la funzione inserisce i dati di questi prodotti in una lista e permette di richiamarli
-               db.collection("prodotti").where("categoria", "==", this.$route.params.titolo).get().then(function(res){
+               db.collection("fumetti").where("categoria", "==", this.$route.params.titolo).get().then(function(res){
                  const list = [];
                  res.forEach(function(r) {
                    list.push({id: r.id, data: r.data()});
                    // inserisce l'id e i dati in un array
                  });
-                 me.prodotti = list;
+                 me.fumetti = list;
                });
              },
              data: function() {
                return {
-                 prodotti: [],
-                 id_prodotto_corrente: null,
+                 fumetti: [],
+                 id_fumetto_corrente: null,
                  testo_inserito: null,
                  nome_inserito: null,
                  dialog_commento: false,
@@ -946,7 +948,7 @@
                // la funzione permette di visualizzare o chiudere il box di commento relativo all'id del prodotto selezionato
                // e fa sì che tutti i campi vengano resi vuoti quando la dialog box viene chiusa o il commento viene salvato
                mostra_dialog_commento: function(id){
-                 this.id_prodotto_corrente = id;
+                 this.id_fumetto_corrente = id;
                  this.dialog_commento = true;
                  this.testo_inserito = null;
                  this.nome_inserito = null
@@ -956,7 +958,7 @@
                salva_commento: function(){
                  var me = this;
                    db.collection("commenti").add({
-                     id_prodotto: this.id_prodotto_corrente,
+                     id_fumetto: this.id_fumetto_corrente,
                      testo: this.testo_inserito,
                      nome: this.nome_inserito
                    }).then(function() {
@@ -966,7 +968,7 @@
                //la funzione permette di visualizzare o chiudere il box di valutazione relativo all'id del prodotto selezionato
                //e fa sì che tutti i campi vengano resi vuoti quando la dialog box viene chiusa o la valutazione viene salvata
                mostra_dialog_valutazione: function(id){
-                 this.id_prodotto_corrente = id;
+                 this.id_fumetto_corrente = id;
                  this.dialog_valutazione = true;
                  this.voto_inserito = null;
                },
@@ -975,7 +977,7 @@
                salva_valutazione: function(){
                  var me = this;
                  db.collection("valutazioni").add({
-                   id_prodotto: this.id_prodotto_corrente,
+                   id_fumetto: this.id_fumetto_corrente,
                    voto: this.voto_inserito
                  }).then(function() {
                    me.dialog_valutazione = false
@@ -1008,53 +1010,53 @@
             });
 
            // definizione della pagina provenienza
-           const Provenienza = Vue.component('provenienza', {
-             template: '#provenienza',
+           const Editore = Vue.component('editore', {
+             template: '#editore',
              created: function() {
                var me = this;
                // collegamento al database su Firebase, nella raccolta "categorie"
                // la query recupera i dati di tutte le entrate nella raccolta "categorie" e la funzione
                // inserisce i dati all'interno di una lista, prima l'id e poi i dati
-               db.collection("provenienza").get().then(function(res) {
+               db.collection("editore").get().then(function(res) {
                  const list = [];
-                 res.forEach(function(provenienza) {
-                   list.push({id: provenienza.id, data: provenienza.data()});
+                 res.forEach(function(editore) {
+                   list.push({id: editore.id, data: editore.data()});
                    // inserisce l'id e i dati in un array
                  });
-                 me.provenienza = list;
+                 me.editore = list;
                });
              },
              // inizializzazione dei dati
              data: function() {
                return {
-                 provenienza: []
+                 editore: []
                }
 
              },
            });
 
            // definizione della pagina provenienza, con azioni commento e valutazione
-           const Provenienze = Vue.component('provenienze', {
-             template: '#provenienze',
+           const Editori = Vue.component('editori', {
+             template: '#editori',
              created: function() {
                var me = this;
                //collegamento al database su Firebase, nella raccolta "prodotti"
                //la query recupera i dati delle entrate del database che rispondono alla condizione
                //che abbiano come categoria la categoria che è stata precedentemente cliccata
                //la funzione inserisce i dati di questi prodotti in una lista e permette di richiamarli
-               db.collection("prodotti").where("provenienza", "==", this.$route.params.paese).get().then(function(res){
+               db.collection("fumetti").where("editore", "==", this.$route.params.titolo).get().then(function(res){
                  const list = [];
                  res.forEach(function(r) {
                    list.push({id: r.id, data: r.data()});
                    // inserisce l'id e i dati in un array
                  });
-                 me.prodotti = list;
+                 me.fumetti = list;
                });
              },
              data: function() {
                return {
-                 prodotti: [],
-                 id_prodotto_corrente: null,
+                 fumetti: [],
+                 id_fumetto_corrente: null,
                  testo_inserito: null,
                  nome_inserito: null,
                  dialog_commento: false,
@@ -1066,7 +1068,7 @@
                // la funzione permette di visualizzare o chiudere il box di commento relativo all'id del prodotto selezionato
                // e fa sì che tutti i campi vengano resi vuoti quando la dialog box viene chiusa o il commento viene salvato
                mostra_dialog_commento: function(id){
-                 this.id_prodotto_corrente = id;
+                 this.id_fumetto_corrente = id;
                  this.dialog_commento = true;
                  this.testo_inserito = null;
                  this.nome_inserito = null
@@ -1076,7 +1078,7 @@
                salva_commento: function(){
                  var me = this;
                    db.collection("commenti").add({
-                     id_prodotto: this.id_prodotto_corrente,
+                     id_fumetto: this.id_fumetto_corrente,
                      testo: this.testo_inserito,
                      nome: this.nome_inserito
                    }).then(function() {
@@ -1086,7 +1088,7 @@
                //la funzione permette di visualizzare o chiudere il box di valutazione relativo all'id del prodotto selezionato
                //e fa sì che tutti i campi vengano resi vuoti quando la dialog box viene chiusa o la valutazione viene salvata
                mostra_dialog_valutazione: function(id){
-                 this.id_prodotto_corrente = id;
+                 this.id_fumetto_corrente = id;
                  this.dialog_valutazione = true;
                  this.voto_inserito = null;
                },
@@ -1095,7 +1097,7 @@
                salva_valutazione: function(){
                  var me = this;
                  db.collection("valutazioni").add({
-                   id_prodotto: this.id_prodotto_corrente,
+                   id_fumetto: this.id_fumetto_corrente,
                    voto: this.voto_inserito
                  }).then(function() {
                    me.dialog_valutazione = false
@@ -1108,11 +1110,11 @@
           // definizione del router per navigare tra le pagine
             const router = new VueRouter({
                 routes: [
-                  {path: '/prodotti', component: Prodotti},
+                  {path: '/fumetti', component: Fumetti},
                   {path: '/categorie', component: Categorie},
                   {path:'/categoria/:titolo', component: Categoria},
-                  {path: '/provenienza', component: Provenienza},
-                  {path:'/provenienze/:paese', component: Provenienze},
+                  {path: '/editore', component: Editore},
+                  {path:'/editori/:titolo', component: Editori},
                   // l'elemento :titolo è il parametro che permette di recuperare le informazioni
                   // relative a un'unica categoria e visualizzar la pagina relativa
                   {path: '/dettaglio/:id', component: Dettaglio},
