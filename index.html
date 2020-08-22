@@ -166,7 +166,7 @@
   <div style="padding: 10px 50px">
 
     <h1 style = "color: #037bff">
-      Ciao! Benvenuto su <b>BES Craft Beer</b>.
+      Benvenuti su NOME DI STO COSO!</b>
     </h1>
 
     <h3>
@@ -588,13 +588,13 @@
 </template>
 
 <!--template della pagina provenienza-->
-<template id="editore">
+<template id="editori">
 <div>
   <div class="md-layout md-gutter-3">
-    <div v-for="e in editore" class="md-layout-item md-size-20 md-medium-size-50 md-xsmall-size-100">
+    <div v-for="e in editori" class="md-layout-item md-size-20 md-medium-size-50 md-xsmall-size-100">
     <!-- mostra una card per ogni istanza contenuta nella raccolta categorie del database -->
       <md-card>
-       <router-link tag="div" :to="'/editori/' + e.data.titolo">
+       <router-link tag="div" :to="'/editore/' + e.data.titolo">
          <!-- il router rimanda alla pagina della specifica categoria che si è cliccata passando come parametro
          il titolo della categoria, che deve essere richiamato tramite .data perché fa parte della lista dei dati e
          non è l'id -->
@@ -620,7 +620,7 @@
   </div>
 </template>
 
-<template id="editori">
+<template id="editore">
 <div>
   <!-- creazione del bottone che permette di tornare alla pagina precedente -->
   <div>
@@ -1010,34 +1010,34 @@
             });
 
            // definizione della pagina provenienza
-           const Editore = Vue.component('editore', {
-             template: '#editore',
+           const Editori = Vue.component('editori', {
+             template: '#editori',
              created: function() {
                var me = this;
                // collegamento al database su Firebase, nella raccolta "categorie"
                // la query recupera i dati di tutte le entrate nella raccolta "categorie" e la funzione
                // inserisce i dati all'interno di una lista, prima l'id e poi i dati
-               db.collection("editore").get().then(function(res) {
+               db.collection("editori").get().then(function(res) {
                  const list = [];
-                 res.forEach(function(editore) {
-                   list.push({id: editore.id, data: editore.data()});
+                 res.forEach(function(editori) {
+                   list.push({id: editori.id, data: editori.data()});
                    // inserisce l'id e i dati in un array
                  });
-                 me.editore = list;
+                 me.editori = list;
                });
              },
              // inizializzazione dei dati
              data: function() {
                return {
-                 editore: []
+                 editori: []
                }
 
              },
            });
 
            // definizione della pagina provenienza, con azioni commento e valutazione
-           const Editori = Vue.component('editori', {
-             template: '#editori',
+           const Editore = Vue.component('editore', {
+             template: '#editore',
              created: function() {
                var me = this;
                //collegamento al database su Firebase, nella raccolta "prodotti"
@@ -1113,8 +1113,8 @@
                   {path: '/fumetti', component: Fumetti},
                   {path: '/categorie', component: Categorie},
                   {path:'/categoria/:titolo', component: Categoria},
-                  {path: '/editore', component: Editore},
-                  {path:'/editori/:titolo', component: Editori},
+                  {path: '/editori', component: Editori},
+                  {path:'/editore/:titolo', component: Editore},
                   // l'elemento :titolo è il parametro che permette di recuperare le informazioni
                   // relative a un'unica categoria e visualizzar la pagina relativa
                   {path: '/dettaglio/:id', component: Dettaglio},
