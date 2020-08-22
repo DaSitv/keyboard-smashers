@@ -334,34 +334,32 @@
 <div>
   <!-- visualizzazione di tutti i prodotti presenti nella racclta del database -->
   <div class="md-layout md-gutter-3">
-    <div v-for="f in fumetti" class="md-layout-item md-size-25 md-medium-size-50 md-xsmall-size-100">
+    <div v-for="f in fumetti">
       <!-- card del prodotto-->
-      <md-card>
-        <router-link tag="div"  :to="'/dettaglio/' + f.id">
-        <!-- collegamento con la pagina del dettaglio del prodotto viene indicata la pagina a cui riferirsi
-        e viene passato il parametro dell'id del prodotto su cui si è cliccato -->
-          <md-card-media>
-            <img :src="f.data.immagine">
-          </md-card-media>
-        </router-link>
+      <md-card class="card" md-with-hover style="width: 240px; 
+                                                 height: 240px; 
+                                                 display: inline-block; 
+                                                 margin: 16px; 
+                                                 padding: 0px; 
+                                                 vertical-align: top;
+                                                 background-color: darkgray;">
 
-        <md-card-header>
-          <div class="md-title" style = "color: #037bff; font-weight: bold">
-            {{f.data.titolo}}
+        <md-ripple>
+          
+          <router-link tag="div"  :to="'/dettaglio/' + f.id">
+
+          <div class="card-inner">               
+            <img :src="f.data.immagine" alt="People" style="padding: 0px;"> 
+
+            <div class="card-content" style="margin: 16px;">
+              <h1>{{f.data.titolo}}</h1>
+              <p>{{f.data.descrizione}}</p>
+            </div>
+            
           </div>
-          <div class="md-subhead">
-            {{f.data.descrizione}}
-          </div>
-        </md-card-header>
+        </md-ripple>
+      </md-card>
 
-        <div>
-          <md-button class = "md-raised" style = "background-color: #037bff; color: white" @click = "mostra_dialog_valutazione(p.id)">Vota</md-button>
-          <md-button class = "md-raised" style = "background-color: #037bff; color: white" @click = "mostra_dialog_commento(p.id)">Commenta</md-button>
-          <!-- mostra_dialog_commento e mostra_dialog_valutazione sono due funzioni che prendono in input l'id del prodotto, e
-          mantenendo l'id cambiano la proprietà delle rispettive dialog box in true per renderle visibili -->
-        </div>
-
-      </md-card><br>
     </div>
   </div><br>
 
@@ -450,30 +448,32 @@
 <template id="categorie">
 <div>
   <div class="md-layout md-gutter-3">
-    <div v-for="c in categorie" class="md-layout-item md-size-20 md-medium-size-50 md-xsmall-size-100">
+    <div v-for="c in categorie">
     <!-- mostra una card per ogni istanza contenuta nella raccolta categorie del database -->
-      <md-card>
-       <router-link tag="div" :to="'/categoria/' + c.data.titolo">
-         <!-- il router rimanda alla pagina della specifica categoria che si è cliccata passando come parametro
-         il titolo della categoria, che deve essere richiamato tramite .data perché fa parte della lista dei dati e
-         non è l'id -->
-         <md-card-media md-ratio="16:9">
-           <img :src="c.data.immagine">
-         </md-card-media>
-       </router-link>
-          <!-- intestazione della card -->
-          <md-card-header>
-            <div class="md-title" style = "color: #037bff; font-weight: bold">
-              {{ c.data.titolo }}
+      <md-card class="card" md-with-hover style="width: 240px; 
+                                                 height: 240px; 
+                                                 display: inline-block; 
+                                                 margin: 16px; 
+                                                 padding: 0px; 
+                                                 vertical-align: top;
+                                                 background-color: darkgray;">
+
+        <md-ripple>
+
+          <router-link tag="div" :to="'/categoria/' + c.data.titolo">
+            
+            <div class="card-inner">              
+              <img :src="c.data.immagine" alt="People" style="padding: 0px;"> 
+
+                <div class="card-content" style="margin: 16px;">
+                  <h1>{{c.data.titolo}}</h1>
+                  <p>{{c.data.descrizione}}</p>
+                </div>
+
             </div>
-          </md-card-header>
-          <!-- corpo della card -->
-          <md-card-content>
-            <div>
-              {{ c.data.descrizione }}
-            </div>
-          </md-card-content>
-        </md-card><br>
+        </md-ripple>
+      </md-card>
+
     </div>
   </div>
 </div>
@@ -591,30 +591,32 @@
 <template id="editori">
 <div>
   <div class="md-layout md-gutter-3">
-    <div v-for="e in editori" class="md-layout-item md-size-20 md-medium-size-50 md-xsmall-size-100">
+    <div v-for="e in editori">
     <!-- mostra una card per ogni istanza contenuta nella raccolta categorie del database -->
-      <md-card>
-       <router-link tag="div" :to="'/editore/' + e.data.titolo">
-         <!-- il router rimanda alla pagina della specifica categoria che si è cliccata passando come parametro
-         il titolo della categoria, che deve essere richiamato tramite .data perché fa parte della lista dei dati e
-         non è l'id -->
-           <md-card-media md-ratio="16:9">
-             <img :src="e.data.immagine">
-           </md-card-media>
-         </router-link>
-            <!-- intestazione della card -->
-            <md-card-header>
-              <div class="md-title" style = "color: #037bff; font-weight: bold">
-                {{ e.data.titolo }}
+      <md-card class="card" md-with-hover style="width: 240px; 
+                                                 height: 240px; 
+                                                 display: inline-block; 
+                                                 margin: 16px; 
+                                                 padding: 0px; 
+                                                 vertical-align: top;
+                                                 background-color: darkgray;">
+
+        <md-ripple>
+                
+          <router-link tag="div" :to="'/editore/' + e.data.titolo">  
+
+            <div class="card-inner">               
+              <img :src="e.data.immagine" alt="People" style="padding: 0px;"> 
+
+              <div class="card-content" style="margin: 16px;">
+                <h1>{{e.data.titolo}}</h1>
+                <p>{{e.data.descrizione}}</p>
               </div>
-            </md-card-header>
-            <!-- corpo della card -->
-            <md-card-content>
-              <div>
-                {{ e.data.descrizione }}
-              </div>
-            </md-card-content>
-          </md-card><br>
+
+            </div>
+        </md-ripple>
+      </md-card>
+
       </div>
     </div>
   </div>
