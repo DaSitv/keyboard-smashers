@@ -154,13 +154,7 @@
           </md-app-content>
       </md-app>
 
-     
-
-      
-
-
-      
-     
+    
 <!-- template della pagina home -->
 <template id="home">
   <div style="padding: 10px 50px">
@@ -331,47 +325,47 @@
 
 <!-- template della pagina dei prodotti -->
 <template id="fumetti">
-<div>
-  <!-- visualizzazione di tutti i prodotti presenti nella racclta del database -->
-  <div class="md-layout md-gutter-3">
-    <div v-for="f in fumetti">
-      <!-- card del prodotto-->
-      <md-card class="card" md-with-hover style="width: 240px; 
-                                                 height: 240px; 
-                                                 display: inline-block; 
-                                                 margin: 16px; 
-                                                 padding: 0px; 
-                                                 vertical-align: top;
-                                                 background-color: darkgray;">
+  <div>
+    <!-- visualizzazione di tutti i prodotti presenti nella racclta del database -->
+    <div class="md-layout md-gutter-3">
+      <div v-for="f in fumetti">
+        <!-- card del prodotto-->
+        <md-card class="card" md-with-hover style="width: 350px; 
+                                                   height: 500px; 
+                                                   display: inline-block; 
+                                                   margin: 16px; 
+                                                   padding: 0px; 
+                                                   vertical-align: top;
+                                                   background-color: darkgray;">
 
-        <md-ripple>
+          <md-ripple>
           
-          <router-link tag="div"  :to="'/dettaglio/' + f.id">
+            <router-link tag="div"  :to="'/dettaglio/' + f.id">
 
-          <div class="card-inner">               
-            <img :src="f.data.immagine" alt="People" style="padding: 0px;"> 
+            <div class="card-inner">               
+              <img :src="f.data.immagine" alt="People" style="padding: 0px;"> 
 
-            <div class="card-content" style="margin: 16px;">
-              <h1>{{f.data.titolo}}</h1>
-              <p>{{f.data.descrizione}}</p>
-            </div>
+              <div class="card-content" style="margin: 16px;">
+                <h1>{{f.data.titolo}}</h1>
+                <p>{{f.data.descrizione}}</p>
+              </div>
             
-          </div>
-        </md-ripple>
-      </md-card>
+            </div>
+          </md-ripple>
+        </md-card>
 
+      </div>
     </div>
   </div>
-</div>
 </template>
 
 <!-- template della pagina delle categorie -->
 <template id="categorie">
-<div>
-  <div class="md-layout md-gutter-3">
-    <div v-for="c in categorie">
-    <!-- mostra una card per ogni istanza contenuta nella raccolta categorie del database -->
-      <md-card class="card" md-with-hover style="width: 240px; 
+  <div>
+    <div class="md-layout md-gutter-3">
+      <div v-for="c in categorie">
+      <!-- mostra una card per ogni istanza contenuta nella raccolta categorie del database -->
+        <md-card class="card" md-with-hover style="width: 240px; 
                                                  height: 240px; 
                                                  display: inline-block; 
                                                  margin: 16px; 
@@ -379,9 +373,9 @@
                                                  vertical-align: top;
                                                  background-color: darkgray;">
 
-        <md-ripple>
+          <md-ripple>
 
-          <router-link tag="div" :to="'/categoria/' + c.data.titolo">
+            <router-link tag="div" :to="'/categoria/' + c.data.titolo">
             
             <div class="card-inner">              
               <img :src="c.data.immagine" alt="People" style="padding: 0px;"> 
@@ -392,12 +386,12 @@
                 </div>
 
             </div>
-        </md-ripple>
-      </md-card>
+          </md-ripple>
+        </md-card>
 
+      </div>
     </div>
   </div>
-</div>
 </template>
 
 <!-- template della pagina specifica per una categoria -->
@@ -416,8 +410,8 @@
     <!-- definizione dei breakpoints -->
     <div v-for="f in fumetti">
       <!-- presentazione di una card per ogni prodotto che risponde alla categoria -->
-      <md-card class="card" md-with-hover style="width: 240px; 
-                                                 height: 240px; 
+      <md-card class="card" md-with-hover style="width: 350px; 
+                                                 height: 500px; 
                                                  display: inline-block; 
                                                  margin: 16px; 
                                                  padding: 0px; 
@@ -447,21 +441,21 @@
 
 <!--template della pagina provenienza-->
 <template id="editori">
-<div>
-  <div class="md-layout md-gutter-3">
-    <div v-for="e in editori">
-    <!-- mostra una card per ogni istanza contenuta nella raccolta categorie del database -->
-      <md-card class="card" md-with-hover style="width: 240px; 
-                                                 height: 240px; 
-                                                 display: inline-block; 
-                                                 margin: 16px; 
-                                                 padding: 0px; 
-                                                 vertical-align: top;
-                                                 background-color: darkgray;">
+  <div>
+    <div class="md-layout md-gutter-3">
+      <div v-for="e in editori">
+      <!-- mostra una card per ogni istanza contenuta nella raccolta categorie del database -->
+        <md-card class="card" md-with-hover style="width: 240px; 
+                                                   height: 240px; 
+                                                   display: inline-block; 
+                                                   margin: 16px; 
+                                                   padding: 0px; 
+                                                   vertical-align: top;
+                                                   background-color: darkgray;">
 
-        <md-ripple>
+          <md-ripple>
                 
-          <router-link tag="div" :to="'/editore/' + e.data.titolo">  
+            <router-link tag="div" :to="'/editore/' + e.data.titolo">  
 
             <div class="card-inner">               
               <img :src="e.data.immagine" alt="People" style="padding: 0px;"> 
@@ -472,8 +466,8 @@
               </div>
 
             </div>
-        </md-ripple>
-      </md-card>
+          </md-ripple>
+        </md-card>
 
       </div>
     </div>
@@ -481,47 +475,47 @@
 </template>
 
 <template id="editore">
-<div>
-  <!-- creazione del bottone che permette di tornare alla pagina precedente -->
   <div>
-    <md-button @click="$router.go(-1)">
-      <md-icon style="color:black;">
-        keyboard_arrow_left
-      </md-icon>
-    </md-button>
-  </div>
+    <!-- creazione del bottone che permette di tornare alla pagina precedente -->
+    <div>
+      <md-button @click="$router.go(-1)">
+        <md-icon style="color:black;">
+          keyboard_arrow_left
+        </md-icon>
+      </md-button>
+    </div>
 
-  <div class="md-layout md-gutter-3">
-    <!-- definizione dei breakpoints -->
-    <div v-for="f in fumetti" class="md-layout-item md-size-25 md-medium-size-50 md-xsmall-size-100">
-      <!-- presentazione di una card per ogni prodotto che risponde alla categoria -->
-      <md-card class="card" md-with-hover style="width: 240px; 
-                                                 height: 320px; 
-                                                 display: inline-block; 
-                                                 margin: 16px; 
-                                                 padding: 0px; 
-                                                 vertical-align: top;
-                                                 background-color: darkgray;">
+    <div class="md-layout md-gutter-3">
+      <!-- definizione dei breakpoints -->
+      <div v-for="f in fumetti" class="md-layout-item md-size-25 md-medium-size-50 md-xsmall-size-100">
+        <!-- presentazione di una card per ogni prodotto che risponde alla categoria -->
+        <md-card class="card" md-with-hover style="width: 350px; 
+                                                  height: 500px; 
+                                                  display: inline-block; 
+                                                  margin: 16px; 
+                                                  padding: 0px; 
+                                                  vertical-align: top;
+                                                  background-color: darkgray;">
 
-        <md-ripple>
+          <md-ripple>
           
-          <router-link tag="div"  :to="'/dettaglio/' + f.id">
+            <router-link tag="div"  :to="'/dettaglio/' + f.id">
 
-          <div class="card-inner">               
-            <img :src="f.data.immagine" alt="People" style="padding: 0px;"> 
+            <div class="card-inner">               
+              <img :src="f.data.immagine" alt="People" style="padding: 0px;"> 
 
-            <div class="card-content" style="margin: 16px;">
-              <h1>{{f.data.titolo}}</h1>
-              <p>{{f.data.descrizione}}</p>
-            </div>
+              <div class="card-content" style="margin: 16px;">
+                <h1>{{f.data.titolo}}</h1>
+                <p>{{f.data.descrizione}}</p>
+              </div>
             
-          </div>
-        </md-ripple>
-      </md-card>
+            </div>
+          </md-ripple>
+        </md-card>
 
+      </div>
     </div>
   </div>
-</div>
 </template>
       
 
