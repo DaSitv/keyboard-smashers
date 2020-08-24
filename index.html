@@ -361,85 +361,6 @@
       </md-card>
 
     </div>
-  </div><br>
-
-  <!-- creazione della dialog box per inserire il commento -->
-  <div>
-    <md-dialog :md-active.sync="dialog_commento">
-      <template>
-        <div  style = "padding: 24px 24px 8px 24px">
-          <!-- intestazione del box di commento -->
-          <md-dialog-title style = "color: #037bff; font-weight: bold">
-            Pronto a commentare?
-          </md-dialog-title>
-
-          <!-- corpo del box di commento -->
-
-          <!-- testo del commento -->
-          <md-field>
-            <label>Inserisci qui il tuo commento!</label>
-            <md-input v-model="testo_inserito"></md-input>
-            <!-- v-model attribuisce alla variabile testo_inserito il valore inserito dall'utente -->
-          </md-field>
-
-          <!-- nome del commentatore -->
-          <md-field>
-            <label>Inserisci qui il tuo nome!</label>
-            <md-input v-model="nome_inserito"></md-input>
-            <!-- v-model attribuisce alla variabile nome_inserito il valore inserito dall'utente -->
-          </md-field>
-
-          <!-- azioni del box di commento -->
-          <md-dialog-actions>
-            <md-button @click="dialog_commento = false">Annulla</md-button>
-            <!-- chiude il dialog form cambiando la proprietà in false -->
-            <md-button class = "md-primary" @click="salva_commento" :disabled="!testo_inserito || !nome_inserito">Salva</md-button>
-            <!-- richiama la funzione salva_commento quando viene cliccato il bottone, che è disattivato se non vengono inseriti
-            nome e testo del commento -->
-          </md-dialog-actions>
-        </div>
-
-      </template>
-    </md-dialog>
-
-  </div>
-
-  <!-- creazione della dialog box per inserire il voto -->
-  <div>
-    <md-dialog :md-active.sync="dialog_valutazione">
-      <template>
-        <div style = "padding: 24px">
-          <!-- intestazione della dialog box di voto -->
-          <md-dialog-title style = "color: #037bff; font-weight: bold">
-            Pronto a votare?
-          </md-dialog-title><br><br>
-          <md-dialog-subhead>
-            Usa un numero compreso tra 1 e 5
-          </md-dialog-subhead>
-
-          <!-- corpo della dialog box di voto -->
-
-          <!-- voto dell'utente -->
-          <md-field>
-            <label>Inserisci qui il tuo voto!</label>
-            <md-input v-model="voto_inserito"></md-input>
-            <!-- v-model attribuisce alla variabile voto_inserito il valore inserito dall'utente -->
-          </md-field>
-        </div>
-
-        <!-- azioni della dialog box di voto -->
-        <md-dialog-actions>
-          <md-button @click="dialog_valutazione = false">Annulla</md-button>
-          <!-- chiude il dialog form cambiando la proprietà in false -->
-          <md-button class = "md-primary" @click="salva_valutazione" :disabled="!voto_inserito || voto_inserito > 5 || voto_inserito < 1">
-            Salva
-          </md-button>
-          <!-- richiama la funzione salva_valutazione quando viene cliccato il bottone, che è disattivato se non viene inserito
-          il voto e se questo voto non è un valore numerico compreso tra 1 e 5 -->
-        </md-dialog-actions>
-      </template>
-    </md-dialog>
-
   </div>
 </div>
 </template>
@@ -493,96 +414,33 @@
 
   <div class="md-layout md-gutter-3">
     <!-- definizione dei breakpoints -->
-    <div v-for="f in fumetti" class="md-layout-item md-size-25 md-medium-size-50 md-xsmall-size-100">
+    <div v-for="f in fumetti">
       <!-- presentazione di una card per ogni prodotto che risponde alla categoria -->
-      <md-card>
-        <router-link tag="div"  :to="'/dettaglio/' + f.id">
-          <!-- collegamento con la pagina del dettaglio del prodotto viene indicata la pagina a cui riferirsi
-          e viene passato il parametro dell'id del prodotto su cui si è cliccato -->
-          <md-card-media>
-            <img :src="f.data.immagine">
-          </md-card-media>
-        </router-link>
+      <md-card class="card" md-with-hover style="width: 240px; 
+                                                 height: 240px; 
+                                                 display: inline-block; 
+                                                 margin: 16px; 
+                                                 padding: 0px; 
+                                                 vertical-align: top;
+                                                 background-color: darkgray;">
 
-        <!-- intestazione della card -->
-        <md-card-header>
-          <div class="md-title" style = "color: #037bff; font-weight: bold">
-            {{f.data.titolo}}
-          </div><br>
-          <div class="md-subhead">
-            {{f.data.descrizione}}
+        <md-ripple>
+          
+          <router-link tag="div"  :to="'/dettaglio/' + f.id">
+
+          <div class="card-inner">               
+            <img :src="f.data.immagine" alt="People" style="padding: 0px;"> 
+
+            <div class="card-content" style="margin: 16px;">
+              <h1>{{f.data.titolo}}</h1>
+              <p>{{f.data.descrizione}}</p>
+            </div>
+            
           </div>
-        </md-card-header>
+        </md-ripple>
+      </md-card>
 
-        <div>
-          <md-button class = "md-raised" style = "background-color: #037bff; color: white" @click = "mostra_dialog_valutazione(p.id)">Vota</md-button>
-          <md-button class = "md-raised" style = "background-color: #037bff; color: white" @click = "mostra_dialog_commento(p.id)">Commenta</md-button>
-          <!-- mostra_dialog_commento e mostra_dialog_valutazione sono due funzioni che prendono in input l'id del prodotto, e
-          mantenendo l'id cambiano la proprietà delle rispettive dialog box in true per renderle visibili -->
-        </div>
-      </md-card><br>
     </div>
-  </div>
-
-  <!-- creazione della dialog box per inserire il commento -->
-  <div>
-    <md-dialog :md-active.sync="dialog_commento">
-      <template>
-        <div  style = "padding: 24px 24px 8px 24px">
-          <!-- intestazione della dialog box -->
-          <md-dialog-title style = "color: #037bff; font-weight: bold">
-            Pronto a commentare?
-          </md-dialog-title>
-
-          <!-- testo del commento -->
-          <md-field>
-            <label>Inserisci qui il tuo commento!</label>
-            <md-input v-model="testo_inserito"></md-input>
-          </md-field>
-
-          <!-- nome del commentatore -->
-          <md-field>
-            <label>Inserisci qui il tuo nome!</label>
-            <md-input v-model="nome_inserito"></md-input>
-          </md-field>
-
-          <md-dialog-actions>
-            <md-button @click="dialog_commento = false">Annulla</md-button>
-            <md-button class = "md-primary" @click="salva_commento" :disabled="!testo_inserito || !nome_inserito">Salva</md-button>
-            <!-- il bottone è disattivato se non vengono inseriti testo e nome -->
-          </md-dialog-actions>
-        </div>
-      </template>
-    </md-dialog>
-  </div>
-
-  <!-- creazione della dialog box per inserire il voto -->
-  <div>
-    <md-dialog :md-active.sync="dialog_valutazione">
-      <template>
-        <div style = "padding: 24px">
-          <md-dialog-title style = "color: #037bff; font-weight: bold">
-            Pronto a votare?
-          </md-dialog-title><br><br>
-          <md-dialog-subhead>
-            Usa un numero compreso tra 1 e 5
-          </md-dialog-subhead>
-          <!-- voto dell'utente -->
-          <md-field>
-            <label>Inserisci qui il tuo voto!</label>
-            <md-input v-model="voto_inserito"></md-input>
-          </md-field>
-        </div>
-
-        <md-dialog-actions>
-          <md-button @click="dialog_valutazione = false">Annulla</md-button>
-          <md-button class = "md-primary" @click="salva_valutazione" :disabled="!voto_inserito || voto_inserito > 5 || voto_inserito < 1">
-            Salva
-          </md-button>
-          <!-- il bottone è disabled se non viene inserito un voto, se viene inserito un numero maggiore di 5 o 0-->
-        </md-dialog-actions>
-      </template>
-    </md-dialog>
   </div>
 </div>
 </template>
@@ -637,94 +495,31 @@
     <!-- definizione dei breakpoints -->
     <div v-for="f in fumetti" class="md-layout-item md-size-25 md-medium-size-50 md-xsmall-size-100">
       <!-- presentazione di una card per ogni prodotto che risponde alla categoria -->
-      <md-card>
-        <router-link tag="div"  :to="'/dettaglio/' + f.id">
-          <!-- collegamento con la pagina del dettaglio del prodotto viene indicata la pagina a cui riferirsi
-          e viene passato il parametro dell'id del prodotto su cui si è cliccato -->
-          <md-card-media>
-            <img :src="f.data.immagine">
-          </md-card-media>
-        </router-link>
+      <md-card class="card" md-with-hover style="width: 240px; 
+                                                 height: 320px; 
+                                                 display: inline-block; 
+                                                 margin: 16px; 
+                                                 padding: 0px; 
+                                                 vertical-align: top;
+                                                 background-color: darkgray;">
 
-        <!-- intestazione della card -->
-        <md-card-header>
-          <div class="md-title" style = "color: #037bff; font-weight: bold">
-            {{f.data.titolo}}
-          </div><br>
-          <div class="md-subhead">
-            {{f.data.anteprima}}
+        <md-ripple>
+          
+          <router-link tag="div"  :to="'/dettaglio/' + f.id">
+
+          <div class="card-inner">               
+            <img :src="f.data.immagine" alt="People" style="padding: 0px;"> 
+
+            <div class="card-content" style="margin: 16px;">
+              <h1>{{f.data.titolo}}</h1>
+              <p>{{f.data.descrizione}}</p>
+            </div>
+            
           </div>
-        </md-card-header>
+        </md-ripple>
+      </md-card>
 
-        <div>
-          <md-button class = "md-raised" style = "background-color: #037bff; color: white" @click = "mostra_dialog_valutazione(p.id)">Vota</md-button>
-          <md-button class = "md-raised" style = "background-color: #037bff; color: white" @click = "mostra_dialog_commento(p.id)">Commenta</md-button>
-          <!-- mostra_dialog_commento e mostra_dialog_valutazione sono due funzioni che prendono in input l'id del prodotto, e
-          mantenendo l'id cambiano la proprietà delle rispettive dialog box in true per renderle visibili -->
-        </div>
-      </md-card><br>
     </div>
-  </div>
-
-  <!-- creazione della dialog box per inserire il commento -->
-  <div>
-    <md-dialog :md-active.sync="dialog_commento">
-      <template>
-        <div  style = "padding: 24px 24px 8px 24px">
-          <!-- intestazione della dialog box -->
-          <md-dialog-title style = "color: #037bff; font-weight: bold">
-            Pronto a commentare?
-          </md-dialog-title>
-
-          <!-- testo del commento -->
-          <md-field>
-            <label>Inserisci qui il tuo commento!</label>
-            <md-input v-model="testo_inserito"></md-input>
-          </md-field>
-
-          <!-- nome del commentatore -->
-          <md-field>
-            <label>Inserisci qui il tuo nome!</label>
-            <md-input v-model="nome_inserito"></md-input>
-          </md-field>
-
-          <md-dialog-actions>
-            <md-button @click="dialog_commento = false">Annulla</md-button>
-            <md-button class = "md-primary" @click="salva_commento" :disabled="!testo_inserito || !nome_inserito">Salva</md-button>
-            <!-- il bottone è disattivato se non vengono inseriti testo e nome -->
-          </md-dialog-actions>
-        </div>
-      </template>
-    </md-dialog>
-  </div>
-
-  <!-- creazione della dialog box per inserire il voto -->
-  <div>
-    <md-dialog :md-active.sync="dialog_valutazione">
-      <template>
-        <div style = "padding: 24px">
-          <md-dialog-title style = "color: #037bff; font-weight: bold">
-            Pronto a votare?
-          </md-dialog-title><br><br>
-          <md-dialog-subhead>
-            Usa un numero compreso tra 1 e 5
-          </md-dialog-subhead>
-          <!-- voto dell'utente -->
-          <md-field>
-            <label>Inserisci qui il tuo voto!</label>
-            <md-input v-model="voto_inserito"></md-input>
-          </md-field>
-        </div>
-
-        <md-dialog-actions>
-          <md-button @click="dialog_valutazione = false">Annulla</md-button>
-          <md-button class = "md-primary" @click="salva_valutazione" :disabled="!voto_inserito || voto_inserito > 5 || voto_inserito < 1">
-            Salva
-          </md-button>
-          <!-- il bottone è disabled se non viene inserito un voto, se viene inserito un numero maggiore di 5 o 0-->
-        </md-dialog-actions>
-      </template>
-    </md-dialog>
   </div>
 </div>
 </template>
