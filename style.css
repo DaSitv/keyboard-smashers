@@ -1,24 +1,21 @@
-#topbar {
-    text-align: center;
-}
 
-.barra_titolo { 
-    padding: 35px;
-    margin: 20px;
-    margin-bottom: 60px;
-    margin-top: 30px;
-    /*box-shadow: 0 0 2px 0 rgba(0, 0, 0, 0.2), 0 2px 2px 0 rgba(0, 0, 0, 0.24);*/
-    max-width: 1200px;
+  #topbar { 
     font-family: UnifrakturCook;
     font-weight: lighter;
-    font-size: 60px;
-    letter-spacing: 15px;
-    word-spacing: 20px;
-}
+    font-size: 40px;
+    letter-spacing: 8px;
+    word-spacing: 22px;
+    height: 90px;
+  }
 
-.card {
+  .card {
     background-color: darkgrey;
     border: 1px solid #f1f1f1;
+    display: inline-block; 
+    margin: 16px; 
+    padding: 0px; 
+    vertical-align: top;
+    background-color: darkgray;
   }
   
   .card-inner {
@@ -32,11 +29,13 @@
   
   .card:hover .card-inner {
     transform: translateY(-180px);
-  } 
+  }
 
   .card-content {
     color: #f1f1f1;
     background-color: darkgray;
+    margin: 16px;
+    margin-top: 32px;
   }
 
   .footer {
@@ -49,7 +48,7 @@
     min-width: 100%;
   }
 
-  .carousel-control-prev, .carousel-control-next {
+  /* .carousel-control-prev, .carousel-control-next {
     cursor: pointer;
     width: auto;
     padding: 18px;
@@ -62,10 +61,19 @@
   }
 
   .carousel-control-next {
-
     border-radius: 3px 0 0 3px;
   }
 
   .carousel-control-prev:hover, .carousel-control-next:hover {
     background-color: rgba(0,0,0,0.8);
+  } */
+
+  .immagine_dettaglio {
+    max-height: 500px; 
+    max-width: 350px;
+  }
+
+  .titolo {
+    margin-left: 64px;
+    color: whitesmoke;
   }

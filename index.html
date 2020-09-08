@@ -56,6 +56,8 @@
             <md-icon>menu</md-icon>
           </md-button>
 
+          <md-title class="titolo">Nome del Sito</md-title>
+
          <!-- <div> 
             <md-menu md-size="medium" md-align-trigger>
               <md-button md-menu-trigger>Marvel</md-button>
@@ -228,13 +230,13 @@
         </md-button>
     </div>
 
-    <md-card>
+    <md-card class="immagine_dettaglio">
         <md-card-media>
-            <md-ripple>
+     
               <img :src="fumetto.immagine" alt="L'immagine si sta caricando">
               <!-- l'attributo src viene collegato all'istanza dei data tramite
               v-bind, di modo che possa essere aggiornata o recuperata per ogni elemento -->
-            </md-ripple>
+  
           </md-card-media>
     </md-card>
   </div>
@@ -248,7 +250,7 @@
               {{ fumetto.titolo }}
             </div>
             <div class="md-subhead">
-              {{ fumetto.pagina1 }}
+              {{ fumetto.disegnatore }}
             </div>
           </md-card-header-text>
         </md-card-header>
@@ -256,7 +258,7 @@
         <md-card-content>
           <!-- descrizione del prodotto -->
           <span>
-            {{ fumetto.descrizione }}
+            {{ fumetto.descrizione_dettaglio }}
           </span><br><br>
           <!-- link al prodotto -->
           <span style = "font-weight: bold">
@@ -269,16 +271,16 @@
           <!-- valutazione media del prodotto se sono presenti voti, messaggio se non sono presenti voti -->
           <div>
             <span style = "font-weight: bold">
-              Valutazione media:
+              Voto medio:
             </span><br>
-            <span v-if= "conta_voti > 0">
+            <span v-if= "numero_voti > 0">
               <span style = "font-weight: bold; color: #037bff">
-                {{ average + "/5"}}
+                {{ media + "/5"}}
               </span>
               <br>
-              {{ conta_voti }} persone hanno votato questo articolo.
+              {{ numero_voti }} persone hanno votato questo articolo.
             </span>
-            <span v-else>Nessuno ha ancora votato questo articolo!</span>
+            <span v-else>Nessuno ha ancora votato questo fumetto!</span>
           </div><br>
 
           <!-- visualizzazione commenti -->
@@ -312,7 +314,7 @@
             <div v-else>
             <!-- il codice seguente viene eseguito solamente se non sono presenti dei commenti per il prodotto -->
               <span>
-                Nessuno ha ancora commentato questo articolo!
+                Nessuno ha ancora commentato questo fumetto!
               </span>
             </div>
           </div>
@@ -321,7 +323,6 @@
   </div>
 </div>
 </template>
-
 
 <!-- template della pagina dei prodotti -->
 <template id="fumetti">
@@ -332,10 +333,6 @@
         <!-- card del prodotto-->
         <md-card class="card" md-with-hover style="width: 350px; 
                                                    height: 500px; 
-                                                   display: inline-block; 
-                                                   margin: 16px; 
-                                                   padding: 0px; 
-                                                   vertical-align: top;
                                                    background-color: darkgray;">
 
           <md-ripple>
@@ -343,18 +340,80 @@
             <router-link tag="div"  :to="'/dettaglio/' + f.id">
 
             <div class="card-inner">               
-              <img :src="f.data.immagine" alt="People" style="padding: 0px;"> 
+              <img :src="f.data.immagine" alt="L'immagine si sta caricando..." style="padding: 0px;"> 
 
-              <div class="card-content" style="margin: 16px;">
+              <div class="card-content">
                 <h1>{{f.data.titolo}}</h1>
                 <p>{{f.data.descrizione}}</p>
               </div>
-            
-            </div>
+            </div>       
           </md-ripple>
-        </md-card>
-
+        </md-card><br>
+        <div>
+          <md-button class = "md-raised" style = "background-color: #037bff; color: white; margin-left: 16px;" @click = "mostra_scheda_voto(f.id)">&#9733</md-button>
+          <md-button class = "md-raised" style = "background-color: #037bff; color: white; margin-left: 16px;" @click = "mostra_scheda_commento(f.id)">Commenta</md-button>
       </div>
+      </div>
+    </div>
+    <!-- creazione della dialog box per inserire il commento -->
+    <div>
+      <md-dialog :md-active.sync="scheda_commento">
+        <template>
+          <div  style = "padding: 24px 24px 8px 24px">
+            <!-- intestazione della dialog box -->
+            <md-dialog-title style = "color: #037bff; font-weight: bold">
+              Pronto a commentare?
+            </md-dialog-title>
+
+            <!-- testo del commento -->
+            <md-field>
+              <label>Inserisci qui il tuo commento!</label>
+              <md-input v-model="testo_questo"></md-input>
+            </md-field>
+
+            <!-- nome del commentatore -->
+            <md-field>
+              <label>Inserisci qui il tuo nome!</label>
+              <md-input v-model="nome_questo"></md-input>
+            </md-field>
+
+            <md-dialog-actions>
+              <md-button @click="scheda_commento = false">Annulla</md-button>
+              <md-button class = "md-primary" @click="salva_commento" :disabled="!testo_questo || !nome_questo">Salva</md-button>
+              <!-- il bottone è disattivato se non vengono inseriti testo e nome -->
+            </md-dialog-actions>
+          </div>
+        </template>
+      </md-dialog>
+    </div>
+
+    <!-- creazione della dialog box per inserire il voto -->
+    <div>
+      <md-dialog :md-active.sync="scheda_voto">
+        <template>
+          <div style = "padding: 24px">
+            <md-dialog-title style = "color: #037bff; font-weight: bold">
+              Pronto a votare?
+            </md-dialog-title><br><br>
+            <md-dialog-subhead>
+              Usa un numero compreso tra 1 e 5
+            </md-dialog-subhead>
+            <!-- voto dell'utente -->
+            <md-field>
+              <label>Inserisci qui il tuo voto!</label>
+              <md-input v-model="voto_questo"></md-input>
+            </md-field>
+          </div>
+
+          <md-dialog-actions>
+            <md-button @click="scheda_voto = false">Annulla</md-button>
+            <md-button class = "md-primary" @click="salva_voto" :disabled="!voto_questo || voto_questo > 5 || voto_questo < 1">
+              Salva
+            </md-button>
+            <!-- il bottone è disabled se non viene inserito un voto, se viene inserito un numero maggiore di 5 o 0-->
+          </md-dialog-actions>
+        </template>
+      </md-dialog>
     </div>
   </div>
 </template>
@@ -366,21 +425,17 @@
       <div v-for="c in categorie">
       <!-- mostra una card per ogni istanza contenuta nella raccolta categorie del database -->
         <md-card class="card" md-with-hover style="width: 240px; 
-                                                 height: 240px; 
-                                                 display: inline-block; 
-                                                 margin: 16px; 
-                                                 padding: 0px; 
-                                                 vertical-align: top;
-                                                 background-color: darkgray;">
+                                                   height: 240px;        
+                                                   background-color: darkgray;">
 
           <md-ripple>
 
             <router-link tag="div" :to="'/categoria/' + c.data.titolo">
             
             <div class="card-inner">              
-              <img :src="c.data.immagine" alt="People" style="padding: 0px;"> 
+              <img :src="c.data.immagine" alt="L'immagine si sta caricando..." style="padding: 0px;"> 
 
-                <div class="card-content" style="margin: 16px;">
+                <div class="card-content">
                   <h1>{{c.data.titolo}}</h1>
                   <p>{{c.data.descrizione}}</p>
                 </div>
@@ -411,11 +466,7 @@
     <div v-for="f in fumetti">
       <!-- presentazione di una card per ogni prodotto che risponde alla categoria -->
       <md-card class="card" md-with-hover style="width: 350px; 
-                                                 height: 500px; 
-                                                 display: inline-block; 
-                                                 margin: 16px; 
-                                                 padding: 0px; 
-                                                 vertical-align: top;
+                                                 height: 500px;
                                                  background-color: darkgray;">
 
         <md-ripple>
@@ -423,7 +474,7 @@
           <router-link tag="div"  :to="'/dettaglio/' + f.id">
 
           <div class="card-inner">               
-            <img :src="f.data.immagine" alt="People" style="padding: 0px;"> 
+            <img :src="f.data.immagine" alt="L'immagine si sta caricando..." style="padding: 0px;"> 
 
             <div class="card-content" style="margin: 16px;">
               <h1>{{f.data.titolo}}</h1>
@@ -432,10 +483,73 @@
             
           </div>
         </md-ripple>
-      </md-card>
-
+      </md-card><br>
+        <div>
+        <md-button class = "md-raised" style = "background-color: #037bff; color: white; margin-left: 16px;" @click = "mostra_scheda_voto(f.id)">&#9733</md-button>
+        <md-button class = "md-raised" style = "background-color: #037bff; color: white; margin-left: 16px;" @click = "mostra_scheda_commento(f.id)">Commenta</md-button>
+      </div>
     </div>
   </div>
+<!-- creazione della dialog box per inserire il commento -->
+<div>
+  <md-dialog :md-active.sync="scheda_commento">
+    <template>
+      <div  style = "padding: 24px 24px 8px 24px">
+        <!-- intestazione della dialog box -->
+        <md-dialog-title style = "color: #037bff; font-weight: bold">
+          Pronto a commentare?
+        </md-dialog-title>
+
+        <!-- testo del commento -->
+        <md-field>
+          <label>Inserisci qui il tuo commento!</label>
+          <md-input v-model="testo_questo"></md-input>
+        </md-field>
+
+        <!-- nome del commentatore -->
+        <md-field>
+          <label>Inserisci qui il tuo nome!</label>
+          <md-input v-model="nome_questo"></md-input>
+        </md-field>
+
+        <md-dialog-actions>
+          <md-button @click="scheda_commento = false">Annulla</md-button>
+          <md-button class = "md-primary" @click="salva_commento" :disabled="!testo_questo || !nome_questo">Salva</md-button>
+          <!-- il bottone è disattivato se non vengono inseriti testo e nome -->
+        </md-dialog-actions>
+      </div>
+    </template>
+  </md-dialog>
+</div>
+
+<!-- creazione della dialog box per inserire il voto -->
+<div>
+  <md-dialog :md-active.sync="scheda_voto">
+    <template>
+      <div style = "padding: 24px">
+        <md-dialog-title style = "color: #037bff; font-weight: bold">
+          Pronto a votare?
+        </md-dialog-title><br><br>
+        <md-dialog-subhead>
+          Usa un numero compreso tra 1 e 5
+        </md-dialog-subhead>
+        <!-- voto dell'utente -->
+        <md-field>
+          <label>Inserisci qui il tuo voto!</label>
+          <md-input v-model="voto_questo"></md-input>
+        </md-field>
+      </div>
+
+      <md-dialog-actions>
+        <md-button @click="scheda_voto = false">Annulla</md-button>
+        <md-button class = "md-primary" @click="salva_voto" :disabled="!voto_questo || voto_questo > 5 || voto_questo < 1">
+          Salva
+        </md-button>
+        <!-- il bottone è disabled se non viene inserito un voto, se viene inserito un numero maggiore di 5 o 0-->
+      </md-dialog-actions>
+    </template>
+  </md-dialog>
+</div>
 </div>
 </template>
 
@@ -447,10 +561,6 @@
       <!-- mostra una card per ogni istanza contenuta nella raccolta categorie del database -->
         <md-card class="card" md-with-hover style="width: 240px; 
                                                    height: 240px; 
-                                                   display: inline-block; 
-                                                   margin: 16px; 
-                                                   padding: 0px; 
-                                                   vertical-align: top;
                                                    background-color: darkgray;">
 
           <md-ripple>
@@ -458,7 +568,7 @@
             <router-link tag="div" :to="'/editore/' + e.data.titolo">  
 
             <div class="card-inner">               
-              <img :src="e.data.immagine" alt="People" style="padding: 0px;"> 
+              <img :src="e.data.immagine" alt="L'immagine si sta caricando..." style="padding: 0px;"> 
 
               <div class="card-content" style="margin: 16px;">
                 <h1>{{e.data.titolo}}</h1>
@@ -490,19 +600,15 @@
       <div v-for="f in fumetti" class="md-layout-item md-size-25 md-medium-size-50 md-xsmall-size-100">
         <!-- presentazione di una card per ogni prodotto che risponde alla categoria -->
         <md-card class="card" md-with-hover style="width: 350px; 
-                                                  height: 500px; 
-                                                  display: inline-block; 
-                                                  margin: 16px; 
-                                                  padding: 0px; 
-                                                  vertical-align: top;
-                                                  background-color: darkgray;">
+                                                   height: 500px;
+                                                   background-color: darkgray;">
 
           <md-ripple>
           
             <router-link tag="div"  :to="'/dettaglio/' + f.id">
 
             <div class="card-inner">               
-              <img :src="f.data.immagine" alt="People" style="padding: 0px;"> 
+              <img :src="f.data.immagine" alt="L'immagine si sta caricando" style="padding: 0px;"> 
 
               <div class="card-content" style="margin: 16px;">
                 <h1>{{f.data.titolo}}</h1>
@@ -511,10 +617,73 @@
             
             </div>
           </md-ripple>
-        </md-card>
-
+        </md-card><br>
+        <div>
+          <md-button class = "md-raised" style = "background-color: #037bff; color: white; margin-left: 16px;" @click = "mostra_scheda_voto(f.id)">&#9733</md-button>
+          <md-button class = "md-raised" style = "background-color: #037bff; color: white; margin-left: 16px;" @click = "mostra_scheda_commento(f.id)">Commenta</md-button>
+      </div>
       </div>
     </div>
+              <!-- creazione della dialog box per inserire il commento -->
+              <div>
+                <md-dialog :md-active.sync="scheda_commento">
+                  <template>
+                    <div  style = "padding: 24px 24px 8px 24px">
+                      <!-- intestazione della dialog box -->
+                      <md-dialog-title style = "color: #037bff; font-weight: bold">
+                        Pronto a commentare?
+                      </md-dialog-title>
+    
+                      <!-- testo del commento -->
+                      <md-field>
+                        <label>Inserisci qui il tuo commento!</label>
+                        <md-input v-model="testo_questo"></md-input>
+                      </md-field>
+    
+                      <!-- nome del commentatore -->
+                      <md-field>
+                        <label>Inserisci qui il tuo nome!</label>
+                        <md-input v-model="nome_questo"></md-input>
+                      </md-field>
+    
+                      <md-dialog-actions>
+                        <md-button @click="scheda_commento = false">Annulla</md-button>
+                        <md-button class = "md-primary" @click="salva_commento" :disabled="!testo_questo || !nome_questo">Salva</md-button>
+                        <!-- il bottone è disattivato se non vengono inseriti testo e nome -->
+                      </md-dialog-actions>
+                    </div>
+                  </template>
+                </md-dialog>
+              </div>
+    
+              <!-- creazione della dialog box per inserire il voto -->
+              <div>
+                <md-dialog :md-active.sync="scheda_voto">
+                  <template>
+                    <div style = "padding: 24px">
+                      <md-dialog-title style = "color: #037bff; font-weight: bold">
+                        Pronto a votare?
+                      </md-dialog-title><br><br>
+                      <md-dialog-subhead>
+                        Usa un numero compreso tra 1 e 5
+                      </md-dialog-subhead>
+                      <!-- voto dell'utente -->
+                      <md-field>
+                        <label>Inserisci qui il tuo voto!</label>
+                        <md-input v-model="voto_questo"></md-input>
+                      </md-field>
+                    </div>
+    
+                    <md-dialog-actions>
+                      <md-button @click="scheda_voto = false">Annulla</md-button>
+                      <md-button class = "md-primary" @click="salva_voto" :disabled="!voto_questo || voto_questo > 5 || voto_questo < 1">
+                        Salva
+                      </md-button>
+                      <!-- il bottone è disabled se non viene inserito un voto, se viene inserito un numero maggiore di 5 o 0-->
+                    </md-dialog-actions>
+                  </template>
+                </md-dialog>
+              </div>
   </div>
 </template>
       
@@ -529,6 +698,7 @@
         var db = firebase.firestore();
         var fumetti = db.collection("fumetti");
         var commenti = db.collection("commenti");
+        var voti = db.collection("voti");
         var categorie = db.collection("categorie");
         var editori = db.collection("editori");
       </script>
@@ -540,84 +710,29 @@
           Vue.component('router-link', Vue.options.components.RouterLink)
           Vue.component('router-view', Vue.options.components.RouterView)
 
-          // definizione della pagina prodotti, con azioni commento e valutazione
-          const Fumetti = Vue.component('fumetti', {
-             template: '#fumetti',
-             created: function() {
-               var me = this;
-               // collegamento al database su Firebase, nella raccolta "prodotti"
-               // la query recupera il documento che corrisponde all'id passato nella pagina dei prodotti
-               // nel momento in cui si clicca su uno specifico prodotto
-               // la funzione crea una lista con tutti i dati di tutte le istanze del database
-               db.collection("fumetti").get().then(function(res) {
-                 const list = [];
-                 res.forEach(function(fumetto) {
-                   list.push({id: fumetto.id, data: fumetto.data()});
-                 });
-                 me.fumetti = list;
-               });
-             },
-             // richiamare i dati dal database
-             data: function() {
-               return {
-                 // permette di accedere all'array dall'esterno, richiamando prima la funzione data
-                 fumetti: [],
-                 // resetta tutti i campi, di modo da avere il form vuoto
-                 id_fumetto_corrente: null,
-                 testo_inserito: null,
-                 dialog_commento: false,
-                 nome_inserito: null,
-                 voto_inserito: null,
-                 dialog_valutazione: false
-               }
-             },
-             // creare il commento e la valutazione
-             methods: {
-               // la funzione permette di visualizzare o chiudere il box di commento relativo all'id del prodotto selezionato
-               // e fa sì che tutti i campi vengano resi vuoti quando la dialog box viene chiusa o il commento viene salvato
-               mostra_dialog_commento: function(id){
-                 this.id_fumetto_corrente = id;
-                 this.dialog_commento = true;
-                 this.testo_inserito = null;
-                 this.nome_inserito = null;
-               },
-               // la query inserisce nel database nella raccolta "commenti" i campi richiesti dal form
-               // una volta fatto, chiude la dialog box
-               salva_commento: function(){
-                 var me = this;
-                   db.collection("commenti").add({
-                     // aggiunge il commento alla raccolta, inserendo l'id del prodotto, il testo del commento
-                     // e il nome del commentatore
-                     id_fumetto: this.id_fumetto_corrente,
-                     testo: this.testo_inserito,
-                     nome: this.nome_inserito
-                   }).then(function() {
-                     // finito di inserire i dati, chiude la dialog box
-                     me.dialog_commento = false
-                   })
-               },
-               // la funzione permette di visualizzare o chiudere il box di valutazione relativo all'id del prodotto selezionato
-               // e fa sì che tutti i campi vengano resi vuoti quando la dialog box viene chiusa o la valutazione viene salvata
-               mostra_dialog_valutazione: function(id){
-                 this.id_fumetto_corrente = id;
-                 this.dialog_valutazione = true;
-                 this.voto_inserito = null;
-               },
-               // la query inserisce nel database nella raccolta "valutazioni" il voto inserito nel form
-               // una volta fatto, chiude la dialog box
-               salva_valutazione: function(){
-                 var me = this;
-                 db.collection("valutazioni").add({
-                   // aggiunge la valutazione alla raccolta, inserendo l'id del prodotto e il voto inserito dall'utente
-                   id_fumetto: this.id_fumetto_corrente,
-                   voto: this.voto_inserito
-                 }).then(function() {
-                   me.dialog_valutazione = false
-                   // finito di inserire i dati, chiude la dialog box
-                 })
-               }
-             }
-           });
+
+           // definizione della pagina home
+           const Home = Vue.component('home', {
+              template: '#home',
+              created: function() {
+                var me = this;
+                //la query recupera tutte le entrate della raccolta "categorie" del database inserendo i
+                //dati in una lista
+                db.collection("categorie").get().then(function(res) {
+                  const list = [];
+                  res.forEach(function(categoria) {
+                    list.push({id: categoria.id, data: categoria.data()});
+                  });
+                  me.categorie = list;
+                });
+              },
+              // inizializzazione dei dati
+              data: function() {
+                return {
+                  categorie: []
+                }
+              },
+            });
 
            // definizione della pagina dettaglio, con azioni di visualizzazione dei commenti
            // e della valutazione media
@@ -637,7 +752,7 @@
                // la query recupera i dati dell'entrata del database che risponde all'id passato nella pagina
                // dei prodotti nel momento in cui si clicca su uno specifico prodotto
                // la funzione crea una lista che contiene i testi dei commenti e gli username
-               db.collection("commenti").where("id_fumetto", "==", this.$route.params.id).get().then(function(res){
+               db.collection("commenti").where("id", "==", this.$route.params.id).get().then(function(res){
                  // inserisce in una lista i campi che interessano, ovvero nome e commento, del prodotto di cui è stato
                  // passato l'id
                  const list = [];
@@ -654,17 +769,17 @@
                // dei prodotti nel momento in cui si clicca su uno specifico prodotto
                // la funzione calcola la media dei voti inseriti dagli utenti e permette di restituire sia la media
                // che il numero totale di voti
-               db.collection("valutazioni").where("id_fumetto", "==", this.$route.params.id).get().then(function(res){
+               db.collection("voti").where("id", "==", this.$route.params.id).get().then(function(res){
                  somma = 0;
-                 conta = 0;
+                 numero = 0;
                  res.forEach(function(r) {
                    // parseInt serve a trasformare il voto inserito, che è in formato stringa, in formato numerico
                    somma += parseInt(r.data().voto);
-                   conta++;
+                   numero++;
                  });
-                 if (conta > 0) {
-                   me.average = somma/conta;
-                   me.conta_voti = conta;
+                 if (numero > 0) {
+                   me.media = somma/numero;
+                   me.numero_voti = numero;
                }
 
                });
@@ -674,8 +789,89 @@
                return {
                  fumetto: {},
                  lista_commenti: [],
-                 average: 0,
-                 conta_voti: 0
+                 media: 0,
+                 numero_voti: 0
+               }
+             }
+           });
+
+          // definizione della pagina prodotti, con azioni commento e valutazione
+          const Fumetti = Vue.component('fumetti', {
+             template: '#fumetti',
+             created: function() {
+               var me = this;
+               // collegamento al database su Firebase, nella raccolta "prodotti"
+               // la query recupera il documento che corrisponde all'id passato nella pagina dei prodotti
+               // nel momento in cui si clicca su uno specifico prodotto
+               // la funzione crea una lista con tutti i dati di tutte le istanze del database
+               db.collection("fumetti").get().then(function(res) {
+                 const list = [];
+                 res.forEach(function(fumetto) {
+                   list.push({id: fumetto.id, data: fumetto.data()});
+                 });
+                 me.fumetti = list;
+               });
+
+             },
+             
+             // richiamare i dati dal database
+             data: function() {
+               return {
+                 // permette di accedere all'array dall'esterno, richiamando prima la funzione data
+                 fumetti: [],
+                 // resetta tutti i campi, di modo da avere il form vuoto
+                 id_questo: null,
+                 testo_questo: null,
+                 scheda_commento: false,
+                 nome_questo: null,
+                 voto_questo: null,
+                 scheda_voto: false
+               }
+             },
+             // creare il commento e la valutazione
+             methods: {
+               // la funzione permette di visualizzare o chiudere il box di commento relativo all'id del prodotto selezionato
+               // e fa sì che tutti i campi vengano resi vuoti quando la dialog box viene chiusa o il commento viene salvato
+               mostra_scheda_commento: function(id){
+                 this.id_questo = id;
+                 this.scheda_commento = true;
+                 this.testo_questo = null;
+                 this.nome_questo = null;
+               },
+               // la query inserisce nel database nella raccolta "commenti" i campi richiesti dal form
+               // una volta fatto, chiude la dialog box
+               salva_commento: function(){
+                 var me = this;
+                   db.collection("commenti").add({
+                     // aggiunge il commento alla raccolta, inserendo l'id del prodotto, il testo del commento
+                     // e il nome del commentatore
+                     id: this.id_questo,
+                     testo: this.testo_questo,
+                     nome: this.nome_questo
+                   }).then(function() {
+                     // finito di inserire i dati, chiude la dialog box
+                     me.scheda_commento = false
+                   })
+               },
+               // la funzione permette di visualizzare o chiudere il box di valutazione relativo all'id del prodotto selezionato
+               // e fa sì che tutti i campi vengano resi vuoti quando la dialog box viene chiusa o la valutazione viene salvata
+               mostra_scheda_voto: function(id){
+                 this.id_questo = id;
+                 this.scheda_voto = true;
+                 this.voto_questo = null;
+               },
+               // la query inserisce nel database nella raccolta "valutazioni" il voto inserito nel form
+               // una volta fatto, chiude la dialog box
+               salva_voto: function(){
+                 var me = this;
+                 db.collection("voti").add({
+                   // aggiunge la valutazione alla raccolta, inserendo l'id del prodotto e il voto inserito dall'utente
+                   id: this.id_questo,
+                   voto: this.voto_questo
+                 }).then(function() {
+                   me.scheda_voto = false
+                   // finito di inserire i dati, chiude la dialog box
+                 })
                }
              }
            });
@@ -690,8 +886,8 @@
                // inserisce i dati all'interno di una lista, prima l'id e poi i dati
                db.collection("categorie").get().then(function(res) {
                  const list = [];
-                 res.forEach(function(cat) {
-                   list.push({id: cat.id, data: cat.data()});
+                 res.forEach(function(categorie) {
+                   list.push({id: categorie.id, data: categorie.data()});
                    // inserisce l'id e i dati in un array
                  });
                  me.categorie = list;
@@ -727,78 +923,55 @@
              data: function() {
                return {
                  fumetti: [],
-                 id_fumetto_corrente: null,
-                 testo_inserito: null,
-                 nome_inserito: null,
-                 dialog_commento: false,
-                 voto_inserito: null,
-                 dialog_valutazione: false
+                 id_questo: null,
+                 testo_questo: null,
+                 nome_questo: null,
+                 scheda_commento: false,
+                 voto_questo: null,
+                 scheda_voto: false
                }
              },
              methods: {
                // la funzione permette di visualizzare o chiudere il box di commento relativo all'id del prodotto selezionato
                // e fa sì che tutti i campi vengano resi vuoti quando la dialog box viene chiusa o il commento viene salvato
-               mostra_dialog_commento: function(id){
-                 this.id_fumetto_corrente = id;
-                 this.dialog_commento = true;
-                 this.testo_inserito = null;
-                 this.nome_inserito = null
+               mostra_scheda_commento: function(id){
+                 this.id_questo = id;
+                 this.scheda_commento = true;
+                 this.testo_questo = null;
+                 this.nome_questo = null
                },
                // la query inserisce nel database nella raccolta "commenti" i campi richiesti dal form
                // una volta fatto, chiude la dialog box
                salva_commento: function(){
                  var me = this;
                    db.collection("commenti").add({
-                     id_fumetto: this.id_fumetto_corrente,
-                     testo: this.testo_inserito,
-                     nome: this.nome_inserito
+                     id: this.id_questo,
+                     testo: this.testo_questo,
+                     nome: this.nome_questo
                    }).then(function() {
-                     me.dialog_commento = false
+                     me.scheda_commento = false
                    })
                },
                //la funzione permette di visualizzare o chiudere il box di valutazione relativo all'id del prodotto selezionato
                //e fa sì che tutti i campi vengano resi vuoti quando la dialog box viene chiusa o la valutazione viene salvata
-               mostra_dialog_valutazione: function(id){
-                 this.id_fumetto_corrente = id;
-                 this.dialog_valutazione = true;
-                 this.voto_inserito = null;
+               mostra_scheda_voto: function(id){
+                 this.id_questo = id;
+                 this.scheda_voto = true;
+                 this.voto_questo = null;
                },
                //la query inserisce nel database nella raccolta "valutazioni" il voto inserito nel form
                //una volta fatto, chiude la dialog box
-               salva_valutazione: function(){
+               salva_voto: function(){
                  var me = this;
-                 db.collection("valutazioni").add({
-                   id_fumetto: this.id_fumetto_corrente,
-                   voto: this.voto_inserito
+                 db.collection("voti").add({
+                   id: this.id_questo,
+                   voto: this.voto_questo
                  }).then(function() {
-                   me.dialog_valutazione = false
+                   me.scheda_voto = false
                  })
                }
              }
            });
-
-           // definizione della pagina home
-           const Home = Vue.component('home', {
-              template: '#home',
-              created: function() {
-                var me = this;
-                //la query recupera tutte le entrate della raccolta "categorie" del database inserendo i
-                //dati in una lista
-                db.collection("categorie").get().then(function(res) {
-                  const list = [];
-                  res.forEach(function(categoria) {
-                    list.push({id: categoria.id, data: categoria.data()});
-                  });
-                  me.categorie = list;
-                });
-              },
-              // inizializzazione dei dati
-              data: function() {
-                return {
-                  categorie: []
-                }
-              },
-            });
 
            // definizione della pagina provenienza
            const Editori = Vue.component('editori', {
@@ -847,51 +1020,51 @@
              data: function() {
                return {
                  fumetti: [],
-                 id_fumetto_corrente: null,
-                 testo_inserito: null,
-                 nome_inserito: null,
-                 dialog_commento: false,
-                 voto_inserito: null,
-                 dialog_valutazione: false
+                 id_questo: null,
+                 testo_questo: null,
+                 nome_questo: null,
+                 scheda_commento: false,
+                 voto_questo: null,
+                 scheda_voto: false
                }
              },
              methods: {
                // la funzione permette di visualizzare o chiudere il box di commento relativo all'id del prodotto selezionato
                // e fa sì che tutti i campi vengano resi vuoti quando la dialog box viene chiusa o il commento viene salvato
-               mostra_dialog_commento: function(id){
-                 this.id_fumetto_corrente = id;
-                 this.dialog_commento = true;
-                 this.testo_inserito = null;
-                 this.nome_inserito = null
+               mostra_scheda_commento: function(id){
+                 this.id_questo = id;
+                 this.scheda_commento = true;
+                 this.testo_questo = null;
+                 this.nome_questo = null
                },
                // la query inserisce nel database nella raccolta "commenti" i campi richiesti dal form
                // una volta fatto, chiude la dialog box
                salva_commento: function(){
                  var me = this;
                    db.collection("commenti").add({
-                     id_fumetto: this.id_fumetto_corrente,
-                     testo: this.testo_inserito,
-                     nome: this.nome_inserito
+                     id: this.id_questo,
+                     testo: this.testo_questo,
+                     nome: this.nome_questo
                    }).then(function() {
-                     me.dialog_commento = false
+                     me.scheda_commento = false
                    })
                },
                //la funzione permette di visualizzare o chiudere il box di valutazione relativo all'id del prodotto selezionato
                //e fa sì che tutti i campi vengano resi vuoti quando la dialog box viene chiusa o la valutazione viene salvata
-               mostra_dialog_valutazione: function(id){
-                 this.id_fumetto_corrente = id;
-                 this.dialog_valutazione = true;
-                 this.voto_inserito = null;
+               mostra_scheda_voto: function(id){
+                 this.id_questo = id;
+                 this.scheda_voto = true;
+                 this.voto_questo = null;
                },
                //la query inserisce nel database nella raccolta "valutazioni" il voto inserito nel form
                //una volta fatto, chiude la dialog box
-               salva_valutazione: function(){
+               salva_voto: function(){
                  var me = this;
-                 db.collection("valutazioni").add({
-                   id_fumetto: this.id_fumetto_corrente,
-                   voto: this.voto_inserito
+                 db.collection("voti").add({
+                   id: this.id_questo,
+                   voto: this.voto_questo
                  }).then(function() {
-                   me.dialog_valutazione = false
+                   me.scheda_voto = false
                  })
                }
              }
@@ -901,19 +1074,19 @@
           // definizione del router per navigare tra le pagine
             const router = new VueRouter({
                 routes: [
+                  {path: '*', component: Home},
+                  // fa sì che all'apertura del file venga visualizzata la pagina home
+                  {path: '/home', component: Home},
+                  {path: '/dettaglio/:id', component: Dettaglio},
+                  // l'elemento :id è il parametro che permette di recuperare le informazioni
+                  // relative a un unico prodotto e visualizzarne la scheda
                   {path: '/fumetti', component: Fumetti},
                   {path: '/categorie', component: Categorie},
                   {path:'/categoria/:titolo', component: Categoria},
                   {path: '/editori', component: Editori},
-                  {path:'/editore/:titolo', component: Editore},
+                  {path:'/editore/:titolo', component: Editore}
                   // l'elemento :titolo è il parametro che permette di recuperare le informazioni
                   // relative a un'unica categoria e visualizzar la pagina relativa
-                  {path: '/dettaglio/:id', component: Dettaglio},
-                  // l'elemento :id è il parametro che permette di recuperare le informazioni
-                  // relative a un unico prodotto e visualizzarne la scheda
-                  {path: '/home', component: Home},
-                  {path: '*', component: Home}
-                  // fa sì che all'apertura del file venga visualizzata la pagina home
                 ]
               });
 
