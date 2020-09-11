@@ -217,7 +217,7 @@
   </div>
 </template>
 
-<!-- template della pagina di dettaglio dei prodotti -->
+<!-- template della pagina di dettaglio dei fumetti -->
 <template id="dettaglio">
 <div style = "display: flex; align-items: center; flex-wrap: wrap">
   <div class="md-layout-item md-size-50 md-medium-size-50 md-xsmall-size-100">
@@ -256,7 +256,7 @@
         </md-card-header>
         <!-- corpo della card -->
         <md-card-content>
-          <!-- descrizione del prodotto -->
+          <!-- descrizione del fumetto -->
           <span>
             {{ fumetto.descrizione_dettaglio }}
           </span><br><br>
@@ -268,7 +268,7 @@
             {{ fumetto.link }}
           </a><br><br>
 
-          <!-- valutazione media del prodotto se sono presenti voti, messaggio se non sono presenti voti -->
+          <!-- voto medio del prodotto se sono presenti voti, messaggio se non sono presenti voti -->
           <div>
             <span style = "font-weight: bold">
               Voto medio:
@@ -324,13 +324,13 @@
 </div>
 </template>
 
-<!-- template della pagina dei prodotti -->
+<!-- template della pagina dei fumetti -->
 <template id="fumetti">
   <div>
-    <!-- visualizzazione di tutti i prodotti presenti nella racclta del database -->
+    <!-- visualizzazione di tutti i fumetti presenti nella raccolta del database -->
     <div class="md-layout md-gutter-3">
       <div v-for="f in fumetti">
-        <!-- card del prodotto-->
+        <!-- card del fumetto-->
         <md-card class="card" md-with-hover style="width: 350px; 
                                                    height: 500px; 
                                                    background-color: darkgray;">
@@ -464,7 +464,7 @@
   <div class="md-layout md-gutter-3">
     <!-- definizione dei breakpoints -->
     <div v-for="f in fumetti">
-      <!-- presentazione di una card per ogni prodotto che risponde alla categoria -->
+      <!-- presentazione di una card per ogni fumetto che risponde alla categoria -->
       <md-card class="card" md-with-hover style="width: 350px; 
                                                  height: 500px;
                                                  background-color: darkgray;">
@@ -553,12 +553,12 @@
 </div>
 </template>
 
-<!--template della pagina provenienza-->
+<!--template della pagina degli editori-->
 <template id="editori">
   <div>
     <div class="md-layout md-gutter-3">
       <div v-for="e in editori">
-      <!-- mostra una card per ogni istanza contenuta nella raccolta categorie del database -->
+      <!-- mostra una card per ogni istanza contenuta nella raccolta editori del database -->
         <md-card class="card" md-with-hover style="width: 240px; 
                                                    height: 240px; 
                                                    background-color: darkgray;">
@@ -584,6 +584,7 @@
   </div>
 </template>
 
+<!-- template della pagina specifica per un editore -->
 <template id="editore">
   <div>
     <!-- creazione del bottone che permette di tornare alla pagina precedente -->
@@ -598,7 +599,7 @@
     <div class="md-layout md-gutter-3">
       <!-- definizione dei breakpoints -->
       <div v-for="f in fumetti" class="md-layout-item md-size-25 md-medium-size-50 md-xsmall-size-100">
-        <!-- presentazione di una card per ogni prodotto che risponde alla categoria -->
+        <!-- presentazione di una card per ogni fumetto che risponde alla categoria -->
         <md-card class="card" md-with-hover style="width: 350px; 
                                                    height: 500px;
                                                    background-color: darkgray;">
@@ -734,26 +735,25 @@
               },
             });
 
-           // definizione della pagina dettaglio, con azioni di visualizzazione dei commenti
-           // e della valutazione media
+          // definizione della pagina dettaglio, con azioni di visualizzazione dei commenti e del voto medio 
            const Dettaglio = Vue.component('dettaglio', {
              template: '#dettaglio',
              created: function() {
                var me = this;
-               // collegamento al database su Firebase, nella raccolta "prodotti"
-               // la query recupera il documento che corrisponde all'id passato nella pagina dei prodotti
-               // nel momento in cui si clicca su uno specifico prodotto
-               // la funzione associa a "prodotto" i dati recuperati tramite l'id
+               // collegamento al database su Firebase, nella raccolta "fumetti"
+               // la query recupera il documento che corrisponde all'id passato nella pagina dei fumetti
+               // nel momento in cui si clicca su uno specifico fumetto
+               // la funzione associa a "fumetto" i dati recuperati tramite l'id
                db.collection("fumetti").doc(this.$route.params.id).get().then(function(res){
-                 // recupera tutti i dati relativi al prodotto di cui è stato passato l'id come parametro
+                 // recupera tutti i dati relativi al fumetto di cui è stato passato l'id come parametro
                  me.fumetto = res.data();
                });
                // collegamento al database su Firebase, nella raccolta "commenti"
                // la query recupera i dati dell'entrata del database che risponde all'id passato nella pagina
-               // dei prodotti nel momento in cui si clicca su uno specifico prodotto
+               // dei fumetti nel momento in cui si clicca su uno specifico fumetto
                // la funzione crea una lista che contiene i testi dei commenti e gli username
                db.collection("commenti").where("id", "==", this.$route.params.id).get().then(function(res){
-                 // inserisce in una lista i campi che interessano, ovvero nome e commento, del prodotto di cui è stato
+                 // inserisce in una lista i campi che interessano, ovvero nome e commento, del fumetto di cui è stato
                  // passato l'id
                  const list = [];
                  res.forEach(function(r) {
@@ -764,9 +764,9 @@
                  // possibile visualizzarla al di fuori
                  me.lista_commenti = list;
                });
-               // collegamento al database su Firebase, nella raccolta "valutazioni"
+               // collegamento al database su Firebase, nella raccolta "voti"
                // la query recupera i dati dell'entrata del database che risponde all'id passato nella pagina
-               // dei prodotti nel momento in cui si clicca su uno specifico prodotto
+               // dei fumetti nel momento in cui si clicca su uno specifico fumetto
                // la funzione calcola la media dei voti inseriti dagli utenti e permette di restituire sia la media
                // che il numero totale di voti
                db.collection("voti").where("id", "==", this.$route.params.id).get().then(function(res){
@@ -795,14 +795,14 @@
              }
            });
 
-          // definizione della pagina prodotti, con azioni commento e valutazione
+          // definizione della pagina fumetti, con azioni commento e voto
           const Fumetti = Vue.component('fumetti', {
              template: '#fumetti',
              created: function() {
                var me = this;
-               // collegamento al database su Firebase, nella raccolta "prodotti"
-               // la query recupera il documento che corrisponde all'id passato nella pagina dei prodotti
-               // nel momento in cui si clicca su uno specifico prodotto
+               // collegamento al database su Firebase, nella raccolta "fumetti"
+               // la query recupera il documento che corrisponde all'id passato nella pagina dei fumetti
+               // nel momento in cui si clicca su uno specifico fumetto
                // la funzione crea una lista con tutti i dati di tutte le istanze del database
                db.collection("fumetti").get().then(function(res) {
                  const list = [];
@@ -828,9 +828,9 @@
                  scheda_voto: false
                }
              },
-             // creare il commento e la valutazione
+             // creare il commento e il voto
              methods: {
-               // la funzione permette di visualizzare o chiudere il box di commento relativo all'id del prodotto selezionato
+               // la funzione permette di visualizzare o chiudere il box di commento relativo all'id del fumetto selezionato
                // e fa sì che tutti i campi vengano resi vuoti quando la dialog box viene chiusa o il commento viene salvato
                mostra_scheda_commento: function(id){
                  this.id_questo = id;
@@ -843,7 +843,7 @@
                salva_commento: function(){
                  var me = this;
                    db.collection("commenti").add({
-                     // aggiunge il commento alla raccolta, inserendo l'id del prodotto, il testo del commento
+                     // aggiunge il commento alla raccolta, inserendo l'id del fumetto, il testo del commento
                      // e il nome del commentatore
                      id: this.id_questo,
                      testo: this.testo_questo,
@@ -853,19 +853,19 @@
                      me.scheda_commento = false
                    })
                },
-               // la funzione permette di visualizzare o chiudere il box di valutazione relativo all'id del prodotto selezionato
+               // la funzione permette di visualizzare o chiudere il box di valutazione relativo all'id del fumetto selezionato
                // e fa sì che tutti i campi vengano resi vuoti quando la dialog box viene chiusa o la valutazione viene salvata
                mostra_scheda_voto: function(id){
                  this.id_questo = id;
                  this.scheda_voto = true;
                  this.voto_questo = null;
                },
-               // la query inserisce nel database nella raccolta "valutazioni" il voto inserito nel form
+               // la query inserisce nel database nella raccolta "voti" il voto inserito nel form
                // una volta fatto, chiude la dialog box
                salva_voto: function(){
                  var me = this;
                  db.collection("voti").add({
-                   // aggiunge la valutazione alla raccolta, inserendo l'id del prodotto e il voto inserito dall'utente
+                   // aggiunge il voto alla raccolta, inserendo l'id del fumetto e il voto inserito dall'utente
                    id: this.id_questo,
                    voto: this.voto_questo
                  }).then(function() {
@@ -907,10 +907,10 @@
              template: '#categoria',
              created: function() {
                var me = this;
-               //collegamento al database su Firebase, nella raccolta "prodotti"
+               //collegamento al database su Firebase, nella raccolta "fumetti"
                //la query recupera i dati delle entrate del database che rispondono alla condizione
                //che abbiano come categoria la categoria che è stata precedentemente cliccata
-               //la funzione inserisce i dati di questi prodotti in una lista e permette di richiamarli
+               //la funzione inserisce i dati di questi fumetti in una lista e permette di richiamarli
                db.collection("fumetti").where("categoria", "==", this.$route.params.titolo).get().then(function(res){
                  const list = [];
                  res.forEach(function(r) {
@@ -932,7 +932,7 @@
                }
              },
              methods: {
-               // la funzione permette di visualizzare o chiudere il box di commento relativo all'id del prodotto selezionato
+               // la funzione permette di visualizzare o chiudere il box di commento relativo all'id del fumetto selezionato
                // e fa sì che tutti i campi vengano resi vuoti quando la dialog box viene chiusa o il commento viene salvato
                mostra_scheda_commento: function(id){
                  this.id_questo = id;
@@ -952,14 +952,14 @@
                      me.scheda_commento = false
                    })
                },
-               //la funzione permette di visualizzare o chiudere il box di valutazione relativo all'id del prodotto selezionato
-               //e fa sì che tutti i campi vengano resi vuoti quando la dialog box viene chiusa o la valutazione viene salvata
+               //la funzione permette di visualizzare o chiudere il box di voto relativo all'id del fumetto selezionato
+               //e fa sì che tutti i campi vengano resi vuoti quando la dialog box viene chiusa o il voto viene salvato
                mostra_scheda_voto: function(id){
                  this.id_questo = id;
                  this.scheda_voto = true;
                  this.voto_questo = null;
                },
-               //la query inserisce nel database nella raccolta "valutazioni" il voto inserito nel form
+               //la query inserisce nel database nella raccolta "voti" il voto inserito nel form
                //una volta fatto, chiude la dialog box
                salva_voto: function(){
                  var me = this;
@@ -973,13 +973,13 @@
              }
            });
 
-           // definizione della pagina provenienza
+           // definizione della pagina editori
            const Editori = Vue.component('editori', {
              template: '#editori',
              created: function() {
                var me = this;
-               // collegamento al database su Firebase, nella raccolta "categorie"
-               // la query recupera i dati di tutte le entrate nella raccolta "categorie" e la funzione
+               // collegamento al database su Firebase, nella raccolta "editori"
+               // la query recupera i dati di tutte le entrate nella raccolta "editori" e la funzione
                // inserisce i dati all'interno di una lista, prima l'id e poi i dati
                db.collection("editori").get().then(function(res) {
                  const list = [];
@@ -999,15 +999,15 @@
              },
            });
 
-           // definizione della pagina provenienza, con azioni commento e valutazione
+           // definizione della pagina editore, con azioni commento e voto
            const Editore = Vue.component('editore', {
              template: '#editore',
              created: function() {
                var me = this;
-               //collegamento al database su Firebase, nella raccolta "prodotti"
+               //collegamento al database su Firebase, nella raccolta "fumetti"
                //la query recupera i dati delle entrate del database che rispondono alla condizione
                //che abbiano come categoria la categoria che è stata precedentemente cliccata
-               //la funzione inserisce i dati di questi prodotti in una lista e permette di richiamarli
+               //la funzione inserisce i dati di questi fumetti in una lista e permette di richiamarli
                db.collection("fumetti").where("editore", "==", this.$route.params.titolo).get().then(function(res){
                  const list = [];
                  res.forEach(function(r) {
@@ -1029,7 +1029,7 @@
                }
              },
              methods: {
-               // la funzione permette di visualizzare o chiudere il box di commento relativo all'id del prodotto selezionato
+               // la funzione permette di visualizzare o chiudere il box di commento relativo all'id del fumetto selezionato
                // e fa sì che tutti i campi vengano resi vuoti quando la dialog box viene chiusa o il commento viene salvato
                mostra_scheda_commento: function(id){
                  this.id_questo = id;
@@ -1049,14 +1049,14 @@
                      me.scheda_commento = false
                    })
                },
-               //la funzione permette di visualizzare o chiudere il box di valutazione relativo all'id del prodotto selezionato
-               //e fa sì che tutti i campi vengano resi vuoti quando la dialog box viene chiusa o la valutazione viene salvata
+               //la funzione permette di visualizzare o chiudere il box di valutazione relativo all'id del fumetto selezionato
+               //e fa sì che tutti i campi vengano resi vuoti quando la dialog box viene chiusa o il voto viene salvato
                mostra_scheda_voto: function(id){
                  this.id_questo = id;
                  this.scheda_voto = true;
                  this.voto_questo = null;
                },
-               //la query inserisce nel database nella raccolta "valutazioni" il voto inserito nel form
+               //la query inserisce nel database nella raccolta "voti" il voto inserito nel form
                //una volta fatto, chiude la dialog box
                salva_voto: function(){
                  var me = this;
@@ -1079,14 +1079,14 @@
                   {path: '/home', component: Home},
                   {path: '/dettaglio/:id', component: Dettaglio},
                   // l'elemento :id è il parametro che permette di recuperare le informazioni
-                  // relative a un unico prodotto e visualizzarne la scheda
+                  // relative a un unico fumetto e visualizzarne la scheda
                   {path: '/fumetti', component: Fumetti},
                   {path: '/categorie', component: Categorie},
                   {path:'/categoria/:titolo', component: Categoria},
                   {path: '/editori', component: Editori},
                   {path:'/editore/:titolo', component: Editore}
                   // l'elemento :titolo è il parametro che permette di recuperare le informazioni
-                  // relative a un'unica categoria e visualizzar la pagina relativa
+                  // relative a un'unica categoria e visualizzare la pagina relativa
                 ]
               });
 
@@ -1101,6 +1101,7 @@
 
       </script>
 
+<!-- creazione del footer -->
 <footer class="footer">
   <p>Copyright © 2020, www.nomedelsito.com</p>
 </footer>
