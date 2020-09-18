@@ -22,6 +22,16 @@
     <script src="https://www.gstatic.com/firebasejs/7.6.2/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/7.6.2/firebase-firestore.js"></script>
 
+    <!--
+    <script type="text/javascript" src="js/materialize.min.js"></script>
+    <link type="text/css" rel="stylesheet" href="css/materialize.min.css"  media="screen,projection"/>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script> -->
+
+      <!-- Mio CSS -->
     <link rel="stylesheet" href="style.css">
     
 <script>
@@ -166,23 +176,23 @@
     </h1>
 
     <h3>
-      Qui trovi le più famose categorie di birre artigianali
+      
     </h3><br>
 
     <md-divider></md-divider><br>
 
     <span>
-      BES Craft Beer presenta le più famose birre artigianali italiane e straniere, accontentando tutti i gusti bla bla bla hjbjbd jjahvabbjhas hjvj
+      
     </span><br>
 
     <span>
-      Ti proponiamo il nostro Web Site che riporta le birre divise secondo le principali categorie  , diverse per provnienza, gusto, aroma, gradazione bla bla
+      
     </span><br><br>
 
     <md-divider></md-divider><br>
 
     <h3>
-      Le categorie in cui abbiamo diviso i nostri prodotti sono le seguenti:
+      
     </h3>
     <!-- si collega con il database e recupera la raccolta delle categorie
     per visualizzare titolo e descrizione bisogna inserire .data perché la query nello script
@@ -205,13 +215,13 @@
     <md-divider></md-divider><br>
 
     <span>
-      Speriamo che tra queste categorie troverete le birre che più soddisfano la vostra sete!
+      
     </span><br><br>
 
     <md-divider></md-divider><br><br>
 
     <h2 style = "text-align: center">
-      <i>Ricordiamo che l'alcol è vietato ai minorenni per legge</i>.
+      <i></i>.
     </h2>
 
   </div>
@@ -331,9 +341,30 @@
     <div class="md-layout md-gutter-3">
       <div v-for="f in fumetti">
         <!-- card del fumetto-->
+
+      <!-- <md-card class="card sticky-action" md-with-hover style="overflow: visible;">
+          <div class="card-image waves-effect waves-block waves-light">
+            <router-link tag="div"  :to="'/dettaglio/' + f.id">
+              <img class="activator" :src="f.data.immagine" alt="L'immagine si sta caricando...">
+            </router-link>
+          </div>
+          <div class="card-content">
+            <span class="card-title activator grey-text text-darken-4"><i class="material-icons right">more_vert</i><h1>{{f.data.titolo}}</h1></span>
+          </div>
+          <div class="card-action">
+            <md-button class = "" style = "background-color: white; color: white; margin-left: 16px;" @click = "mostra_scheda_voto(f.id)"><md-icon>star_rate</md-icon></md-button>
+            <md-button class = "" style = "background-color: white; color: white; margin-left: 16px;" @click = "mostra_scheda_commento(f.id)"><md-icon>comment</md-icon></md-button>
+          </div>
+          <div class="card-reveal" style="display: none; transform: translateY(0%);">
+            <span class="card-title grey-text text-darken-4"><h1>{{f.data.titolo}}</h1><i class="material-icons right">close</i></span>
+            <p>{{f.data.descrizione}}</p>
+          </div>
+        </md-card> -->
+
+
         <md-card class="card" md-with-hover style="width: 350px; 
                                                    height: 500px; 
-                                                   background-color: darkgray;">
+                                                   background-color: white;">
 
           <md-ripple>
           
@@ -350,8 +381,8 @@
           </md-ripple>
         </md-card><br>
         <div>
-          <md-button class = "md-raised" style = "background-color: #037bff; color: white; margin-left: 16px;" @click = "mostra_scheda_voto(f.id)">&#9733</md-button>
-          <md-button class = "md-raised" style = "background-color: #037bff; color: white; margin-left: 16px;" @click = "mostra_scheda_commento(f.id)">Commenta</md-button>
+          <md-button class = "md-raised md-primary" style = "background-color: #037bff; color: white; margin-left: 16px;" @click = "mostra_scheda_voto(f.id)"><md-icon>star_rate</md-icon></md-button>
+          <md-button class = "md-raised md-primary" style = "background-color: #037bff; color: white; margin-left: 16px;" @click = "mostra_scheda_commento(f.id)"><md-icon>comment</md-icon></md-button>
       </div>
       </div>
     </div>
@@ -426,7 +457,7 @@
       <!-- mostra una card per ogni istanza contenuta nella raccolta categorie del database -->
         <md-card class="card" md-with-hover style="width: 240px; 
                                                    height: 240px;        
-                                                   background-color: darkgray;">
+                                                   background-color: white;">
 
           <md-ripple>
 
@@ -467,7 +498,7 @@
       <!-- presentazione di una card per ogni fumetto che risponde alla categoria -->
       <md-card class="card" md-with-hover style="width: 350px; 
                                                  height: 500px;
-                                                 background-color: darkgray;">
+                                                 background-color: white;">
 
         <md-ripple>
           
@@ -561,7 +592,7 @@
       <!-- mostra una card per ogni istanza contenuta nella raccolta editori del database -->
         <md-card class="card" md-with-hover style="width: 240px; 
                                                    height: 240px; 
-                                                   background-color: darkgray;">
+                                                   background-color: white;">
 
           <md-ripple>
                 
@@ -602,7 +633,7 @@
         <!-- presentazione di una card per ogni fumetto che risponde alla categoria -->
         <md-card class="card" md-with-hover style="width: 350px; 
                                                    height: 500px;
-                                                   background-color: darkgray;">
+                                                   background-color: white;">
 
           <md-ripple>
           

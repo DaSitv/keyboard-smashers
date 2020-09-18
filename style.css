@@ -9,13 +9,13 @@
   }
 
   .card {
-    background-color: darkgrey;
+    background-color: white;
     border: 1px solid #f1f1f1;
     display: inline-block; 
     margin: 16px; 
     padding: 0px; 
     vertical-align: top;
-    background-color: darkgray;
+    background-color: white;
   }
   
   .card-inner {
@@ -24,7 +24,7 @@
     height: 100%;
     text-align: center;
     transition: transform 0.8s;
-    background-color: darkgray;
+    background-color: white;
   }
   
   .card:hover .card-inner {
@@ -32,8 +32,9 @@
   }
 
   .card-content {
-    color: #f1f1f1;
-    background-color: darkgray;
+    color: #000000;
+    opacity: 60%;
+    background-color: white;
     margin: 16px;
     margin-top: 32px;
   }
