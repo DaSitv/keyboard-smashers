@@ -23,20 +23,23 @@
     width: 100%;
     height: 100%;
     text-align: center;
-    transition: transform 0.8s;
     background-color: white;
   }
   
-  .card:hover .card-inner {
+  .card:hover .card-content {
     transform: translateY(-180px);
   }
 
   .card-content {
     color: #000000;
-    opacity: 60%;
+    opacity: 100%;
     background-color: white;
-    margin: 16px;
+    margin: 0px;
     margin-top: 32px;
+    transition: transform 0.8s;
+    width: 100%;
+    height: 180px;
+    padding-top: 16px;
   }
 
   .footer {
