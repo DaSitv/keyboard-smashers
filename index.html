@@ -378,12 +378,12 @@
                 <p>{{f.data.descrizione}}</p>
               </div>
             </div>       
-          </md-ripple>
+          </md-ripple><br>
+          <div class="card-buttons">
+            <md-button class = "md-raised md-primary" style = "background-color: #037bff; color: white; margin-left: 16px;" @click = "mostra_scheda_voto(f.id)"><md-icon>star_rate</md-icon></md-button>
+            <md-button class = "md-raised md-primary" style = "background-color: #037bff; color: white; margin-left: 16px;" @click = "mostra_scheda_commento(f.id)"><md-icon>comment</md-icon></md-button>
+          </div>
         </md-card><br>
-        <div>
-          <md-button class = "md-raised md-primary" style = "background-color: #037bff; color: white; margin-left: 16px;" @click = "mostra_scheda_voto(f.id)"><md-icon>star_rate</md-icon></md-button>
-          <md-button class = "md-raised md-primary" style = "background-color: #037bff; color: white; margin-left: 16px;" @click = "mostra_scheda_commento(f.id)"><md-icon>comment</md-icon></md-button>
-      </div>
       </div>
     </div>
     <!-- creazione della dialog box per inserire il commento -->
