@@ -230,7 +230,7 @@
 <!-- template della pagina di dettaglio dei fumetti -->
 <template id="dettaglio">
 <div style = "display: flex; align-items: center; flex-wrap: wrap">
-  <div class="md-layout-item md-size-50 md-medium-size-50 md-xsmall-size-100">
+  <div class="md-layout-item md-size-30 md-medium-size-50 md-xsmall-size-100">
     <div>
         <!-- bottone che permette di tornare alla pagina precedente
         dicendo al router di tornare alla pagina a cui si trovava l'utente
@@ -251,7 +251,7 @@
     </md-card>
   </div>
 
-    <div class="md-layout-item md-size-50 md-medium-size-50 md-xsmall-size-100">
+    <div class="md-layout-item md-size-30 md-medium-size-50 md-xsmall-size-100">
       <md-card>
         <!-- intestazione della card -->
         <md-card-header>
@@ -285,7 +285,7 @@
             </span><br>
             <span v-if= "numero_voti > 0">
               <span style = "font-weight: bold; color: #037bff">
-                {{ media + "/5"}}
+                {{ media + " &#9733"}}
               </span>
               <br>
               {{ numero_voti }} persone hanno votato questo articolo.
