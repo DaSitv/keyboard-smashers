@@ -44,11 +44,11 @@
   }
 
   .card-content h1 {
-
+    font-weight: 500;
   }
 
   .card-content p {
-    
+    font-weight: 700;
   }
 
   .card-buttons {
