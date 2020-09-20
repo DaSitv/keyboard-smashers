@@ -342,7 +342,7 @@
       <div v-for="f in fumetti">
         <!-- card del fumetto-->
 
-      <!-- <md-card class="card sticky-action" md-with-hover style="overflow: visible;">
+        <!-- <md-card class="card sticky-action" md-with-hover style="overflow: visible;">
           <div class="card-image waves-effect waves-block waves-light">
             <router-link tag="div"  :to="'/dettaglio/' + f.id">
               <img class="activator" :src="f.data.immagine" alt="L'immagine si sta caricando...">
@@ -363,29 +363,29 @@
 
 
         <md-card class="card" md-with-hover style="width: 350px; 
-                                                   height: 500px; 
+                                                   height: 540px; 
                                                    background-color: white;">
 
           <md-ripple>
           
             <router-link tag="div"  :to="'/dettaglio/' + f.id">
 
-            <div class="card-inner">               
-              <img :src="f.data.immagine" alt="L'immagine si sta caricando..." style="padding: 0px;"> 
+            <div class="card-inner">
 
+              <img :src="f.data.immagine" alt="L'immagine si sta caricando..."> 
+                
               <div class="card-content">
                 <h1>{{f.data.titolo}}</h1>
                 <p>{{f.data.descrizione}}</p>
               </div>
             </div>       
-          </md-ripple><br>
-          <div class="card-buttons">
-            <md-button class = "md-raised md-primary" style = "background-color: #037bff; color: white; margin-left: 16px;" @click = "mostra_scheda_voto(f.id)"><md-icon>star_rate</md-icon></md-button>
-            <md-button class = "md-raised md-primary" style = "background-color: #037bff; color: white; margin-left: 16px;" @click = "mostra_scheda_commento(f.id)"><md-icon>comment</md-icon></md-button>
-          </div>
+          </md-ripple>
         </md-card><br>
+        <md-button class = "md-raised md-primary" style = "background-color: #037bff; color: white; margin-left: 16px;" @click = "mostra_scheda_voto(f.id)"><md-icon>star_rate</md-icon></md-button>
+        <md-button class = "md-raised md-primary" style = "background-color: #037bff; color: white; margin-left: 16px;" @click = "mostra_scheda_commento(f.id)"><md-icon>comment</md-icon></md-button>
       </div>
     </div>
+    
     <!-- creazione della dialog box per inserire il commento -->
     <div>
       <md-dialog :md-active.sync="scheda_commento">
@@ -601,7 +601,7 @@
             <div class="card-inner">               
               <img :src="e.data.immagine" alt="L'immagine si sta caricando..." style="padding: 0px;"> 
 
-              <div class="card-content" style="margin: 16px;">
+              <div class="card-content">
                 <h1>{{e.data.titolo}}</h1>
                 <p>{{e.data.descrizione}}</p>
               </div>
