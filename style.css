@@ -2,10 +2,15 @@
   #topbar { 
     font-family: UnifrakturCook;
     font-weight: lighter;
-    font-size: 30px;
-    letter-spacing: 5px;
-    word-spacing: 12px;
+    font-size: 20px;
+    letter-spacing: 3px;
+    word-spacing: 10px;
     height: 90px;
+  }
+
+  .background {
+    background: linear-gradient(rgba(255,255,255,.5), rgba(255,255,255,.5)), url("https://st4.depositphotos.com/3803389/22309/v/1600/depositphotos_223094252-stock-illustration-seamless-pattern-background-hand-drawn.jpg");
+    height: 100%;
   }
 
   .card {
@@ -25,6 +30,7 @@
     vertical-align: top;
     font-family: roboto;
   }
+
   .card-inner {
     position: relative;
     width: 100%;
@@ -33,14 +39,14 @@
   }
 
   .card-inner:hover .card-content {
-    transform: translateY(-180px);
+    transform: translateY(-120px);
   }
 
   .card-content {
     background-color: white;
     transition: transform 0.8s;
     width: 100%;
-    height: 180px;
+    height: 120px;
     padding-top: 16px;
     text-align: center;
   }
@@ -69,20 +75,24 @@
     font-size: 11px;
   }
 
-  .footer {
-    text-align: center;
-    background-color: #333; 
-    padding: 20px;
-    margin-top: 200px;
-    color: #e4e4e4;
-    position: absolute;
-    bottom: 0;
-    min-width: 100%;
+  .card-dettaglio {
+    margin: 16px;
   }
 
   .immagine_dettaglio {
     max-height: 500px; 
     max-width: 350px;
+    margin: 16px;
+  }
+
+  .footer {
+    text-align: center;
+    background-color: #333; 
+    padding: 20px;
+    color: #e4e4e4;
+    position: absolute;
+    bottom: 0;
+    min-width: 100%;
   }
 
   .titolo {
