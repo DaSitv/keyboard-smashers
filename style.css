@@ -6,6 +6,13 @@
     letter-spacing: 3px;
     word-spacing: 10px;
     height: 90px;
+    padding: 16px; 
+    text-align: left;
+  }
+
+  .titolo {
+    margin: 48px;
+    color: whitesmoke;
   }
 
   .background {
@@ -16,26 +23,20 @@
   .card {
     border: 1px solid white;
     display: inline-block; 
-    margin: 16px; 
+    margin: 16px;
     padding: 0px; 
-    vertical-align: top;
     font-family: roboto;
+    width: 240px; 
+    height: 240px;        
+    background-color: white;
   }
   
-  .fumetto {
-    border: 1px solid white;
-    display: inline-block; 
-    margin: 16px; 
-    padding: 0px; 
-    vertical-align: top;
-    font-family: roboto;
-  }
-
   .card-inner {
     position: relative;
     width: 100%;
     height: 100%;
     background-color: white;
+    padding: 0px;
   }
 
   .card-inner:hover .card-content {
@@ -47,20 +48,11 @@
     transition: transform 0.8s;
     width: 100%;
     height: 120px;
-    padding-top: 16px;
-    text-align: center;
-  }
-
-  .fumetto-content {
+    padding: 16px;
     text-align: center;
   }
 
   .card-content h1 {
-    font-weight: 300;
-    font-size: 22px;
-  }
-
-  .fumetto-content h1 {
     font-weight: 300;
     font-size: 22px;
   }
@@ -70,16 +62,39 @@
     font-size: 11px;
   }
 
+  .fumetto {
+    border: 1px solid white;
+    display: inline-block; 
+    margin: 16px; 
+    padding: 0px; 
+    font-family: roboto;
+    width: 350px;
+  }
+
+  .fumetto-content {
+    text-align: center;
+  }
+
+  .fumetto-content h1 {
+    font-weight: 300;
+    font-size: 22px;
+  }
+
   .fumetto-content p {
     font-weight: 500;
     font-size: 11px;
   }
 
-  .card-dettaglio {
+  .fumetto-immagine {
+    width: 350px; 
+    height: 500px; 
+  }
+
+  .dettaglio-card {
     margin: 16px;
   }
 
-  .immagine_dettaglio {
+  .dettaglio-immagine {
     max-height: 500px; 
     max-width: 350px;
     margin: 16px;
@@ -93,9 +108,4 @@
     position: absolute;
     bottom: 0;
     min-width: 100%;
-  }
-
-  .titolo {
-    margin-left: 48px;
-    color: whitesmoke;
   }

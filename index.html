@@ -1,41 +1,33 @@
 <!doctype html>
 <html>
-  <head>
-    <meta charset="utf-8">
-    <meta content="width=device-width,initial-scale=1,minimal-ui" name="viewport">
-
-    <title> Fumetti </title>
-
-    <!-- implementazione di Material e VueMaterial -->
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,400italic|Material+Icons">
-    <link rel="stylesheet" href="https://unpkg.com/vue-material@beta/dist/vue-material.min.css">
-    <link rel="stylesheet" href="https://unpkg.com/vue-material@beta/dist/theme/default.css">
-    <!-- implementazione di Vue -->
-   <script src="https://unpkg.com/vue"></script>
-    <script src="https://unpkg.com/vue-material@beta"></script> 
-    <script src="https://unpkg.com/vue-router"></script> 
-    <script src="https://cdn.jsdelivr.net/npm/vue"></script> 
-    <script src="https://unpkg.com/vue-material"></script> 
-    <script src="https://unpkg.com/vue-router"></script>
-    <!-- implementazione di Firebase -->
-    <!-- The core Firebase JS SDK is always required and must be listed first -->
-    <script src="https://www.gstatic.com/firebasejs/7.6.2/firebase-app.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/7.6.2/firebase-firestore.js"></script>
-
-    <!--
-    <script type="text/javascript" src="js/materialize.min.js"></script>
-    <link type="text/css" rel="stylesheet" href="css/materialize.min.css"  media="screen,projection"/>
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
   
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width,initial-scale=1,minimal-ui" name="viewport">
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script> -->
+  <title> Fumetti </title>
 
-      <!-- Mio CSS -->
-    <link rel="stylesheet" href="style.css">
+  <!-- Material e VueMaterial -->
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,400italic|Material+Icons">
+  <link rel="stylesheet" href="https://unpkg.com/vue-material@beta/dist/vue-material.min.css">
+  <link rel="stylesheet" href="https://unpkg.com/vue-material@beta/dist/theme/default.css">
+
+  <!-- Vue -->
+  <script src="https://unpkg.com/vue"></script>
+  <script src="https://unpkg.com/vue-material@beta"></script> 
+  <script src="https://cdn.jsdelivr.net/npm/vue"></script> 
+  <script src="https://unpkg.com/vue-router"></script>
+
+  <!-- Firebase -->
+  <script src="https://www.gstatic.com/firebasejs/7.6.2/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/7.6.2/firebase-firestore.js"></script>
+
+  <!-- Mio CSS -->
+  <link rel="stylesheet" href="style.css">
     
-<script>
-  // Your web app's Firebase configuration
+  <script>
+
+  // Configurazione Firebase per la mia webapp
   var firebaseConfig = {
     apiKey: "AIzaSyBnYMexBlt9GpZkDfQ-TAT2tAV75Tu2ly4",
     authDomain: "keyboard-smashers-58796.firebaseapp.com",
@@ -45,33 +37,32 @@
     messagingSenderId: "961276467582",
     appId: "1:961276467582:web:17854b0b2b263284"
   };
-  // Initialize Firebase
-  firebase.initializeApp(firebaseConfig);
-</script>
 
+  // Inizializzazione Firebase
+  firebase.initializeApp(firebaseConfig);
+  </script>
     <style>
   		#app {
   			height: 100vh;
   		}
-  	</style>
-  </head>
+    </style>
+</head>
 
-  <body>
+<body>
 
-<!-- definizione navigation drawer e top bar -->
+<!-- navigation drawer e top bar -->
 <md-app id="app">
-        <md-app-toolbar id="topbar" class="md-primary" style="padding: 16px; text-align: left;">
+        <md-app-toolbar id="topbar" class="md-primary">
           <!-- rende visibile l'icona del menu ad hamburger solo quando il menu è chiuso -->
-          <md-button class="md-icon-button" @click="menuVisible = true" v-if="!menuVisible" style="margin-right: 16px;">
+          <md-button class="md-icon-button" @click="menuVisible = true" v-if="!menuVisible">
             <md-icon>menu</md-icon>
           </md-button>
 
           <md-title class="titolo">Nome del Sito</md-title>
 
-          <!-- bottone che permette di tornare alla pagina precedente
-          dicendo al router di tornare alla pagina a cui si trovava l'utente
-          prima di entrare nella pagina di dettaglio -->
-          <md-button class="md-icon-button" @click="$router.go(-1)" style="margin-left: 32px;">
+          <!-- bottone che permette di tornare alla pagina dove si trovava l'utente
+          precedentemente-->
+          <md-button class="md-icon-button" @click="$router.go(-1)">
             <md-icon style="color:black;">
               keyboard_arrow_left
             </md-icon>
@@ -79,13 +70,15 @@
 
         </md-app-toolbar>
 
-          <!-- definire la struttura del drawer -->
+          <!-- struttura del drawer -->
           <md-app-drawer md-persistent="full" :md-active.sync="menuVisible">
                                               <!-- attributo associato tramite v-bind -->
+
             <md-toolbar class="md-transparent" md-elevation="0">
           
               <div class="md-toolbar-section-end">
-                <!-- chiudere la navigation drawer quando si clicca sulla freccina-->
+
+                <!-- chiude la navigation drawer quando si clicca sulla freccia-->
                 <md-button class="md-icon-button" @click="menuVisible = false">
                   <md-icon>keyboard_arrow_left</md-icon>
                 </md-button>
@@ -137,7 +130,7 @@
 <div style = "display: flex; align-items: center; flex-wrap: wrap">
   <div class="md-layout-item md-size-30 md-medium-size-50 md-xsmall-size-100">
 
-    <md-card class="immagine_dettaglio">
+    <md-card class="dettaglio-immagine">
         <md-card-media>
      
               <img :src="fumetto.immagine" alt="L'immagine si sta caricando">
@@ -149,8 +142,9 @@
   </div>
 
     <div class="md-layout-item md-size-50 md-medium-size-50 md-xsmall-size-100">
-      <md-card class="card-dettaglio">
-        <!-- intestazione della card -->
+      <md-card class="dettaglio-card">
+
+        <!-- struttura della card -->
         <md-card-header>
           <md-card-header-text>
             <div class="md-title" style = "color: #037bff; font-weight: bold">
@@ -160,15 +154,15 @@
               {{ fumetto.editore }} | {{ fumetto.disegnatore }} | {{ fumetto.anno }}
             </div>
           </md-card-header-text>
-        </md-card-header>
-        <!-- corpo della card -->
+        </md-card-header>       
+
         <md-card-content>
-          <!-- descrizione del fumetto -->
+
           <span>
             {{ fumetto.descrizione_dettaglio }}
           </span><br><br>
 
-          <!-- voto medio del prodotto se sono presenti voti, messaggio se non sono presenti voti -->
+          <!-- voto medio del fumetto se sono presenti voti, messaggio se non sono presenti voti -->
           <div>
             <span style = "font-weight: bold">
               Voto medio:
@@ -192,15 +186,19 @@
 
             <div v-if= "lista_commenti.length > 0">
             <!-- il codice seguente viene eseguito solamente se sono presenti dei commenti per il prodotto -->
+
               <div v-for="c in lista_commenti">
-                <!-- gli elementi dispari dell'array (ovvero i nomi dei commentatori), vengono scritti in
-                corsivo -->
-                <!-- la funzione .indexOf() restituisce l'indice dell'elemento del ciclo corrente -->
+
+                  <!-- gli elementi dispari dell'array (ovvero i nomi dei commentatori), vengono scritti in
+                   corsivo -->
                   <div v-if = "(lista_commenti.indexOf(c) % 2 !== 1) ">
+                  <!-- la funzione .indexOf() restituisce l'indice dell'elemento del ciclo corrente -->
+
                     <span style= "font-style: italic">
                       {{ c }}:
                     </span>
                   </div>
+
                   <!-- gli elementi pari dell'array (ovvero il testo dei commenti), vengono visualizzati
                   normalmente e vengono seguiti da un divider -->
                   <div v-else>
@@ -213,19 +211,17 @@
             </div>
 
             <div v-else>
-            <!-- il codice seguente viene eseguito solamente se non sono presenti dei commenti per il prodotto -->
+            <!-- il codice seguente viene eseguito solamente se non sono presenti dei commenti per il fumetto -->
+
               <span>
                 Nessuno ha ancora commentato questo fumetto!
               </span>
             </div>
           </div><br>
 
-          <!-- link al prodotto -->
-          <span style = "font-weight: bold">
+          <!-- link al fumetto -->
+          <a :href= "fumetto.link" style="text-decoration: underline;">
             Compra questo fumetto!
-          </span><br>
-          <a :href= "fumetto.link">
-            {{ fumetto.link }}
           </a>
         </md-card-content>
       </md-card>
@@ -236,142 +232,125 @@
 
 <!-- template della pagina dei fumetti -->
 <template id="fumetti">
+ <!-- visualizzazione di tutti i fumetti presenti nella raccolta del database -->
+
   <div class="background">
-  
-  <div>
-    <!-- visualizzazione di tutti i fumetti presenti nella raccolta del database -->
     <div class="md-layout md-gutter-3">
-      <div v-for="f in fumetti">
+      <div v-for="f in fumetti" class="md-layout-item md-size-25 md-medium-size-50 md-xsmall-size-100">
+
         <!--template della card del fumetto-->
+        <template>
+          <div class="card-expansion">
+            <md-card class="fumetto" md-with-hover>
+              <md-ripple>
 
-      <template>
-        <div class="card-expansion">
-          <md-card class="fumetto" md-with-hover style="width: 350px;">
-            <md-ripple>
+               <router-link tag="div"  :to="'/dettaglio/' + f.id">
 
-              <router-link tag="div"  :to="'/dettaglio/' + f.id">
+                <md-card-media class="fumetto-immagine">
+                  <img :src="f.data.immagine" alt="L'immagine si sta caricando...">
+                </md-card-media>
 
-              <md-card-media>
-
-                <img :src="f.data.immagine" alt="L'immagine si sta caricando..." style="width: 350px; 
-                                                                                        height: 500px; "> 
-              </md-card-media>
-
-            </md-ripple>
+              </md-ripple>
             
-            <md-card-expand>
-              <md-card-actions md-alignment="space-between">
-                <div>
+              <md-card-expand>
 
-                  <md-button class="md-icon-button" @click = "mostra_scheda_voto(f.id)"><md-icon>star_rate</md-icon></md-button>
-                  <md-button class="md-icon-button" @click = "mostra_scheda_commento(f.id)"><md-icon>comment</md-icon></md-button>
+               <md-card-actions class="fumetto-actions" md-alignment="space-between">
 
-                </div>
+                  <div>
+                    <md-button class="md-icon-button" @click = "mostra_scheda_voto(f.id)"><md-icon>star_rate</md-icon></md-button>
+                    <md-button class="md-icon-button" @click = "mostra_scheda_commento(f.id)"><md-icon>comment</md-icon></md-button>
+                  </div>
       
-                <md-card-expand-trigger>
-                  <md-button class="md-icon-button">
+                  <md-card-expand-trigger>
+                    <md-button class="md-icon-button">
+                      <md-icon>keyboard_arrow_down</md-icon>
+                    </md-button>
+                  </md-card-expand-trigger>
 
-                    <md-icon>keyboard_arrow_down</md-icon>
-
-                  </md-button>
-                </md-card-expand-trigger>
-              </md-card-actions>
+               </md-card-actions>
       
-              <md-card-expand-content>
-                <md-card-content class="fumetto-content">
+                <md-card-expand-content>
+                  <md-card-content class="fumetto-content">
+                    <div class="md-title"><h1>{{f.data.titolo}}</h1></div>
+                    <div class="md-subhead"><p>{{f.data.descrizione}}</p></div>
+                  </md-card-content>
+                </md-card-expand-content>
 
-                  <div class="md-title"><h1>{{f.data.titolo}}</h1></div>
-                  <div class="md-subhead"><p>{{f.data.descrizione}}</p></div>
-
-                </md-card-content>
-              </md-card-expand-content>
             </md-card-expand>
           </md-card>
-      </template>
+        </template>
       </div>
     </div>
     
-    <!-- creazione della dialog box per inserire il commento -->
+    <!-- struttura dialog box per inserire il commento -->
     <div>
       <md-dialog :md-active.sync="scheda_commento">
         <template>
           <div  style = "padding: 24px 24px 8px 24px">
-            <!-- intestazione della dialog box -->
-            <md-dialog-title style = "color: #037bff; font-weight: bold">
-              Pronto a commentare?
-            </md-dialog-title>
 
-            <!-- testo del commento -->
             <md-field>
-              <label>Inserisci qui il tuo commento!</label>
-              <md-input v-model="testo_questo"></md-input>
+              <label>Inserire nome!</label>
+              <md-input v-model="nome_questo"></md-input>
+                        <!-- v-model attribuisce alla variabile nome_questo il valore inserito dall'utente -->
             </md-field>
 
-            <!-- nome del commentatore -->
             <md-field>
-              <label>Inserisci qui il tuo nome!</label>
-              <md-input v-model="nome_questo"></md-input>
+              <label>Inserire commento!</label>
+              <md-input v-model="testo_questo"></md-input>
+                        <!-- v-model attribuisce alla variabile testo_questo il valore inserito dall'utente -->
             </md-field>
 
             <md-dialog-actions>
               <md-button @click="scheda_commento = false">Annulla</md-button>
-              <md-button class = "md-primary" @click="salva_commento" :disabled="!testo_questo || !nome_questo">Salva</md-button>
-              <!-- il bottone è disattivato se non vengono inseriti testo e nome -->
+              <md-button class = "md-primary" @click="salva_commento" :disabled="!testo_questo || !nome_questo">Invia</md-button>
+                                                                      <!-- il bottone è disattivato se non vengono inseriti testo e nome -->
             </md-dialog-actions>
+
           </div>
         </template>
       </md-dialog>
     </div>
 
-    <!-- creazione della dialog box per inserire il voto -->
+    <!-- struttura dialog box per inserire il voto -->
     <div>
       <md-dialog :md-active.sync="scheda_voto">
         <template>
+
           <div style = "padding: 24px;">
-            <md-dialog-title style = "color: #037bff; font-weight: bold">
-              Pronto a votare?
-            </md-dialog-title><br><br>
-            <md-dialog-subhead>
-              Usa un numero compreso tra 1 e 5
-            </md-dialog-subhead>
-            <!-- voto dell'utente -->
             <md-field>
-              <label>Inserisci qui il tuo voto!</label>
+              <label>Inserire numero tra 1 e 5!</label>
               <md-input v-model="voto_questo"></md-input>
+                        <!-- v-model attribuisce alla variabile voto_questo il valore inserito dall'utente -->
             </md-field>
           </div>
 
           <md-dialog-actions>
             <md-button @click="scheda_voto = false">Annulla</md-button>
-            <md-button class = "md-primary" @click="salva_voto" :disabled="!voto_questo || voto_questo > 5 || voto_questo < 1">
-              Salva
-            </md-button>
-            <!-- il bottone è disabled se non viene inserito un voto, se viene inserito un numero maggiore di 5 o 0-->
+            <md-button class = "md-primary" @click="salva_voto" :disabled="!voto_questo || voto_questo > 5 || voto_questo < 1">Salva</md-button>
+                                                                <!-- il bottone è disabled se non viene inserito un voto, se viene inserito un numero maggiore di 5 o 0-->
           </md-dialog-actions>
+
         </template>
       </md-dialog>
     </div>
   </div>
-</div>
 </template>
 
 <!-- template della pagina delle categorie -->
 <template id="categorie">
   <div class="background">
-  <div>
     <div class="md-layout md-gutter-3">
-      <div v-for="c in categorie">
-      <!-- mostra una card per ogni istanza contenuta nella raccolta categorie del database -->
-        <md-card class="card" md-with-hover style="width: 240px; 
-                                                   height: 240px;        
-                                                   background-color: white;">
+      <div v-for="c in categorie" class="md-layout-item md-size-25 md-medium-size-50 md-xsmall-size-100">
+
+        <!-- struttura card categorie-->
+        <md-card class="card" md-with-hover>
 
           <md-ripple>
 
             <router-link tag="div" :to="'/categoria/' + c.data.titolo">
             
             <div class="card-inner">              
-              <img :src="c.data.immagine" alt="L'immagine si sta caricando..." style="padding: 0px;"> 
+              <img :src="c.data.immagine" alt="L'immagine si sta caricando..."> 
 
                 <div class="card-content">
                   <h1>{{c.data.titolo}}</h1>
@@ -385,145 +364,130 @@
       </div>
     </div>
   </div>
-  </div>
 </template>
 
 <!-- template della pagina specifica per una categoria -->
 <template id="categoria">
+<!-- visualizzazione di tutti i fumetti appartenenti alla categoria selezionata -->
+
   <div class="background">
-  <div>
+    <div class="md-layout md-gutter-3">
+      <div v-for="f in fumetti" class="md-layout-item md-size-25 md-medium-size-50 md-xsmall-size-100">
 
-  <div class="md-layout md-gutter-3">
-    <!-- definizione dei breakpoints -->
-    <div v-for="f in fumetti">
-      <!-- presentazione di una card per ogni fumetto che risponde alla categoria -->
-      <template>
-        <div class="card-expansion">
-          <md-card class="fumetto" md-with-hover style="width: 350px;">
-            <md-ripple>
+        <!--template della card del fumetto-->
+        <template>
+          <div class="card-expansion">
+            <md-card class="fumetto" md-with-hover>
 
-              <router-link tag="div"  :to="'/dettaglio/' + f.id">
+              <md-ripple>
 
-              <md-card-media>
+                <router-link tag="div"  :to="'/dettaglio/' + f.id">
 
-                <img :src="f.data.immagine" alt="L'immagine si sta caricando..." style="width: 350px; 
-                                                                                      height: 500px; "> 
-              </md-card-media>
+                <md-card-media class="immagine-fumetto">
+                  <img :src="f.data.immagine" alt="L'immagine si sta caricando..."> 
+                </md-card-media>
 
-            </md-ripple>
+              </md-ripple>
             
-            <md-card-expand>
-              <md-card-actions md-alignment="space-between">
-                <div>
-
-                  <md-button class="md-icon-button" @click = "mostra_scheda_voto(f.id)"><md-icon>favorite</md-icon></md-button>
-                  <md-button class="md-icon-button" @click = "mostra_scheda_commento(f.id)"><md-icon>comment</md-icon></md-button>
-
-                </div>
+              <md-card-expand>
+                <md-card-actions md-alignment="space-between">
+                  <div>
+                    <md-button class="md-icon-button" @click = "mostra_scheda_voto(f.id)"><md-icon>favorite</md-icon></md-button>
+                    <md-button class="md-icon-button" @click = "mostra_scheda_commento(f.id)"><md-icon>comment</md-icon></md-button>
+                  </div>
       
-                <md-card-expand-trigger>
-                  <md-button class="md-icon-button">
-
-                    <md-icon>keyboard_arrow_down</md-icon>
-
-                  </md-button>
-                </md-card-expand-trigger>
-              </md-card-actions>
+                  <md-card-expand-trigger>
+                    <md-button class="md-icon-button">
+                      <md-icon>keyboard_arrow_down</md-icon>
+                    </md-button>
+                  </md-card-expand-trigger>
+                </md-card-actions>
       
-              <md-card-expand-content>
-                <md-card-content class="fumetto-content">
+                <md-card-expand-content>
+                  <md-card-content class="fumetto-content">
+                    <div class="md-title"><h1>{{f.data.titolo}}</h1></div>
+                    <div class="md-subhead"><p>{{f.data.descrizione}}</p></div>
+                  </md-card-content>
+                </md-card-expand-content>
 
-                  <div class="md-title"><h1>{{f.data.titolo}}</h1></div>
-                  <div class="md-subhead"><p>{{f.data.descrizione}}</p></div>
+              </md-card-expand>
+            </md-card>
+          </div>    
+        </template>
+      </div>
+    </div>
 
-                </md-card-content>
-              </md-card-expand-content>
-            </md-card-expand>
-          </md-card>
-      </template>
+    <!-- creazione della dialog box per inserire il commento -->
+    <div>
+      <md-dialog :md-active.sync="scheda_commento">
+        <template>
+          <div  style = "padding: 24px 24px 8px 24px">
+
+            <!-- nome del commentatore -->
+            <md-field>
+              <label>Inserire nome!</label>
+              <md-input v-model="nome_questo"></md-input>
+                        <!-- v-model attribuisce alla variabile nome_questo il valore inserito dall'utente -->
+            </md-field>
+
+            <!-- testo del commento -->
+            <md-field>
+              <label>Inserire commento!</label>
+              <md-input v-model="testo_questo"></md-input>
+              <!-- v-model attribuisce alla variabile testo_questo il valore inserito dall'utente -->
+            </md-field>
+
+            <md-dialog-actions>
+              <md-button @click="scheda_commento = false">Annulla</md-button>
+              <md-button class = "md-primary" @click="salva_commento" :disabled="!testo_questo || !nome_questo">Salva</md-button>
+                                                                    <!-- il bottone è disattivato se non vengono inseriti testo e nome -->
+            </md-dialog-actions>
+
+          </div>
+        </template>
+      </md-dialog>
+    </div>
+
+    <!-- creazione della dialog box per inserire il voto -->
+    <div>
+      <md-dialog :md-active.sync="scheda_voto">
+        <template>
+
+          <div style = "padding: 24px">
+            <md-field>
+              <label>Inserire numero tra 1 e 5!</label>
+              <md-input v-model="voto_questo"></md-input>
+                        <!-- v-model attribuisce alla variabile voto_questo il valore inserito dall'utente -->
+            </md-field>
+          </div>
+
+          <md-dialog-actions>
+            <md-button @click="scheda_voto = false">Annulla</md-button>
+            <md-button class = "md-primary" @click="salva_voto" :disabled="!voto_questo || voto_questo > 5 || voto_questo < 1">Salva</md-button>
+                                                                <!-- il bottone è disabled se non viene inserito un voto, se viene inserito un numero maggiore di 5 o 0-->
+          </md-dialog-actions>
+
+        </template>
+      </md-dialog>
     </div>
   </div>
-<!-- creazione della dialog box per inserire il commento -->
-<div>
-  <md-dialog :md-active.sync="scheda_commento">
-    <template>
-      <div  style = "padding: 24px 24px 8px 24px">
-        <!-- intestazione della dialog box -->
-        <md-dialog-title style = "color: #037bff; font-weight: bold">
-          Pronto a commentare?
-        </md-dialog-title>
-
-        <!-- testo del commento -->
-        <md-field>
-          <label>Inserisci qui il tuo commento!</label>
-          <md-input v-model="testo_questo"></md-input>
-        </md-field>
-
-        <!-- nome del commentatore -->
-        <md-field>
-          <label>Inserisci qui il tuo nome!</label>
-          <md-input v-model="nome_questo"></md-input>
-        </md-field>
-
-        <md-dialog-actions>
-          <md-button @click="scheda_commento = false">Annulla</md-button>
-          <md-button class = "md-primary" @click="salva_commento" :disabled="!testo_questo || !nome_questo">Salva</md-button>
-          <!-- il bottone è disattivato se non vengono inseriti testo e nome -->
-        </md-dialog-actions>
-      </div>
-    </template>
-  </md-dialog>
-</div>
-
-<!-- creazione della dialog box per inserire il voto -->
-<div>
-  <md-dialog :md-active.sync="scheda_voto">
-    <template>
-      <div style = "padding: 24px">
-        <md-dialog-title style = "color: #037bff; font-weight: bold">
-          Pronto a votare?
-        </md-dialog-title><br><br>
-        <md-dialog-subhead>
-          Usa un numero compreso tra 1 e 5
-        </md-dialog-subhead>
-        <!-- voto dell'utente -->
-        <md-field>
-          <label>Inserisci qui il tuo voto!</label>
-          <md-input v-model="voto_questo"></md-input>
-        </md-field>
-      </div>
-
-      <md-dialog-actions>
-        <md-button @click="scheda_voto = false">Annulla</md-button>
-        <md-button class = "md-primary" @click="salva_voto" :disabled="!voto_questo || voto_questo > 5 || voto_questo < 1">
-          Salva
-        </md-button>
-        <!-- il bottone è disabled se non viene inserito un voto, se viene inserito un numero maggiore di 5 o 0-->
-      </md-dialog-actions>
-    </template>
-  </md-dialog>
-</div>
-</div>
-</div>
 </template>
 
 <!--template della pagina degli editori-->
 <template id="editori">
   <div class="background">
-  <div>
     <div class="md-layout md-gutter-3">
-      <div v-for="e in editori">
-      <!-- mostra una card per ogni istanza contenuta nella raccolta editori del database -->
-        <md-card class="card" md-with-hover style="width: 240px; 
-                                                   height: 240px; 
-                                                   background-color: white;">
+      <div v-for="e in editori" class="md-layout-item md-size-25 md-medium-size-50 md-xsmall-size-100">
+
+        <!-- struttura card editori -->
+        <md-card class="card" md-with-hover>
 
           <md-ripple>
                 
             <router-link tag="div" :to="'/editore/' + e.data.titolo">  
 
             <div class="card-inner">               
-              <img :src="e.data.immagine" alt="L'immagine si sta caricando..." style="padding: 0px;"> 
+              <img :src="e.data.immagine" alt="L'immagine si sta caricando..."> 
 
               <div class="card-content">
                 <h1>{{e.data.titolo}}</h1>
@@ -537,125 +501,115 @@
       </div>
     </div>
   </div>
-  </div>
 </template>
 
 <!-- template della pagina specifica per un editore -->
 <template id="editore">
-  <div class="background">
-  <div>
+<!-- visualizzazione di tutti i fumetti appartenenti all'editore selezionato -->
 
+  <div class="background">
     <div class="md-layout md-gutter-3">
-      <!-- definizione dei breakpoints -->
       <div v-for="f in fumetti" class="md-layout-item md-size-25 md-medium-size-50 md-xsmall-size-100">
-        <!-- presentazione di una card per ogni fumetto che risponde alla categoria -->
+
+        <!-- template card del fumetto -->
         <template>
           <div class="card-expansion">
-            <md-card class="fumetto" md-with-hover style="width: 350px;">
+            <md-card class="fumetto" md-with-hover>
               <md-ripple>
-  
-                <router-link tag="div"  :to="'/dettaglio/' + f.id">
-  
-                <md-card-media>
-  
-                  <img :src="f.data.immagine" alt="L'immagine si sta caricando..." style="width: 350px; 
-                                                                                        height: 500px; "> 
+
+               <router-link tag="div"  :to="'/dettaglio/' + f.id">
+
+                <md-card-media class="fumetto-immagine">
+                  <img :src="f.data.immagine" alt="L'immagine si sta caricando...">
                 </md-card-media>
-  
+
               </md-ripple>
-              
+            
               <md-card-expand>
-                <md-card-actions md-alignment="space-between">
+
+               <md-card-actions class="fumetto-actions" md-alignment="space-between">
+
                   <div>
-  
-                    <md-button class="md-icon-button" @click = "mostra_scheda_voto(f.id)"><md-icon>favorite</md-icon></md-button>
+                    <md-button class="md-icon-button" @click = "mostra_scheda_voto(f.id)"><md-icon>star_rate</md-icon></md-button>
                     <md-button class="md-icon-button" @click = "mostra_scheda_commento(f.id)"><md-icon>comment</md-icon></md-button>
-  
                   </div>
-        
+      
                   <md-card-expand-trigger>
                     <md-button class="md-icon-button">
-  
                       <md-icon>keyboard_arrow_down</md-icon>
-  
                     </md-button>
                   </md-card-expand-trigger>
-                </md-card-actions>
-        
+
+               </md-card-actions>
+      
                 <md-card-expand-content>
                   <md-card-content class="fumetto-content">
-  
                     <div class="md-title"><h1>{{f.data.titolo}}</h1></div>
                     <div class="md-subhead"><p>{{f.data.descrizione}}</p></div>
-  
                   </md-card-content>
                 </md-card-expand-content>
-              </md-card-expand>
-            </md-card>
+
+            </md-card-expand>
+          </md-card>
         </template>
       </div>
     </div>
-              <!-- creazione della dialog box per inserire il commento -->
-              <div>
-                <md-dialog :md-active.sync="scheda_commento">
-                  <template>
-                    <div  style = "padding: 24px 24px 8px 24px">
-                      <!-- intestazione della dialog box -->
-                      <md-dialog-title style = "color: #037bff; font-weight: bold">
-                        Pronto a commentare?
-                      </md-dialog-title>
+
+    <!-- creazione della dialog box per inserire il commento -->
+    <div>
+      <md-dialog :md-active.sync="scheda_commento">
+        <template>
+          <div  style = "padding: 24px 24px 8px 24px">
     
-                      <!-- testo del commento -->
-                      <md-field>
-                        <label>Inserisci qui il tuo commento!</label>
-                        <md-input v-model="testo_questo"></md-input>
-                      </md-field>
+            <!-- nome del commentatore -->
+            <md-field>
+              <label>Inseriew nome</label>
+              <md-input v-model="nome_questo"></md-input>
+                        <!-- v-model attribuisce alla variabile nome_questo il valore inserito dall'utente -->
+            </md-field>
     
-                      <!-- nome del commentatore -->
-                      <md-field>
-                        <label>Inserisci qui il tuo nome!</label>
-                        <md-input v-model="nome_questo"></md-input>
-                      </md-field>
+            <!-- testo del commento -->
+            <md-field>
+              <label>Inserisci qui il tuo nome!</label>
+              <md-input v-model="testo_questo"></md-input>
+                        <!-- v-model attribuisce alla variabile testo_questo il valore inserito dall'utente -->
+            </md-field>
     
-                      <md-dialog-actions>
-                        <md-button @click="scheda_commento = false">Annulla</md-button>
-                        <md-button class = "md-primary" @click="salva_commento" :disabled="!testo_questo || !nome_questo">Salva</md-button>
-                        <!-- il bottone è disattivato se non vengono inseriti testo e nome -->
-                      </md-dialog-actions>
-                    </div>
-                  </template>
-                </md-dialog>
-              </div>
+            <md-dialog-actions>
+              <md-button @click="scheda_commento = false">Annulla</md-button>
+              <md-button class = "md-primary" @click="salva_commento" :disabled="!testo_questo || !nome_questo">Salva</md-button>
+                                                                      <!-- il bottone è disattivato se non vengono inseriti testo e nome -->
+            </md-dialog-actions>
+
+          </div>
+        </template>
+      </md-dialog>
+    </div>
     
-              <!-- creazione della dialog box per inserire il voto -->
-              <div>
-                <md-dialog :md-active.sync="scheda_voto">
-                  <template>
-                    <div style = "padding: 24px">
-                      <md-dialog-title style = "color: #037bff; font-weight: bold">
-                        Pronto a votare?
-                      </md-dialog-title><br><br>
-                      <md-dialog-subhead>
-                        Usa un numero compreso tra 1 e 5
-                      </md-dialog-subhead>
-                      <!-- voto dell'utente -->
-                      <md-field>
-                        <label>Inserisci qui il tuo voto!</label>
-                        <md-input v-model="voto_questo"></md-input>
-                      </md-field>
-                    </div>
+    <!-- creazione della dialog box per inserire il voto -->
+    <div>
+      <md-dialog :md-active.sync="scheda_voto">
+        <template>
+          <div style = "padding: 24px">
+
+            <!-- voto dell'utente -->
+            <md-field>
+              <label>Inserire numero tra 1 e 5</label>
+              <md-input v-model="voto_questo"></md-input>
+                        <!-- v-model attribuisce alla variabile voto_questo il valore inserito dall'utente -->
+            </md-field>
+
+          </div>
     
-                    <md-dialog-actions>
-                      <md-button @click="scheda_voto = false">Annulla</md-button>
-                      <md-button class = "md-primary" @click="salva_voto" :disabled="!voto_questo || voto_questo > 5 || voto_questo < 1">
-                        Salva
-                      </md-button>
-                      <!-- il bottone è disabled se non viene inserito un voto, se viene inserito un numero maggiore di 5 o 0-->
-                    </md-dialog-actions>
-                  </template>
-                </md-dialog>
-              </div>
-  </div>
+          <md-dialog-actions>
+            <md-button @click="scheda_voto = false">Annulla</md-button>
+            <md-button class = "md-primary" @click="salva_voto" :disabled="!voto_questo || voto_questo > 5 || voto_questo < 1">Salva</md-button>
+                                                                <!-- il bottone è disabled se non viene inserito un voto, se viene inserito un numero maggiore di 5 o 0-->
+          </md-dialog-actions>
+
+        </template>
+      </md-dialog>
+    </div>
   </div>
 </template>
       
@@ -1072,10 +1026,10 @@
 
       </script>
 
-<!-- creazione del footer -->
-<footer class="footer">
+  <!-- creazione del footer -->
+  <footer class="footer">
   <p>Copyright © 2020, www.nomedelsito.com</p>
-</footer>
+  </footer>
 
   </body>
 </html>
