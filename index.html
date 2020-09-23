@@ -1,5 +1,5 @@
 <!doctype html>
-<html>
+<html class="md-scrollbar">
   
 <head>
   <meta charset="utf-8">
@@ -71,7 +71,7 @@
         </md-app-toolbar>
 
           <!-- struttura del drawer -->
-          <md-app-drawer md-persistent="full" :md-active.sync="menuVisible">
+          <md-app-drawer md-swipeale :md-active.sync="menuVisible">
                                               <!-- attributo associato tramite v-bind -->
 
             <md-toolbar class="md-transparent" md-elevation="0">
@@ -110,9 +110,18 @@
 
           </md-app-drawer>
 
-          <md-app-content>
+          <md-app-content style="padding: 0%;">
             <router-view></router-view>
+
+            <!-- creazione del footer -->
+            <md-toolbar class="md-scroll-shrink footer md-primary">
+              <div layout="row" layout-align="center center" flex>
+                FOOTER INFO
+              </div>
+            </md-toolbar>
+
           </md-app-content>
+                
 </md-app>
     
 <!-- template della pagina home -->
@@ -236,7 +245,7 @@
 
   <div class="background">
     <div class="md-layout md-gutter-3">
-      <div v-for="f in fumetti" class="md-layout-item md-size-25 md-medium-size-50 md-xsmall-size-100">
+      <div v-for="f in fumetti" class="md-layout-item md-size-25 md-medium-size-50 md-xsmall-size-100" >
 
         <!--template della card del fumetto-->
         <template>
@@ -1025,11 +1034,6 @@
               });
 
       </script>
-
-  <!-- creazione del footer -->
-  <footer class="footer">
-  <p>Copyright © 2020, www.nomedelsito.com</p>
-  </footer>
 
   </body>
 </html>
