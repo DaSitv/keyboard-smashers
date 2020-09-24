@@ -5,7 +5,7 @@
     font-size: 20px;
     letter-spacing: 3px;
     word-spacing: 10px;
-    height: 90px;
+    max-height: 60px;
     padding: 16px; 
     text-align: left;
   }
