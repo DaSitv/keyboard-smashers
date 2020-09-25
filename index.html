@@ -139,11 +139,7 @@
 
     <md-card class="dettaglio-immagine">
         <md-card-media>
-     
-              <img :src="fumetto.immagine" alt="L'immagine si sta caricando">
-              <!-- l'attributo src viene collegato all'istanza dei data tramite
-              v-bind, di modo che possa essere aggiornata o recuperata per ogni elemento -->
-  
+              <img :src="fumetto.immagine" alt="L'immagine si sta caricando" style="height: 500px; width: 350px;">
           </md-card-media>
     </md-card>
   </div>
@@ -154,7 +150,7 @@
         <!-- struttura della card -->
         <md-card-header>
           <md-card-header-text>
-            <div class="md-title" style = "color: #037bff; font-weight: bold">
+            <div class="md-title" style = "color: #448aff; font-weight: bold">
               {{ fumetto.titolo }}
             </div>
             <div class="md-subhead">
@@ -163,7 +159,7 @@
           </md-card-header-text>
         </md-card-header>       
 
-        <md-card-content>
+        <md-card-content class="dettaglio-content">
 
           <span>
             {{ fumetto.descrizione_dettaglio }}
@@ -251,8 +247,8 @@
 
                <router-link tag="div"  :to="'/dettaglio/' + f.id">
 
-                <md-card-media class="fumetto-immagine">
-                  <img :src="f.data.immagine" alt="L'immagine si sta caricando...">
+                <md-card-media>
+                  <img :src="f.data.immagine" alt="L'immagine si sta caricando..." style="height: 500px; width: 350px;">
                 </md-card-media>
 
               </md-ripple>
@@ -355,7 +351,7 @@
             <router-link tag="div" :to="'/categoria/' + c.data.titolo">
             
             <div class="card-inner">              
-              <img :src="c.data.immagine" alt="L'immagine si sta caricando..."> 
+              <img :src="c.data.immagine" class="card-immagine" alt="L'immagine si sta caricando..." style="height: 240px; width: 240px;"> 
 
                 <div class="card-content">
                   <h1>{{c.data.titolo}}</h1>
@@ -492,7 +488,7 @@
             <router-link tag="div" :to="'/editore/' + e.data.titolo">  
 
             <div class="card-inner">               
-              <img :src="e.data.immagine" alt="L'immagine si sta caricando..."> 
+              <img :src="e.data.immagine" alt="L'immagine si sta caricando..." style="height: 240px; width: 240px;"> 
 
               <div class="card-content">
                 <h1>{{e.data.titolo}}</h1>

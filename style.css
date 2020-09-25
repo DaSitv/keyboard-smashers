@@ -28,14 +28,12 @@
     font-family: Roboto;
     width: 240px; 
     height: 240px;        
-    background-color: white;
   }
   
   .card-inner {
     position: relative;
     width: 100%;
     height: 100%;
-    background-color: white;
     padding: 0px;
   }
 
@@ -44,7 +42,7 @@
   }
 
   .card-content {
-    background-color: white;
+    background-color: #FAFAFA;
     transition: transform 0.8s;
     width: 100%;
     height: 120px;
@@ -55,11 +53,13 @@
   .card-content h1 {
     font-weight: 300;
     font-size: 22px;
+    color: #448AFF;
   }
 
   .card-content p {
     font-weight: 500;
     font-size: 11px;
+    color: #424242;
   }
 
   .fumetto {
@@ -78,6 +78,7 @@
   .fumetto-content h1 {
     font-weight: 300;
     font-size: 22px;
+    color: #448aff;
   }
 
   .fumetto-content p {
@@ -85,15 +86,15 @@
     font-size: 11px;
     padding-left: 16px;
     padding-right: 16px;
-  }
-
-  .fumetto-immagine {
-    width: 350px; 
-    height: 500px; 
+    color: #424242;
   }
 
   .dettaglio-card {
     margin: 16px;
+  }
+
+  .dettaglio-content span {
+    color: #424242
   }
 
   .dettaglio-immagine {
