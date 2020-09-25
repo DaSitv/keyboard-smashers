@@ -116,7 +116,7 @@
             <router-view></router-view>
 
             <!-- creazione del footer -->
-            <md-toolbar id="footer">
+            <md-toolbar id="footer" style="text-align: center;">
                 <p>Copyright © 2020, ComicsSpace.com</p>
             </md-toolbar>
 
@@ -201,18 +201,16 @@
 
               <div v-for="c in lista_commenti">
 
-                  <!-- gli elementi dispari dell'array (ovvero i nomi dei commentatori), vengono scritti in
-                   corsivo -->
+                  <!-- i commentatori vengono scritti in corsivo -->
                   <div v-if = "(lista_commenti.indexOf(c) % 2 !== 1) ">
-                  <!-- la funzione .indexOf() restituisce l'indice dell'elemento del ciclo corrente -->
+                                                <!-- la funzione .indexOf() restituisce l'indice dell'elemento del ciclo corrente -->
 
                     <span style= "font-style: italic">
                       {{ c }}:
                     </span>
                   </div>
 
-                  <!-- gli elementi pari dell'array (ovvero il testo dei commenti), vengono visualizzati
-                  normalmente e vengono seguiti da un divider -->
+                  <!-- i commenti vengono visualizzati normalmente e vengono seguiti da un divider -->
                   <div v-else>
                     <span>
                       "{{ c }}"
@@ -690,7 +688,7 @@
                // collegamento al database su Firebase, nella raccolta "commenti"
                // la query recupera i dati dell'entrata del database che risponde all'id passato nella pagina
                // dei fumetti nel momento in cui si clicca su uno specifico fumetto
-               // la funzione crea una lista che contiene i testi dei commenti e gli username
+               // la funzione crea una lista che contiene i commenti e gli username
                db.collection("commenti").where("id", "==", this.$route.params.id).get().then(function(res){
                  // inserisce in una lista i campi che interessano, ovvero nome e commento, del fumetto di cui è stato
                  // passato l'id
@@ -841,7 +839,7 @@
              },
            });
 
-           // definizione della pagina categoria, con azioni commento e valutazione
+           // definizione della pagina categoria, con azioni commento e voto
            const Categoria = Vue.component('categoria', {
              template: '#categoria',
              created: function() {
@@ -1009,7 +1007,6 @@
              }
            });
         
-
           // definizione del router per navigare tra le pagine
             const router = new VueRouter({
                 routes: [
@@ -1025,7 +1022,7 @@
                   {path: '/editori', component: Editori},
                   {path:'/editore/:titolo', component: Editore}
                   // l'elemento :titolo è il parametro che permette di recuperare le informazioni
-                  // relative a un'unica categoria e visualizzare la pagina relativa
+                  // relative a un'unica categoria / un unico editore e visualizzare la pagina relativa
                 ]
               });
 
