@@ -17,7 +17,7 @@
   <script src="https://unpkg.com/vue-material@beta"></script> 
   <script src="https://cdn.jsdelivr.net/npm/vue"></script> 
   <script src="https://unpkg.com/vue-router"></script>
-  <script src="https://unpkg.com/vueperslides"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vue-carousel@0.18.0/dist/vue-carousel.min.js"></script>
 
   <!-- Firebase -->
   <script src="https://www.gstatic.com/firebasejs/7.6.2/firebase-app.js"></script>
@@ -25,7 +25,7 @@
 
   <!-- CSS -->
   <link rel="stylesheet" href="style.css">
-  <link href="https://unpkg.com/vueperslides/dist/vueperslides.css" rel="stylesheet">
+  
     
   <script>
 
@@ -128,10 +128,23 @@
 <template id="home">
   <div class="background">
   <div style="padding: 10px 50px;">
-    <vueper-slides autoplay>
-      <vueper-slide v-for="f in fumetti" :key="i" :title="f.data.titolo" :content="f.data.editore" />
-    </vueper-slides>
- 
+      <carousel :perPage="1" :autoplay="true" :loop="true">
+        <slide v-for="f in fumetti">
+          <md-card>
+            <md-card-media-cover md-text-scrim>
+              <md-card-media>
+                <img :src="f.data.immagine" alt="f.data.titolo">
+              </md-card-media>
+      
+              <md-card-area>
+                <md-card-header>
+                  <span class="md-title">{{f.data.titolo}}</span>
+                </md-card-header>
+              </md-card-area>
+            </md-card-media-cover>
+          </md-card>
+        </slide>
+      </carousel>
   </div>
   </div>
 </template>
@@ -642,7 +655,7 @@
           Vue.component('router-link', Vue.options.components.RouterLink)
           Vue.component('router-view', Vue.options.components.RouterView)
 
-           // definizione della pagina home
+          // definizione della pagina home
            const Home = Vue.component('home', {
               template: '#home',
               created: function() {
@@ -659,6 +672,10 @@
                  me.fumetti = list;
                });
              },
+            components: {
+              'carousel': VueCarousel.Carousel,
+              'slide': VueCarousel.Slide
+            },
               // inizializzazione dei dati
               data: function() {
                 return {
