@@ -128,7 +128,11 @@
 <template id="home">
   <div class="background">
   <div style="padding: 10px 50px;">
-      <carousel :perPage="1" :autoplay="true" :loop="true">
+      <carousel :per-page="3" 
+                :autoplay="true" 
+                :loop="true"
+                :scroll-per-page="false"
+                :speed="1000">
         <slide v-for="f in fumetti">
           <md-card>
             <md-card-media-cover md-text-scrim>
