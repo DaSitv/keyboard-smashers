@@ -17,13 +17,15 @@
   <script src="https://unpkg.com/vue-material@beta"></script> 
   <script src="https://cdn.jsdelivr.net/npm/vue"></script> 
   <script src="https://unpkg.com/vue-router"></script>
+  <script src="https://unpkg.com/vueperslides"></script>
 
   <!-- Firebase -->
   <script src="https://www.gstatic.com/firebasejs/7.6.2/firebase-app.js"></script>
   <script src="https://www.gstatic.com/firebasejs/7.6.2/firebase-firestore.js"></script>
 
-  <!-- Mio CSS -->
+  <!-- CSS -->
   <link rel="stylesheet" href="style.css">
+  <link href="https://unpkg.com/vueperslides/dist/vueperslides.css" rel="stylesheet">
     
   <script>
 
@@ -126,6 +128,9 @@
 <template id="home">
   <div class="background">
   <div style="padding: 10px 50px;">
+    <vueper-slides autoplay>
+      <vueper-slide v-for="f in fumetti" :key="i" :title="f.data.titolo" :content="f.data.editore" />
+    </vueper-slides>
  
   </div>
   </div>
@@ -643,28 +648,30 @@
           Vue.component('router-link', Vue.options.components.RouterLink)
           Vue.component('router-view', Vue.options.components.RouterView)
 
-
            // definizione della pagina home
            const Home = Vue.component('home', {
               template: '#home',
               created: function() {
-                var me = this;
-                //la query recupera tutte le entrate della raccolta "categorie" del database inserendo i
-                //dati in una lista
-                db.collection("categorie").get().then(function(res) {
-                  const list = [];
-                  res.forEach(function(categoria) {
-                    list.push({id: categoria.id, data: categoria.data()});
-                  });
-                  me.categorie = list;
-                });
-              },
+               var me = this;
+               // collegamento al database su Firebase, nella raccolta "fumetti"
+               // la query recupera il documento che corrisponde all'id passato nella pagina dei fumetti
+               // nel momento in cui si clicca su uno specifico fumetto
+               // la funzione crea una lista con tutti i dati di tutte le istanze del database
+               db.collection("fumetti").get().then(function(res) {
+                 const list = [];
+                 res.forEach(function(fumetto) {
+                   list.push({id: fumetto.id, data: fumetto.data()});
+                 });
+                 me.fumetti = list;
+               });
+             },
               // inizializzazione dei dati
               data: function() {
                 return {
-                  categorie: []
+                  fumetti: []
                 }
               },
+              
             });
 
           // definizione della pagina dettaglio, con azioni di visualizzazione dei commenti e del voto medio 
@@ -1028,7 +1035,7 @@
                 el: '#app',
                 data: {
                   menuVisible: false
-                }
+                },
               });
 
       </script>
