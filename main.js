@@ -528,14 +528,14 @@ new Vue({
             
         }
     },
-    created(){
+    /*created(){
         this.getData()
     },
     methods :{
         getData(){
             axios.get("http://gateway.marvel.com/v1/public/comics?apikey=5df3891eaed55b4570144d3f0f1512c1").then(response => {this.results = response.data.data.results})
         }
-    }
+    }*/
     
 });
 
