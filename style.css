@@ -24,6 +24,7 @@
     border: 1px solid white;
     display: inline-block; 
     margin: 16px;
+    margin-top: 56px;
     padding: 0px; 
     font-family: Roboto;
     width: 240px; 
@@ -66,6 +67,7 @@
     border: 1px solid white;
     display: inline-block; 
     margin: 16px;
+    margin-top: 56px;
     padding: 0px; 
     font-family: Roboto;
     width: 350px;
@@ -101,6 +103,7 @@
     max-height: 500px; 
     max-width: 350px;
     margin: 16px;
+    margin-top: 56px;
   }
 
   #footer {
