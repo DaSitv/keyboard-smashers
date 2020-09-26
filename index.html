@@ -77,7 +77,7 @@
 
           <!-- struttura del drawer -->
           <md-app-drawer md-swipeale :md-active.sync="menuVisible">
-                                      <!-- attributo associato tramite v-bind -->
+                                     <!-- attributo associato tramite v-bind -->
 
             <md-toolbar class="md-transparent" md-elevation="0">
           
@@ -120,7 +120,7 @@
 
             <!-- creazione del footer -->
             <md-toolbar id="footer" style="text-align: center;">
-                <p>Copyright © 2020, ComicsSpace</p>
+                <p>Copyright © 2020, ComicsSpace.com</p>
             </md-toolbar>
 
           </md-app-content>
@@ -131,6 +131,8 @@
 <template id="home">
   <div class="background">
   <div style="padding: 10px 50px;">
+
+      <!-- struttura del carosello -->
       <carousel :per-page-custom="[[0, 1], [630, 2], [1024, 3]]" 
                 :autoplay="true" 
                 :loop="true"
@@ -215,11 +217,9 @@
             </span><br>
 
             <div v-if= "lista_commenti.length > 0">
-            <!-- il codice seguente viene eseguito solamente se sono presenti dei commenti per il prodotto -->
 
               <div v-for="c in lista_commenti">
 
-                  <!-- i commentatori vengono scritti in corsivo -->
                   <div v-if = "(lista_commenti.indexOf(c) % 2 !== 1) ">
                                                 <!-- la funzione .indexOf() restituisce l'indice dell'elemento del ciclo corrente -->
 
@@ -228,7 +228,6 @@
                     </span>
                   </div>
 
-                  <!-- i commenti vengono visualizzati normalmente e vengono seguiti da un divider -->
                   <div v-else>
                     <span>
                       "{{ c }}"
@@ -239,7 +238,6 @@
             </div>
 
             <div v-else>
-            <!-- il codice seguente viene eseguito solamente se non sono presenti dei commenti per il fumetto -->
 
               <span>
                 Nessuno ha ancora commentato questo fumetto!
@@ -320,19 +318,16 @@
             <md-field>
               <label>Inserire nome!</label>
               <md-input v-model="nome_questo"></md-input>
-                        <!-- v-model attribuisce alla variabile nome_questo il valore inserito dall'utente -->
             </md-field>
 
             <md-field>
               <label>Inserire commento!</label>
               <md-input v-model="testo_questo"></md-input>
-                        <!-- v-model attribuisce alla variabile testo_questo il valore inserito dall'utente -->
             </md-field>
 
             <md-dialog-actions>
               <md-button @click="scheda_commento = false">Annulla</md-button>
               <md-button class = "md-primary" @click="salva_commento" :disabled="!testo_questo || !nome_questo">Invia</md-button>
-                                                                      <!-- il bottone è disattivato se non vengono inseriti testo e nome -->
             </md-dialog-actions>
 
           </div>
@@ -349,14 +344,12 @@
             <md-field>
               <label>Inserire un numero tra 1 e 5!</label>
               <md-input v-model="voto_questo"></md-input>
-                        <!-- v-model attribuisce alla variabile voto_questo il valore inserito dall'utente -->
             </md-field>
           </div>
 
           <md-dialog-actions>
             <md-button @click="scheda_voto = false">Annulla</md-button>
             <md-button class = "md-primary" @click="salva_voto" :disabled="!voto_questo || voto_questo > 5 || voto_questo < 1">Salva</md-button>
-                                                                <!-- il bottone è disabled se non viene inserito un voto, se viene inserito un numero maggiore di 5 o 0-->
           </md-dialog-actions>
 
         </template>
@@ -456,20 +449,17 @@
             <md-field>
               <label>Inserire nome!</label>
               <md-input v-model="nome_questo"></md-input>
-                        <!-- v-model attribuisce alla variabile nome_questo il valore inserito dall'utente -->
             </md-field>
 
             <!-- testo del commento -->
             <md-field>
               <label>Inserire commento!</label>
               <md-input v-model="testo_questo"></md-input>
-              <!-- v-model attribuisce alla variabile testo_questo il valore inserito dall'utente -->
             </md-field>
 
             <md-dialog-actions>
               <md-button @click="scheda_commento = false">Annulla</md-button>
               <md-button class = "md-primary" @click="salva_commento" :disabled="!testo_questo || !nome_questo">Salva</md-button>
-                                                                    <!-- il bottone è disattivato se non vengono inseriti testo e nome -->
             </md-dialog-actions>
 
           </div>
@@ -486,14 +476,12 @@
             <md-field>
               <label>Inserire un numero tra 1 e 5!</label>
               <md-input v-model="voto_questo"></md-input>
-                        <!-- v-model attribuisce alla variabile voto_questo il valore inserito dall'utente -->
             </md-field>
           </div>
 
           <md-dialog-actions>
             <md-button @click="scheda_voto = false">Annulla</md-button>
             <md-button class = "md-primary" @click="salva_voto" :disabled="!voto_questo || voto_questo > 5 || voto_questo < 1">Salva</md-button>
-                                                                <!-- il bottone è disabled se non viene inserito un voto, se viene inserito un numero maggiore di 5 o 0-->
           </md-dialog-actions>
 
         </template>
@@ -594,20 +582,17 @@
             <md-field>
               <label>Inseriew nome</label>
               <md-input v-model="nome_questo"></md-input>
-                        <!-- v-model attribuisce alla variabile nome_questo il valore inserito dall'utente -->
             </md-field>
     
             <!-- testo del commento -->
             <md-field>
               <label>Inserisci qui il tuo nome!</label>
               <md-input v-model="testo_questo"></md-input>
-                        <!-- v-model attribuisce alla variabile testo_questo il valore inserito dall'utente -->
             </md-field>
     
             <md-dialog-actions>
               <md-button @click="scheda_commento = false">Annulla</md-button>
               <md-button class = "md-primary" @click="salva_commento" :disabled="!testo_questo || !nome_questo">Salva</md-button>
-                                                                      <!-- il bottone è disattivato se non vengono inseriti testo e nome -->
             </md-dialog-actions>
 
           </div>
@@ -625,7 +610,6 @@
             <md-field>
               <label>Inserire un numero tra 1 e 5</label>
               <md-input v-model="voto_questo"></md-input>
-                        <!-- v-model attribuisce alla variabile voto_questo il valore inserito dall'utente -->
             </md-field>
 
           </div>
@@ -633,7 +617,6 @@
           <md-dialog-actions>
             <md-button @click="scheda_voto = false">Annulla</md-button>
             <md-button class = "md-primary" @click="salva_voto" :disabled="!voto_questo || voto_questo > 5 || voto_questo < 1">Salva</md-button>
-                                                                <!-- il bottone è disabled se non viene inserito un voto, se viene inserito un numero maggiore di 5 o 0-->
           </md-dialog-actions>
 
         </template>
@@ -670,10 +653,7 @@
               template: '#home',
               created: function() {
                var me = this;
-               // collegamento al database su Firebase, nella raccolta "fumetti"
-               // la query recupera il documento che corrisponde all'id passato nella pagina dei fumetti
-               // nel momento in cui si clicca su uno specifico fumetto
-               // la funzione crea una lista con tutti i dati di tutte le istanze del database
+
                db.collection("fumetti").get().then(function(res) {
                  const list = [];
                  res.forEach(function(fumetto) {
@@ -686,7 +666,7 @@
               'carousel': VueCarousel.Carousel,
               'slide': VueCarousel.Slide
             },
-              // inizializzazione dei dati
+
               data: function() {
                 return {
                   fumetti: []
@@ -700,40 +680,24 @@
              template: '#dettaglio',
              created: function() {
                var me = this;
-               // collegamento al database su Firebase, nella raccolta "fumetti"
-               // la query recupera il documento che corrisponde all'id passato nella pagina dei fumetti
-               // nel momento in cui si clicca su uno specifico fumetto
-               // la funzione associa a "fumetto" i dati recuperati tramite l'id
+
                db.collection("fumetti").doc(this.$route.params.id).get().then(function(res){
-                 // recupera tutti i dati relativi al fumetto di cui è stato passato l'id come parametro
                  me.fumetto = res.data();
                });
-               // collegamento al database su Firebase, nella raccolta "commenti"
-               // la query recupera i dati dell'entrata del database che risponde all'id passato nella pagina
-               // dei fumetti nel momento in cui si clicca su uno specifico fumetto
-               // la funzione crea una lista che contiene i commenti e gli username
+   
                db.collection("commenti").where("id", "==", this.$route.params.id).get().then(function(res){
-                 // inserisce in una lista i campi che interessano, ovvero nome e commento, del fumetto di cui è stato
-                 // passato l'id
                  const list = [];
                  res.forEach(function(r) {
                      list.push(r.data().nome);
                      list.push(r.data().testo)
                  });
-                 // assegna alla variabile contenuta nell'opzione data il valore della lista creata, di modo che sia
-                 // possibile visualizzarla al di fuori
                  me.lista_commenti = list;
                });
-               // collegamento al database su Firebase, nella raccolta "voti"
-               // la query recupera i dati dell'entrata del database che risponde all'id passato nella pagina
-               // dei fumetti nel momento in cui si clicca su uno specifico fumetto
-               // la funzione calcola la media dei voti inseriti dagli utenti e permette di restituire sia la media
-               // che il numero totale di voti
+
                db.collection("voti").where("id", "==", this.$route.params.id).get().then(function(res){
                  somma = 0;
                  numero = 0;
                  res.forEach(function(r) {
-                   // parseInt serve a trasformare il voto inserito, che è in formato stringa, in formato numerico
                    somma += parseInt(r.data().voto);
                    numero++;
                  });
@@ -744,7 +708,7 @@
 
                });
              },
-             // inizializzazione dei dati
+
              data: function() {
                return {
                  fumetto: {},
@@ -760,10 +724,7 @@
              template: '#fumetti',
              created: function() {
                var me = this;
-               // collegamento al database su Firebase, nella raccolta "fumetti"
-               // la query recupera il documento che corrisponde all'id passato nella pagina dei fumetti
-               // nel momento in cui si clicca su uno specifico fumetto
-               // la funzione crea una lista con tutti i dati di tutte le istanze del database
+
                db.collection("fumetti").get().then(function(res) {
                  const list = [];
                  res.forEach(function(fumetto) {
@@ -774,12 +735,10 @@
 
              },
              
-             // richiamare i dati dal database
+
              data: function() {
                return {
-                 // permette di accedere all'array dall'esterno, richiamando prima la funzione data
                  fumetti: [],
-                 // resetta tutti i campi, di modo da avere il form vuoto
                  id_questo: null,
                  testo_questo: null,
                  scheda_commento: false,
@@ -790,47 +749,38 @@
              },
              // creare il commento e il voto
              methods: {
-               // la funzione permette di visualizzare o chiudere il box di commento relativo all'id del fumetto selezionato
-               // e fa sì che tutti i campi vengano resi vuoti quando la dialog box viene chiusa o il commento viene salvato
+
                mostra_scheda_commento: function(id){
                  this.id_questo = id;
                  this.scheda_commento = true;
                  this.testo_questo = null;
                  this.nome_questo = null;
                },
-               // la query inserisce nel database nella raccolta "commenti" i campi richiesti dal form
-               // una volta fatto, chiude la dialog box
+
                salva_commento: function(){
                  var me = this;
                    db.collection("commenti").add({
-                     // aggiunge il commento alla raccolta, inserendo l'id del fumetto, il testo del commento
-                     // e il nome del commentatore
                      id: this.id_questo,
                      testo: this.testo_questo,
                      nome: this.nome_questo
                    }).then(function() {
-                     // finito di inserire i dati, chiude la dialog box
                      me.scheda_commento = false
                    })
                },
-               // la funzione permette di visualizzare o chiudere il box di valutazione relativo all'id del fumetto selezionato
-               // e fa sì che tutti i campi vengano resi vuoti quando la dialog box viene chiusa o la valutazione viene salvata
+
                mostra_scheda_voto: function(id){
                  this.id_questo = id;
                  this.scheda_voto = true;
                  this.voto_questo = null;
                },
-               // la query inserisce nel database nella raccolta "voti" il voto inserito nel form
-               // una volta fatto, chiude la dialog box
+
                salva_voto: function(){
                  var me = this;
                  db.collection("voti").add({
-                   // aggiunge il voto alla raccolta, inserendo l'id del fumetto e il voto inserito dall'utente
                    id: this.id_questo,
                    voto: this.voto_questo
                  }).then(function() {
                    me.scheda_voto = false
-                   // finito di inserire i dati, chiude la dialog box
                  })
                }
              }
@@ -841,19 +791,16 @@
              template: '#categorie',
              created: function() {
                var me = this;
-               // collegamento al database su Firebase, nella raccolta "categorie"
-               // la query recupera i dati di tutte le entrate nella raccolta "categorie" e la funzione
-               // inserisce i dati all'interno di una lista, prima l'id e poi i dati
+
                db.collection("categorie").get().then(function(res) {
                  const list = [];
                  res.forEach(function(categorie) {
                    list.push({id: categorie.id, data: categorie.data()});
-                   // inserisce l'id e i dati in un array
                  });
                  me.categorie = list;
                });
              },
-             // inizializzazione dei dati
+
              data: function() {
                return {
                  categorie: []
@@ -867,15 +814,11 @@
              template: '#categoria',
              created: function() {
                var me = this;
-               //collegamento al database su Firebase, nella raccolta "fumetti"
-               //la query recupera i dati delle entrate del database che rispondono alla condizione
-               //che abbiano come categoria la categoria che è stata precedentemente cliccata
-               //la funzione inserisce i dati di questi fumetti in una lista e permette di richiamarli
+
                db.collection("fumetti").where("categoria", "==", this.$route.params.titolo).get().then(function(res){
                  const list = [];
                  res.forEach(function(r) {
                    list.push({id: r.id, data: r.data()});
-                   // inserisce l'id e i dati in un array
                  });
                  me.fumetti = list;
                });
@@ -892,16 +835,14 @@
                }
              },
              methods: {
-               // la funzione permette di visualizzare o chiudere il box di commento relativo all'id del fumetto selezionato
-               // e fa sì che tutti i campi vengano resi vuoti quando la dialog box viene chiusa o il commento viene salvato
+
                mostra_scheda_commento: function(id){
                  this.id_questo = id;
                  this.scheda_commento = true;
                  this.testo_questo = null;
                  this.nome_questo = null
                },
-               // la query inserisce nel database nella raccolta "commenti" i campi richiesti dal form
-               // una volta fatto, chiude la dialog box
+
                salva_commento: function(){
                  var me = this;
                    db.collection("commenti").add({
@@ -912,15 +853,13 @@
                      me.scheda_commento = false
                    })
                },
-               //la funzione permette di visualizzare o chiudere il box di voto relativo all'id del fumetto selezionato
-               //e fa sì che tutti i campi vengano resi vuoti quando la dialog box viene chiusa o il voto viene salvato
+
                mostra_scheda_voto: function(id){
                  this.id_questo = id;
                  this.scheda_voto = true;
                  this.voto_questo = null;
                },
-               //la query inserisce nel database nella raccolta "voti" il voto inserito nel form
-               //una volta fatto, chiude la dialog box
+
                salva_voto: function(){
                  var me = this;
                  db.collection("voti").add({
@@ -938,19 +877,16 @@
              template: '#editori',
              created: function() {
                var me = this;
-               // collegamento al database su Firebase, nella raccolta "editori"
-               // la query recupera i dati di tutte le entrate nella raccolta "editori" e la funzione
-               // inserisce i dati all'interno di una lista, prima l'id e poi i dati
+
                db.collection("editori").get().then(function(res) {
                  const list = [];
                  res.forEach(function(editori) {
                    list.push({id: editori.id, data: editori.data()});
-                   // inserisce l'id e i dati in un array
                  });
                  me.editori = list;
                });
              },
-             // inizializzazione dei dati
+
              data: function() {
                return {
                  editori: []
@@ -964,15 +900,11 @@
              template: '#editore',
              created: function() {
                var me = this;
-               //collegamento al database su Firebase, nella raccolta "fumetti"
-               //la query recupera i dati delle entrate del database che rispondono alla condizione
-               //che abbiano come categoria la categoria che è stata precedentemente cliccata
-               //la funzione inserisce i dati di questi fumetti in una lista e permette di richiamarli
+
                db.collection("fumetti").where("editore", "==", this.$route.params.titolo).get().then(function(res){
                  const list = [];
                  res.forEach(function(r) {
                    list.push({id: r.id, data: r.data()});
-                   // inserisce l'id e i dati in un array
                  });
                  me.fumetti = list;
                });
@@ -989,16 +921,14 @@
                }
              },
              methods: {
-               // la funzione permette di visualizzare o chiudere il box di commento relativo all'id del fumetto selezionato
-               // e fa sì che tutti i campi vengano resi vuoti quando la dialog box viene chiusa o il commento viene salvato
+
                mostra_scheda_commento: function(id){
                  this.id_questo = id;
                  this.scheda_commento = true;
                  this.testo_questo = null;
                  this.nome_questo = null
                },
-               // la query inserisce nel database nella raccolta "commenti" i campi richiesti dal form
-               // una volta fatto, chiude la dialog box
+
                salva_commento: function(){
                  var me = this;
                    db.collection("commenti").add({
@@ -1009,15 +939,13 @@
                      me.scheda_commento = false
                    })
                },
-               //la funzione permette di visualizzare o chiudere il box di valutazione relativo all'id del fumetto selezionato
-               //e fa sì che tutti i campi vengano resi vuoti quando la dialog box viene chiusa o il voto viene salvato
+
                mostra_scheda_voto: function(id){
                  this.id_questo = id;
                  this.scheda_voto = true;
                  this.voto_questo = null;
                },
-               //la query inserisce nel database nella raccolta "voti" il voto inserito nel form
-               //una volta fatto, chiude la dialog box
+
                salva_voto: function(){
                  var me = this;
                  db.collection("voti").add({
@@ -1034,7 +962,6 @@
             const router = new VueRouter({
                 routes: [
                   {path: '*', component: Home},
-                  // fa sì che all'apertura del file venga visualizzata la pagina home
                   {path: '/home', component: Home},
                   {path: '/dettaglio/:id', component: Dettaglio},
                   // l'elemento :id è il parametro che permette di recuperare le informazioni
