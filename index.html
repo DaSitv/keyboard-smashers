@@ -135,7 +135,8 @@
                 :autoplay="true" 
                 :loop="true"
                 :scroll-per-page="false"
-                :speed="1000">
+                :speed="1000"
+                :pagination-enabled="false">
         <slide v-for="f in fumetti" >
           <md-card style="width: 70%;" style="align-content: center;">
             <md-card-media-cover md-text-scrim>
@@ -263,6 +264,7 @@
   <div class="background">
     <div class="md-layout md-gutter-3">
       <div v-for="f in fumetti" class="md-layout-item md-size-25 md-medium-size-50 md-xsmall-size-100">
+
 
         <!--template della card del fumetto-->
         <template>
