@@ -131,13 +131,13 @@
 <template id="home">
   <div class="background">
   <div style="padding: 10px 50px;">
-      <carousel :per-page="3" 
+      <carousel :per-page-custom="[[0, 1], [630, 2], [1024, 3]]" 
                 :autoplay="true" 
                 :loop="true"
                 :scroll-per-page="false"
                 :speed="1000">
-        <slide v-for="f in fumetti">
-          <md-card style="width: 70%;">
+        <slide v-for="f in fumetti" >
+          <md-card style="width: 70%;" style="align-content: center;">
             <md-card-media-cover md-text-scrim>
               <md-card-media>
                 <img :src="f.data.immagine" alt="f.data.titolo">
