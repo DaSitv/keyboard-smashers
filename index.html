@@ -140,8 +140,6 @@
                 :speed="1000">
         <slide v-for="f in fumetti">
           <md-card style="width: 70%; margin: 16px;">
-        <slide v-for="f in fumetti" >
-          <md-card style="width: 70%;" style="align-content: center;">
             <md-card-media-cover md-text-scrim>
               <md-card-media>
                 <img :src="f.data.immagine" alt="f.data.titolo">
@@ -266,13 +264,13 @@
 
   <div class="background">
     <div class="md-layout md-gutter-3">
-      <div v-for="f in fumetti" class="md-layout-item md-size-25 md-medium-size-50 md-xsmall-size-100">
+      <div v-for="f in fumetti" class="md-layout-item md-size-33 md-medium-size-50 md-small-size-100 md-xsmall-size-100">
 
 
         <!--template della card del fumetto-->
         <template>
           <div class="card-expansion">
-            <md-card class="fumetto" md-with-hover>
+            <md-card class="fumetto" md-with-hover >
               <md-ripple>
 
                <router-link tag="div"  :to="'/dettaglio/' + f.id">
