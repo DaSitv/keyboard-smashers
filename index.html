@@ -119,7 +119,7 @@
             <router-view></router-view>
 
             <!-- creazione del footer -->
-            <md-toolbar id="footer" style="text-align: center;"></md-toolbar>
+            <md-toolbar id="footer" style="text-align: center;">
                 <p>Copyright © 2020, ComicsSpace.com</p>
             </md-toolbar>
 
@@ -137,7 +137,7 @@
                 :scroll-per-page="false"
                 :speed="1000">
         <slide v-for="f in fumetti">
-          <md-card>
+          <md-card style="width: 70%; margin: 16px;">
             <md-card-media-cover md-text-scrim>
               <md-card-media>
                 <img :src="f.data.immagine" alt="f.data.titolo">
