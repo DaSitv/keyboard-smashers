@@ -1,0 +1,1064 @@
+<!doctype html>
+<html>
+  
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width,initial-scale=1,minimal-ui" name="viewport">
+
+  <title> Fumetti </title>
+
+  <!-- Material e VueMaterial -->
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,400italic|Material+Icons">
+  <link rel="stylesheet" href="https://unpkg.com/vue-material@beta/dist/vue-material.min.css">
+  <link rel="stylesheet" href="https://unpkg.com/vue-material@beta/dist/theme/default.css">
+
+  <!-- Vue -->
+  <script src="https://unpkg.com/vue"></script>
+  <script src="https://unpkg.com/vue-material@beta"></script> 
+  <script src="https://cdn.jsdelivr.net/npm/vue"></script> 
+  <script src="https://unpkg.com/vue-router"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vue-carousel@0.18.0/dist/vue-carousel.min.js"></script>
+
+  <!-- Firebase -->
+  <script src="https://www.gstatic.com/firebasejs/7.6.2/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/7.6.2/firebase-firestore.js"></script>
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="style.css">
+
+  <!-- Bangers font-->
+  <link href="https://fonts.googleapis.com/css2?family=Bangers&display=swap" rel="stylesheet">
+  
+    
+  <script>
+
+  // Configurazione Firebase per la mia webapp
+  var firebaseConfig = {
+    apiKey: "AIzaSyBnYMexBlt9GpZkDfQ-TAT2tAV75Tu2ly4",
+    authDomain: "keyboard-smashers-58796.firebaseapp.com",
+    databaseURL: "https://keyboard-smashers-58796.firebaseio.com",
+    projectId: "keyboard-smashers-58796",
+    storageBucket: "keyboard-smashers-58796.appspot.com",
+    messagingSenderId: "961276467582",
+    appId: "1:961276467582:web:17854b0b2b263284"
+  };
+
+  // Inizializzazione Firebase
+  firebase.initializeApp(firebaseConfig);
+  </script>
+    <style>
+  		#app {
+  			height: 100vh;
+  		}
+    </style>
+</head>
+
+<body>
+
+<!-- navigation drawer e top bar -->
+<md-app id="app">
+        <md-app-toolbar id="topbar" class="md-primary">
+          <!-- rende visibile l'icona del menu ad hamburger solo quando il menu è chiuso -->
+          <md-button class="md-icon-button" @click="menuVisible = true" v-if="!menuVisible">
+            <md-icon>menu</md-icon>
+          </md-button>
+
+                    <!-- bottone che permette di tornare alla pagina dove si trovava l'utente
+          precedentemente-->
+          <md-button class="md-icon-button" @click="$router.go(-1)">
+            <md-icon style="color:white;">
+              keyboard_arrow_left
+            </md-icon>
+          </md-button>
+
+          <md-title class="titolo">ComicsSpace</md-title>
+
+        </md-app-toolbar>
+
+          <!-- struttura del drawer -->
+          <md-app-drawer md-swipeale :md-active.sync="menuVisible">
+                                              <!-- attributo associato tramite v-bind -->
+
+            <md-toolbar class="md-transparent" md-elevation="0">
+          
+              <div class="md-toolbar-section-end">
+
+                <!-- chiude la navigation drawer quando si clicca sulla freccia-->
+                <md-button class="md-icon-button" @click="menuVisible = false">
+                  <md-icon>keyboard_arrow_left</md-icon>
+                </md-button>
+              </div>
+            </md-toolbar>
+
+            <md-list>
+              <router-link tag="md-list-item" to="/home">
+                <md-icon>home</md-icon>
+                <div class="md-list-item-text">Home</div>
+              </router-link>
+
+              <router-link tag="md-list-item" to="/fumetti">
+                <md-icon>chrome_reader_mode</md-icon>
+                <div class="md-list-item-text">Tutti i fumetti</div>
+              </router-link>
+
+              <router-link tag="md-list-item" to="/categorie">
+                <md-icon>category</md-icon>
+                <div class="md-list-item-text">Categorie</div>
+              </router-link>
+
+              <router-link tag="md-list-item" to="/editori">
+                <md-icon>person</md-icon>
+                <div class="md-list-item-text">Editori</div>
+              </router-link>
+
+            </md-list>
+
+          </md-app-drawer>
+
+          <md-app-content style="padding: 0%;">
+            <router-view></router-view>
+
+            <!-- creazione del footer -->
+            <md-toolbar id="footer" style="text-align: center;">
+                <p>Copyright © 2020, ComicsSpace.com</p>
+            </md-toolbar>
+
+          </md-app-content>
+                
+</md-app>
+    
+<!-- template della pagina home -->
+<template id="home">
+  <div class="background">
+  <div style="padding: 10px 50px;">
+      <carousel :per-page-custom="[[0, 1], [630, 2], [1024, 3]]" 
+                :autoplay="true" 
+                :loop="true"
+                :scroll-per-page="false"
+                :speed="1000"
+                :pagination-enabled="false"
+                :speed="1000">
+        <slide v-for="f in fumetti">
+          <md-card style="width: 70%; margin: 56px;">
+            <md-card-media-cover md-text-scrim>
+              <md-card-media>
+                <img :src="f.data.immagine" alt="f.data.titolo">
+              </md-card-media>
+      
+              <md-card-area>
+                <md-card-header>
+                  <span class="md-title">{{f.data.titolo}}</span>
+                </md-card-header>
+              </md-card-area>
+            </md-card-media-cover>
+          </md-card>
+        </slide>
+      </carousel>
+  </div>
+  </div>
+</template>
+
+<!-- template della pagina di dettaglio dei fumetti -->
+<template id="dettaglio">
+<div class="background">
+<div style = "display: flex; align-items: center; flex-wrap: wrap; padding-left: 8%;">
+  <div class="md-layout-item md-size-30 md-medium-size-50 md-xsmall-size-100">
+
+    <md-card class="dettaglio-immagine">
+        <md-card-media>
+              <img :src="fumetto.immagine" alt="L'immagine si sta caricando" style="height: 500px; width: 350px;">
+          </md-card-media>
+    </md-card>
+  </div>
+
+    <div class="md-layout-item md-size-50 md-medium-size-50 md-xsmall-size-100">
+      <md-card class="dettaglio-card">
+
+        <!-- struttura della card -->
+        <md-card-header>
+          <md-card-header-text>
+            <div class="md-title" style = "color: #448aff; font-weight: bold">
+              {{ fumetto.titolo }}
+            </div>
+            <div class="md-subhead">
+              {{ fumetto.editore }} | {{ fumetto.disegnatore }} | {{ fumetto.anno }}
+            </div>
+          </md-card-header-text>
+        </md-card-header>       
+
+        <md-card-content class="dettaglio-content">
+
+          <span>
+            {{ fumetto.descrizione_dettaglio }}
+          </span><br><br>
+
+          <!-- voto medio del fumetto se sono presenti voti, messaggio se non sono presenti voti -->
+          <div>
+            <span style = "font-weight: bold">
+              Voto medio:
+            </span><br>
+            <span v-if= "numero_voti > 0">
+              <span style = "font-weight: bold; color: #037bff">
+                {{ media + "/5" + "&#9733"}}
+              </span>
+              <br>
+              <div v-if= "numero_voti > 1">{{ numero_voti }} utenti hanno votato questo fumetto.</div>
+              <div v-if= "numero_voti == 1">{{ numero_voti }} utente ha votato questo fumetto.</div>
+            </span>
+            <span v-else>Nessuno ha ancora votato questo fumetto!</span>
+          </div><br>
+
+          <!-- visualizzazione commenti -->
+          <div>
+            <span style = "font-weight: bold">
+              Commenti:
+            </span><br>
+
+            <div v-if= "lista_commenti.length > 0">
+            <!-- il codice seguente viene eseguito solamente se sono presenti dei commenti per il prodotto -->
+
+              <div v-for="c in lista_commenti">
+
+                  <!-- i commentatori vengono scritti in corsivo -->
+                  <div v-if = "(lista_commenti.indexOf(c) % 2 !== 1) ">
+                                                <!-- la funzione .indexOf() restituisce l'indice dell'elemento del ciclo corrente -->
+
+                    <span style= "font-style: italic">
+                      {{ c }}:
+                    </span>
+                  </div>
+
+                  <!-- i commenti vengono visualizzati normalmente e vengono seguiti da un divider -->
+                  <div v-else>
+                    <span>
+                      "{{ c }}"
+                    </span>
+                    <md-divider/>
+                  </div>
+              </div>
+            </div>
+
+            <div v-else>
+            <!-- il codice seguente viene eseguito solamente se non sono presenti dei commenti per il fumetto -->
+
+              <span>
+                Nessuno ha ancora commentato questo fumetto!
+              </span>
+            </div>
+          </div><br>
+
+          <!-- link al fumetto -->
+          <a :href= "fumetto.link" style="text-decoration: underline;">
+            Compra questo fumetto!
+          </a>
+        </md-card-content>
+      </md-card>
+  </div>
+</div>
+</div>
+</template>
+
+<!-- template della pagina dei fumetti -->
+<template id="fumetti">
+ <!-- visualizzazione di tutti i fumetti presenti nella raccolta del database -->
+
+  <div class="background">
+    <div class="md-layout md-gutter-3" style="padding-left: 8%;">
+      <div v-for="f in fumetti" class="md-layout-item md-size-33 md-medium-size-50 md-small-size-100 md-xsmall-size-100">
+
+
+        <!--template della card del fumetto-->
+        <template>
+          <div class="card-expansion">
+            <md-card class="fumetto" md-with-hover >
+              <md-ripple>
+
+               <router-link tag="div"  :to="'/dettaglio/' + f.id">
+
+                <md-card-media>
+                  <img :src="f.data.immagine" alt="L'immagine si sta caricando..." style="height: 500px; width: 350px;">
+                </md-card-media>
+
+              </md-ripple>
+            
+              <md-card-expand>
+
+               <md-card-actions class="fumetto-actions" md-alignment="space-between">
+
+                  <div>
+                    <md-button class="md-icon-button" @click = "mostra_scheda_voto(f.id)"><md-icon>star_rate</md-icon></md-button>
+                    <md-button class="md-icon-button" @click = "mostra_scheda_commento(f.id)"><md-icon>comment</md-icon></md-button>
+                  </div>
+      
+                  <md-card-expand-trigger>
+                    <md-button class="md-icon-button">
+                      <md-icon>keyboard_arrow_down</md-icon>
+                    </md-button>
+                  </md-card-expand-trigger>
+
+               </md-card-actions>
+      
+                <md-card-expand-content>
+                  <md-card-content class="fumetto-content">
+                    <div class="md-title"><h1>{{f.data.titolo}}</h1></div>
+                    <div class="md-subhead"><p>{{f.data.descrizione}}</p></div>
+                  </md-card-content>
+                </md-card-expand-content>
+
+            </md-card-expand>
+          </md-card>
+        </template>
+      </div>
+    </div>
+    
+    <!-- struttura dialog box per inserire il commento -->
+    <div>
+      <md-dialog :md-active.sync="scheda_commento">
+        <template>
+          <div  style = "padding: 24px 24px 8px 24px">
+
+            <md-field>
+              <label>Inserire nome!</label>
+              <md-input v-model="nome_questo"></md-input>
+                        <!-- v-model attribuisce alla variabile nome_questo il valore inserito dall'utente -->
+            </md-field>
+
+            <md-field>
+              <label>Inserire commento!</label>
+              <md-input v-model="testo_questo"></md-input>
+                        <!-- v-model attribuisce alla variabile testo_questo il valore inserito dall'utente -->
+            </md-field>
+
+            <md-dialog-actions>
+              <md-button @click="scheda_commento = false">Annulla</md-button>
+              <md-button class = "md-primary" @click="salva_commento" :disabled="!testo_questo || !nome_questo">Invia</md-button>
+                                                                      <!-- il bottone è disattivato se non vengono inseriti testo e nome -->
+            </md-dialog-actions>
+
+          </div>
+        </template>
+      </md-dialog>
+    </div>
+
+    <!-- struttura dialog box per inserire il voto -->
+    <div>
+      <md-dialog :md-active.sync="scheda_voto">
+        <template>
+
+          <div style = "padding: 24px;">
+            <md-field>
+              <label>Inserire un numero tra 1 e 5!</label>
+              <md-input v-model="voto_questo"></md-input>
+                        <!-- v-model attribuisce alla variabile voto_questo il valore inserito dall'utente -->
+            </md-field>
+          </div>
+
+          <md-dialog-actions>
+            <md-button @click="scheda_voto = false">Annulla</md-button>
+            <md-button class = "md-primary" @click="salva_voto" :disabled="!voto_questo || voto_questo > 5 || voto_questo < 1">Salva</md-button>
+                                                                <!-- il bottone è disabled se non viene inserito un voto, se viene inserito un numero maggiore di 5 o 0-->
+          </md-dialog-actions>
+
+        </template>
+      </md-dialog>
+    </div>
+  </div>
+</template>
+
+<!-- template della pagina delle categorie -->
+<template id="categorie">
+  <div class="background">
+    <div class="md-layout md-gutter-3" style="padding-left: 8%;">
+      <div v-for="c in categorie" class="md-layout-item md-size-25 md-medium-size-50 md-xsmall-size-100">
+
+        <!-- struttura card categorie-->
+        <md-card class="card" md-with-hover>
+
+          <md-ripple>
+
+            <router-link tag="div" :to="'/categoria/' + c.data.titolo">
+            
+            <div class="card-inner">              
+              <img :src="c.data.immagine" class="card-immagine" alt="L'immagine si sta caricando..." style="height: 240px; width: 240px;"> 
+
+                <div class="card-content">
+                  <h1>{{c.data.titolo}}</h1>
+                  <p>{{c.data.descrizione}}</p>
+                </div>
+
+            </div>
+          </md-ripple>
+        </md-card>
+
+      </div>
+    </div>
+  </div>
+</template>
+
+<!-- template della pagina specifica per una categoria -->
+<template id="categoria">
+<!-- visualizzazione di tutti i fumetti appartenenti alla categoria selezionata -->
+
+  <div class="background">
+    <div class="md-layout md-gutter-3">
+      <div v-for="f in fumetti" class="md-layout-item md-size-33 md-medium-size-50 md-small-size-100 md-xsmall-size-100">
+
+        <!--template della card del fumetto-->
+        <template>
+          <div class="card-expansion">
+            <md-card class="fumetto" md-with-hover>
+
+              <md-ripple>
+
+                <router-link tag="div"  :to="'/dettaglio/' + f.id">
+
+                <md-card-media class="immagine-fumetto">
+                  <img :src="f.data.immagine" alt="L'immagine si sta caricando..."> 
+                </md-card-media>
+
+              </md-ripple>
+            
+              <md-card-expand>
+                <md-card-actions md-alignment="space-between">
+                  <div>
+                    <md-button class="md-icon-button" @click = "mostra_scheda_voto(f.id)"><md-icon>favorite</md-icon></md-button>
+                    <md-button class="md-icon-button" @click = "mostra_scheda_commento(f.id)"><md-icon>comment</md-icon></md-button>
+                  </div>
+      
+                  <md-card-expand-trigger>
+                    <md-button class="md-icon-button">
+                      <md-icon>keyboard_arrow_down</md-icon>
+                    </md-button>
+                  </md-card-expand-trigger>
+                </md-card-actions>
+      
+                <md-card-expand-content>
+                  <md-card-content class="fumetto-content">
+                    <div class="md-title"><h1>{{f.data.titolo}}</h1></div>
+                    <div class="md-subhead"><p>{{f.data.descrizione}}</p></div>
+                  </md-card-content>
+                </md-card-expand-content>
+
+              </md-card-expand>
+            </md-card>
+          </div>    
+        </template>
+      </div>
+    </div>
+
+    <!-- creazione della dialog box per inserire il commento -->
+    <div>
+      <md-dialog :md-active.sync="scheda_commento">
+        <template>
+          <div  style = "padding: 24px 24px 8px 24px">
+
+            <!-- nome del commentatore -->
+            <md-field>
+              <label>Inserire nome!</label>
+              <md-input v-model="nome_questo"></md-input>
+                        <!-- v-model attribuisce alla variabile nome_questo il valore inserito dall'utente -->
+            </md-field>
+
+            <!-- testo del commento -->
+            <md-field>
+              <label>Inserire commento!</label>
+              <md-input v-model="testo_questo"></md-input>
+              <!-- v-model attribuisce alla variabile testo_questo il valore inserito dall'utente -->
+            </md-field>
+
+            <md-dialog-actions>
+              <md-button @click="scheda_commento = false">Annulla</md-button>
+              <md-button class = "md-primary" @click="salva_commento" :disabled="!testo_questo || !nome_questo">Salva</md-button>
+                                                                    <!-- il bottone è disattivato se non vengono inseriti testo e nome -->
+            </md-dialog-actions>
+
+          </div>
+        </template>
+      </md-dialog>
+    </div>
+
+    <!-- creazione della dialog box per inserire il voto -->
+    <div>
+      <md-dialog :md-active.sync="scheda_voto">
+        <template>
+
+          <div style = "padding: 24px">
+            <md-field>
+              <label>Inserire un numero tra 1 e 5!</label>
+              <md-input v-model="voto_questo"></md-input>
+                        <!-- v-model attribuisce alla variabile voto_questo il valore inserito dall'utente -->
+            </md-field>
+          </div>
+
+          <md-dialog-actions>
+            <md-button @click="scheda_voto = false">Annulla</md-button>
+            <md-button class = "md-primary" @click="salva_voto" :disabled="!voto_questo || voto_questo > 5 || voto_questo < 1">Salva</md-button>
+                                                                <!-- il bottone è disabled se non viene inserito un voto, se viene inserito un numero maggiore di 5 o 0-->
+          </md-dialog-actions>
+
+        </template>
+      </md-dialog>
+    </div>
+  </div>
+</template>
+
+<!--template della pagina degli editori-->
+<template id="editori">
+  <div class="background">
+    <div class="md-layout md-gutter-3" style="padding-left: 8%;">
+      <div v-for="e in editori" class="md-layout-item md-size-25 md-medium-size-50 md-xsmall-size-100">
+
+        <!-- struttura card editori -->
+        <md-card class="card" md-with-hover>
+
+          <md-ripple>
+                
+            <router-link tag="div" :to="'/editore/' + e.data.titolo">  
+
+            <div class="card-inner">               
+              <img :src="e.data.immagine" alt="L'immagine si sta caricando..." style="height: 240px; width: 240px;"> 
+
+              <div class="card-content">
+                <h1>{{e.data.titolo}}</h1>
+                <p>{{e.data.descrizione}}</p>
+              </div>
+
+            </div>
+          </md-ripple>
+        </md-card>
+
+      </div>
+    </div>
+  </div>
+</template>
+
+<!-- template della pagina specifica per un editore -->
+<template id="editore">
+<!-- visualizzazione di tutti i fumetti appartenenti all'editore selezionato -->
+
+  <div class="background">
+    <div class="md-layout md-gutter-3">
+      <div v-for="f in fumetti" class="md-layout-item md-size-33 md-medium-size-50 md-small-size-100 md-xsmall-size-100">
+
+        <!-- template card del fumetto -->
+        <template>
+          <div class="card-expansion">
+            <md-card class="fumetto" md-with-hover>
+              <md-ripple>
+
+               <router-link tag="div"  :to="'/dettaglio/' + f.id">
+
+                <md-card-media class="fumetto-immagine">
+                  <img :src="f.data.immagine" alt="L'immagine si sta caricando...">
+                </md-card-media>
+
+              </md-ripple>
+            
+              <md-card-expand>
+
+               <md-card-actions class="fumetto-actions" md-alignment="space-between">
+
+                  <div>
+                    <md-button class="md-icon-button" @click = "mostra_scheda_voto(f.id)"><md-icon>star_rate</md-icon></md-button>
+                    <md-button class="md-icon-button" @click = "mostra_scheda_commento(f.id)"><md-icon>comment</md-icon></md-button>
+                  </div>
+      
+                  <md-card-expand-trigger>
+                    <md-button class="md-icon-button">
+                      <md-icon>keyboard_arrow_down</md-icon>
+                    </md-button>
+                  </md-card-expand-trigger>
+
+               </md-card-actions>
+      
+                <md-card-expand-content>
+                  <md-card-content class="fumetto-content">
+                    <div class="md-title"><h1>{{f.data.titolo}}</h1></div>
+                    <div class="md-subhead"><p>{{f.data.descrizione}}</p></div>
+                  </md-card-content>
+                </md-card-expand-content>
+
+            </md-card-expand>
+          </md-card>
+        </template>
+      </div>
+    </div>
+
+    <!-- creazione della dialog box per inserire il commento -->
+    <div>
+      <md-dialog :md-active.sync="scheda_commento">
+        <template>
+          <div  style = "padding: 24px 24px 8px 24px">
+    
+            <!-- nome del commentatore -->
+            <md-field>
+              <label>Inseriew nome</label>
+              <md-input v-model="nome_questo"></md-input>
+                        <!-- v-model attribuisce alla variabile nome_questo il valore inserito dall'utente -->
+            </md-field>
+    
+            <!-- testo del commento -->
+            <md-field>
+              <label>Inserisci qui il tuo nome!</label>
+              <md-input v-model="testo_questo"></md-input>
+                        <!-- v-model attribuisce alla variabile testo_questo il valore inserito dall'utente -->
+            </md-field>
+    
+            <md-dialog-actions>
+              <md-button @click="scheda_commento = false">Annulla</md-button>
+              <md-button class = "md-primary" @click="salva_commento" :disabled="!testo_questo || !nome_questo">Salva</md-button>
+                                                                      <!-- il bottone è disattivato se non vengono inseriti testo e nome -->
+            </md-dialog-actions>
+
+          </div>
+        </template>
+      </md-dialog>
+    </div>
+    
+    <!-- creazione della dialog box per inserire il voto -->
+    <div>
+      <md-dialog :md-active.sync="scheda_voto">
+        <template>
+          <div style = "padding: 24px">
+
+            <!-- voto dell'utente -->
+            <md-field>
+              <label>Inserire un numero tra 1 e 5</label>
+              <md-input v-model="voto_questo"></md-input>
+                        <!-- v-model attribuisce alla variabile voto_questo il valore inserito dall'utente -->
+            </md-field>
+
+          </div>
+    
+          <md-dialog-actions>
+            <md-button @click="scheda_voto = false">Annulla</md-button>
+            <md-button class = "md-primary" @click="salva_voto" :disabled="!voto_questo || voto_questo > 5 || voto_questo < 1">Salva</md-button>
+                                                                <!-- il bottone è disabled se non viene inserito un voto, se viene inserito un numero maggiore di 5 o 0-->
+          </md-dialog-actions>
+
+        </template>
+      </md-dialog>
+    </div>
+  </div>
+</template>
+      
+
+     
+    
+
+
+      <!-- codice JavaScript -->
+      <script>
+        // collegamento al database e definizione delle variabili che contengono i percorsi alle raccolte del database
+        var db = firebase.firestore();
+        var fumetti = db.collection("fumetti");
+        var commenti = db.collection("commenti");
+        var voti = db.collection("voti");
+        var categorie = db.collection("categorie");
+        var editori = db.collection("editori");
+      </script>
+
+      <script>
+          // creazione del router
+          Vue.use(VueMaterial.default)
+          Vue.use(VueRouter)
+          Vue.component('router-link', Vue.options.components.RouterLink)
+          Vue.component('router-view', Vue.options.components.RouterView)
+
+          // definizione della pagina home
+           const Home = Vue.component('home', {
+              template: '#home',
+              created: function() {
+               var me = this;
+               // collegamento al database su Firebase, nella raccolta "fumetti"
+               // la query recupera il documento che corrisponde all'id passato nella pagina dei fumetti
+               // nel momento in cui si clicca su uno specifico fumetto
+               // la funzione crea una lista con tutti i dati di tutte le istanze del database
+               db.collection("fumetti").get().then(function(res) {
+                 const list = [];
+                 res.forEach(function(fumetto) {
+                   list.push({id: fumetto.id, data: fumetto.data()});
+                 });
+                 me.fumetti = list;
+               });
+             },
+            components: {
+              'carousel': VueCarousel.Carousel,
+              'slide': VueCarousel.Slide
+            },
+              // inizializzazione dei dati
+              data: function() {
+                return {
+                  fumetti: []
+                }
+              },
+              
+            });
+
+          // definizione della pagina dettaglio, con azioni di visualizzazione dei commenti e del voto medio 
+           const Dettaglio = Vue.component('dettaglio', {
+             template: '#dettaglio',
+             created: function() {
+               var me = this;
+               // collegamento al database su Firebase, nella raccolta "fumetti"
+               // la query recupera il documento che corrisponde all'id passato nella pagina dei fumetti
+               // nel momento in cui si clicca su uno specifico fumetto
+               // la funzione associa a "fumetto" i dati recuperati tramite l'id
+               db.collection("fumetti").doc(this.$route.params.id).get().then(function(res){
+                 // recupera tutti i dati relativi al fumetto di cui è stato passato l'id come parametro
+                 me.fumetto = res.data();
+               });
+               // collegamento al database su Firebase, nella raccolta "commenti"
+               // la query recupera i dati dell'entrata del database che risponde all'id passato nella pagina
+               // dei fumetti nel momento in cui si clicca su uno specifico fumetto
+               // la funzione crea una lista che contiene i commenti e gli username
+               db.collection("commenti").where("id", "==", this.$route.params.id).get().then(function(res){
+                 // inserisce in una lista i campi che interessano, ovvero nome e commento, del fumetto di cui è stato
+                 // passato l'id
+                 const list = [];
+                 res.forEach(function(r) {
+                     list.push(r.data().nome);
+                     list.push(r.data().testo)
+                 });
+                 // assegna alla variabile contenuta nell'opzione data il valore della lista creata, di modo che sia
+                 // possibile visualizzarla al di fuori
+                 me.lista_commenti = list;
+               });
+               // collegamento al database su Firebase, nella raccolta "voti"
+               // la query recupera i dati dell'entrata del database che risponde all'id passato nella pagina
+               // dei fumetti nel momento in cui si clicca su uno specifico fumetto
+               // la funzione calcola la media dei voti inseriti dagli utenti e permette di restituire sia la media
+               // che il numero totale di voti
+               db.collection("voti").where("id", "==", this.$route.params.id).get().then(function(res){
+                 somma = 0;
+                 numero = 0;
+                 res.forEach(function(r) {
+                   // parseInt serve a trasformare il voto inserito, che è in formato stringa, in formato numerico
+                   somma += parseInt(r.data().voto);
+                   numero++;
+                 });
+                 if (numero > 0) {
+                   me.media = somma/numero;
+                   me.numero_voti = numero;
+               }
+
+               });
+             },
+             // inizializzazione dei dati
+             data: function() {
+               return {
+                 fumetto: {},
+                 lista_commenti: [],
+                 media: 0,
+                 numero_voti: 0
+               }
+             }
+           });
+
+          // definizione della pagina fumetti, con azioni commento e voto
+          const Fumetti = Vue.component('fumetti', {
+             template: '#fumetti',
+             created: function() {
+               var me = this;
+               // collegamento al database su Firebase, nella raccolta "fumetti"
+               // la query recupera il documento che corrisponde all'id passato nella pagina dei fumetti
+               // nel momento in cui si clicca su uno specifico fumetto
+               // la funzione crea una lista con tutti i dati di tutte le istanze del database
+               db.collection("fumetti").get().then(function(res) {
+                 const list = [];
+                 res.forEach(function(fumetto) {
+                   list.push({id: fumetto.id, data: fumetto.data()});
+                 });
+                 me.fumetti = list;
+               });
+
+             },
+             
+             // richiamare i dati dal database
+             data: function() {
+               return {
+                 // permette di accedere all'array dall'esterno, richiamando prima la funzione data
+                 fumetti: [],
+                 // resetta tutti i campi, di modo da avere il form vuoto
+                 id_questo: null,
+                 testo_questo: null,
+                 scheda_commento: false,
+                 nome_questo: null,
+                 voto_questo: null,
+                 scheda_voto: false
+               }
+             },
+             // creare il commento e il voto
+             methods: {
+               // la funzione permette di visualizzare o chiudere il box di commento relativo all'id del fumetto selezionato
+               // e fa sì che tutti i campi vengano resi vuoti quando la dialog box viene chiusa o il commento viene salvato
+               mostra_scheda_commento: function(id){
+                 this.id_questo = id;
+                 this.scheda_commento = true;
+                 this.testo_questo = null;
+                 this.nome_questo = null;
+               },
+               // la query inserisce nel database nella raccolta "commenti" i campi richiesti dal form
+               // una volta fatto, chiude la dialog box
+               salva_commento: function(){
+                 var me = this;
+                   db.collection("commenti").add({
+                     // aggiunge il commento alla raccolta, inserendo l'id del fumetto, il testo del commento
+                     // e il nome del commentatore
+                     id: this.id_questo,
+                     testo: this.testo_questo,
+                     nome: this.nome_questo
+                   }).then(function() {
+                     // finito di inserire i dati, chiude la dialog box
+                     me.scheda_commento = false
+                   })
+               },
+               // la funzione permette di visualizzare o chiudere il box di valutazione relativo all'id del fumetto selezionato
+               // e fa sì che tutti i campi vengano resi vuoti quando la dialog box viene chiusa o la valutazione viene salvata
+               mostra_scheda_voto: function(id){
+                 this.id_questo = id;
+                 this.scheda_voto = true;
+                 this.voto_questo = null;
+               },
+               // la query inserisce nel database nella raccolta "voti" il voto inserito nel form
+               // una volta fatto, chiude la dialog box
+               salva_voto: function(){
+                 var me = this;
+                 db.collection("voti").add({
+                   // aggiunge il voto alla raccolta, inserendo l'id del fumetto e il voto inserito dall'utente
+                   id: this.id_questo,
+                   voto: this.voto_questo
+                 }).then(function() {
+                   me.scheda_voto = false
+                   // finito di inserire i dati, chiude la dialog box
+                 })
+               }
+             }
+           });
+
+           // definizione della pagina categorie
+           const Categorie = Vue.component('categorie', {
+             template: '#categorie',
+             created: function() {
+               var me = this;
+               // collegamento al database su Firebase, nella raccolta "categorie"
+               // la query recupera i dati di tutte le entrate nella raccolta "categorie" e la funzione
+               // inserisce i dati all'interno di una lista, prima l'id e poi i dati
+               db.collection("categorie").get().then(function(res) {
+                 const list = [];
+                 res.forEach(function(categorie) {
+                   list.push({id: categorie.id, data: categorie.data()});
+                   // inserisce l'id e i dati in un array
+                 });
+                 me.categorie = list;
+               });
+             },
+             // inizializzazione dei dati
+             data: function() {
+               return {
+                 categorie: []
+               }
+
+             },
+           });
+
+           // definizione della pagina categoria, con azioni commento e voto
+           const Categoria = Vue.component('categoria', {
+             template: '#categoria',
+             created: function() {
+               var me = this;
+               //collegamento al database su Firebase, nella raccolta "fumetti"
+               //la query recupera i dati delle entrate del database che rispondono alla condizione
+               //che abbiano come categoria la categoria che è stata precedentemente cliccata
+               //la funzione inserisce i dati di questi fumetti in una lista e permette di richiamarli
+               db.collection("fumetti").where("categoria", "==", this.$route.params.titolo).get().then(function(res){
+                 const list = [];
+                 res.forEach(function(r) {
+                   list.push({id: r.id, data: r.data()});
+                   // inserisce l'id e i dati in un array
+                 });
+                 me.fumetti = list;
+               });
+             },
+             data: function() {
+               return {
+                 fumetti: [],
+                 id_questo: null,
+                 testo_questo: null,
+                 nome_questo: null,
+                 scheda_commento: false,
+                 voto_questo: null,
+                 scheda_voto: false
+               }
+             },
+             methods: {
+               // la funzione permette di visualizzare o chiudere il box di commento relativo all'id del fumetto selezionato
+               // e fa sì che tutti i campi vengano resi vuoti quando la dialog box viene chiusa o il commento viene salvato
+               mostra_scheda_commento: function(id){
+                 this.id_questo = id;
+                 this.scheda_commento = true;
+                 this.testo_questo = null;
+                 this.nome_questo = null
+               },
+               // la query inserisce nel database nella raccolta "commenti" i campi richiesti dal form
+               // una volta fatto, chiude la dialog box
+               salva_commento: function(){
+                 var me = this;
+                   db.collection("commenti").add({
+                     id: this.id_questo,
+                     testo: this.testo_questo,
+                     nome: this.nome_questo
+                   }).then(function() {
+                     me.scheda_commento = false
+                   })
+               },
+               //la funzione permette di visualizzare o chiudere il box di voto relativo all'id del fumetto selezionato
+               //e fa sì che tutti i campi vengano resi vuoti quando la dialog box viene chiusa o il voto viene salvato
+               mostra_scheda_voto: function(id){
+                 this.id_questo = id;
+                 this.scheda_voto = true;
+                 this.voto_questo = null;
+               },
+               //la query inserisce nel database nella raccolta "voti" il voto inserito nel form
+               //una volta fatto, chiude la dialog box
+               salva_voto: function(){
+                 var me = this;
+                 db.collection("voti").add({
+                   id: this.id_questo,
+                   voto: this.voto_questo
+                 }).then(function() {
+                   me.scheda_voto = false
+                 })
+               }
+             }
+           });
+
+           // definizione della pagina editori
+           const Editori = Vue.component('editori', {
+             template: '#editori',
+             created: function() {
+               var me = this;
+               // collegamento al database su Firebase, nella raccolta "editori"
+               // la query recupera i dati di tutte le entrate nella raccolta "editori" e la funzione
+               // inserisce i dati all'interno di una lista, prima l'id e poi i dati
+               db.collection("editori").get().then(function(res) {
+                 const list = [];
+                 res.forEach(function(editori) {
+                   list.push({id: editori.id, data: editori.data()});
+                   // inserisce l'id e i dati in un array
+                 });
+                 me.editori = list;
+               });
+             },
+             // inizializzazione dei dati
+             data: function() {
+               return {
+                 editori: []
+               }
+
+             },
+           });
+
+           // definizione della pagina editore, con azioni commento e voto
+           const Editore = Vue.component('editore', {
+             template: '#editore',
+             created: function() {
+               var me = this;
+               //collegamento al database su Firebase, nella raccolta "fumetti"
+               //la query recupera i dati delle entrate del database che rispondono alla condizione
+               //che abbiano come categoria la categoria che è stata precedentemente cliccata
+               //la funzione inserisce i dati di questi fumetti in una lista e permette di richiamarli
+               db.collection("fumetti").where("editore", "==", this.$route.params.titolo).get().then(function(res){
+                 const list = [];
+                 res.forEach(function(r) {
+                   list.push({id: r.id, data: r.data()});
+                   // inserisce l'id e i dati in un array
+                 });
+                 me.fumetti = list;
+               });
+             },
+             data: function() {
+               return {
+                 fumetti: [],
+                 id_questo: null,
+                 testo_questo: null,
+                 nome_questo: null,
+                 scheda_commento: false,
+                 voto_questo: null,
+                 scheda_voto: false
+               }
+             },
+             methods: {
+               // la funzione permette di visualizzare o chiudere il box di commento relativo all'id del fumetto selezionato
+               // e fa sì che tutti i campi vengano resi vuoti quando la dialog box viene chiusa o il commento viene salvato
+               mostra_scheda_commento: function(id){
+                 this.id_questo = id;
+                 this.scheda_commento = true;
+                 this.testo_questo = null;
+                 this.nome_questo = null
+               },
+               // la query inserisce nel database nella raccolta "commenti" i campi richiesti dal form
+               // una volta fatto, chiude la dialog box
+               salva_commento: function(){
+                 var me = this;
+                   db.collection("commenti").add({
+                     id: this.id_questo,
+                     testo: this.testo_questo,
+                     nome: this.nome_questo
+                   }).then(function() {
+                     me.scheda_commento = false
+                   })
+               },
+               //la funzione permette di visualizzare o chiudere il box di valutazione relativo all'id del fumetto selezionato
+               //e fa sì che tutti i campi vengano resi vuoti quando la dialog box viene chiusa o il voto viene salvato
+               mostra_scheda_voto: function(id){
+                 this.id_questo = id;
+                 this.scheda_voto = true;
+                 this.voto_questo = null;
+               },
+               //la query inserisce nel database nella raccolta "voti" il voto inserito nel form
+               //una volta fatto, chiude la dialog box
+               salva_voto: function(){
+                 var me = this;
+                 db.collection("voti").add({
+                   id: this.id_questo,
+                   voto: this.voto_questo
+                 }).then(function() {
+                   me.scheda_voto = false
+                 })
+               }
+             }
+           });
+        
+          // definizione del router per navigare tra le pagine
+            const router = new VueRouter({
+                routes: [
+                  {path: '*', component: Home},
+                  // fa sì che all'apertura del file venga visualizzata la pagina home
+                  {path: '/home', component: Home},
+                  {path: '/dettaglio/:id', component: Dettaglio},
+                  // l'elemento :id è il parametro che permette di recuperare le informazioni
+                  // relative a un unico fumetto e visualizzarne la scheda
+                  {path: '/fumetti', component: Fumetti},
+                  {path: '/categorie', component: Categorie},
+                  {path:'/categoria/:titolo', component: Categoria},
+                  {path: '/editori', component: Editori},
+                  {path:'/editore/:titolo', component: Editore}
+                  // l'elemento :titolo è il parametro che permette di recuperare le informazioni
+                  // relative a un'unica categoria / un unico editore e visualizzare la pagina relativa
+                ]
+              });
+
+            // inizializzazione della barra di navigazione
+            new Vue({
+                router: router,
+                el: '#app',
+                data: {
+                  menuVisible: false
+                },
+              });
+
+      </script>
+
+  </body>
+</html>

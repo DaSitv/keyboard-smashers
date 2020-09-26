@@ -1,0 +1,124 @@
+
+  #topbar { 
+    font-family: Bangers;
+    font-weight: lighter;
+    font-size: 20px;
+    letter-spacing: 3px;
+    word-spacing: 10px;
+    max-height: 60px;
+    padding: 16px; 
+    text-align: left;
+  }
+
+  .titolo {
+    margin: 56px;
+    color: whitesmoke;
+  }
+
+  .background {
+    background: linear-gradient(rgba(255,255,255,.5), rgba(255,255,255,.5)), url("https://st4.depositphotos.com/3803389/22309/v/1600/depositphotos_223094252-stock-illustration-seamless-pattern-background-hand-drawn.jpg");
+    height: 100%;
+  }
+
+  .card {
+    border: 1px solid white;
+    display: inline-block; 
+    margin: 16px;
+    margin-top: 56px;
+    padding: 0px; 
+    font-family: Roboto;
+    width: 240px; 
+    height: 240px;        
+  }
+  
+  .card-inner {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    padding: 0px;
+  }
+
+  .card-inner:hover .card-content {
+    transform: translateY(-120px);
+  }
+
+  .card-content {
+    background-color: #FAFAFA;
+    transition: transform 0.8s;
+    width: 100%;
+    height: 120px;
+    padding: 16px;
+    text-align: center;
+  }
+
+  .card-content h1 {
+    font-weight: 300;
+    font-size: 22px;
+    color: #448AFF;
+  }
+
+  .card-content p {
+    font-weight: 500;
+    font-size: 11px;
+    color: #424242;
+  }
+
+  .fumetto {
+    border: 1px solid white;
+    display: inline-block; 
+    margin: 16px;
+    margin-top: 56px;
+    padding: 0px; 
+    font-family: Roboto;
+    width: 350px;
+  }
+
+  .fumetto-content {
+    text-align: center;
+  }
+
+  .fumetto-content h1 {
+    font-weight: 300;
+    font-size: 22px;
+    color: #448aff;
+  }
+
+  .fumetto-content p {
+    font-weight: 500;
+    font-size: 11px;
+    padding-left: 16px;
+    padding-right: 16px;
+    color: #424242;
+  }
+
+  .dettaglio-card {
+    margin: 16px;
+  }
+
+  .dettaglio-content span {
+    color: #424242
+  }
+
+  .dettaglio-immagine {
+    max-height: 500px; 
+    max-width: 350px;
+    margin: 16px;
+    margin-top: 56px;
+  }
+
+  #footer {
+    text-align: center;
+    background-color: #333; 
+    padding: 20px;
+    color: #e4e4e4;
+    position: sticky;
+    bottom: 0;
+    min-width: 100%;
+    font-family: Roboto
+  }
+
+  #footer p {
+    font-weight: 300;
+    font-size: 12px;
+    color: white;
+  }
